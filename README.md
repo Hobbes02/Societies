@@ -1,4 +1,4 @@
-# societies-game
+# Societies
 
 **Societies** is a game currently under development by **Scorpion Games**. We don't have 
 a planned release date at the moment.
