@@ -1,6 +1,6 @@
 # societies-game
 
-*Societies* is a game currently under development by *Scorpion Games*. We don't have 
+**Societies** is a game currently under development by **Scorpion Games**. We don't have 
 a planned release date at the moment.
 
 In Societies, you will explore the main island of Qasalia (working name) and 
