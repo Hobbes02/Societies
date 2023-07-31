@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://bgno2ch1msnxs"]
-
-[node name="Object" type="Node2D"]
-texture_filter = 1
-
-[node name="Sprite" type="Sprite2D" parent="."]

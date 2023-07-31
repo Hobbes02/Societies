@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+DialogueGlobals="*res://dialogue/dialogue_globals.gd"
+
+[dialogue_manager]
+
+general/states=["DialogueGlobals"]
 
 [editor_plugins]
 
