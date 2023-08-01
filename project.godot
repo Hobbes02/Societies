@@ -20,7 +20,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 DialogueGlobals="*res://dialogue/dialogue_globals.gd"
-Dialogic="*res://addons/dialogic/Other/DialogicGameHandler.gd"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+
+[dialogic]
+
+layout/mode=0
 
 [dialogue_manager]
 
@@ -28,7 +32,7 @@ general/states=["DialogueGlobals"]
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 
 [input]
 
