@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://6x3mlshe4f4c"]
+
+[ext_resource type="Texture2D" uid="uid://8y5ipaucrvl" path="res://visuals/interaction/speech_bubble.png" id="1_cmd6x"]
+[ext_resource type="FontFile" uid="uid://ccsvliw0dyi3a" path="res://visuals/fonts/dogica.ttf" id="2_q7ipc"]
+[ext_resource type="Script" path="res://objects/speech_bubble/speech_bubble.gd" id="2_s5xgx"]
+
+[node name="SpeechBubble" type="NinePatchRect"]
+texture_filter = 1
+anchors_preset = -1
+anchor_right = 0.118056
+anchor_bottom = 0.0864198
+offset_right = -78.0
+offset_bottom = -42.0
+scale = Vector2(2, 2)
+texture = ExtResource("1_cmd6x")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+script = ExtResource("2_s5xgx")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="MarginContainer"]
+custom_minimum_size = Vector2(26, 10)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_q7ipc")
+theme_override_font_sizes/font_size = 8
+text = "hey"
+
+[node name="TalkTimer" type="Timer" parent="."]
