@@ -26,6 +26,34 @@ DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 
 layout/mode=0
 
+[dialogic]
+
+animations/join_default_length=0.5
+animations/leave_default_length=0.5
+animations/leave_default_wait=true
+animations/join_default_wait=true
+choices/autofocus_first=true
+choices/delay=0.2
+choices/reveal_delay=0
+choices/reveal_by_input=false
+settings/text_speed=0.01
+text/skippable=true
+text/skippable_delay=0.1
+text/autoadvance_delay=1.0
+text/hide_empty_textbox=true
+save/autosave_delay=60.0
+text/autopauses={
+"!": 0.1,
+",": 0.1,
+".": 0.1,
+"?": 0.1
+}
+variables={}
+layout/mode=1
+text/input_action="dialogic_default_action"
+glossary/default_case_sensitive=true
+save/autosave=false
+
 [dialogue_manager]
 
 general/states=["DialogueGlobals"]
