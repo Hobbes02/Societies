@@ -24,10 +24,7 @@ DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 
 [dialogic]
 
-layout/mode=0
-
-[dialogic]
-
+layout/mode=1
 animations/join_default_length=0.5
 animations/leave_default_length=0.5
 animations/leave_default_wait=true
@@ -49,7 +46,6 @@ text/autopauses={
 "?": 0.1
 }
 variables={}
-layout/mode=1
 text/input_action="dialogic_default_action"
 glossary/default_case_sensitive=true
 save/autosave=false
@@ -61,6 +57,10 @@ general/states=["DialogueGlobals"]
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 
