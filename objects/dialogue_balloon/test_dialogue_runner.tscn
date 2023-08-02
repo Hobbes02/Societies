@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cu35nhastud2g"]
+
+[ext_resource type="Script" path="res://objects/dialogue_balloon/test_dialogue_runner.gd" id="1_mgefq"]
+
+[node name="TestDialogueRunner" type="Node2D"]
+script = ExtResource("1_mgefq")
