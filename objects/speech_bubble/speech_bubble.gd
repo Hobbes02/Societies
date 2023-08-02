@@ -4,7 +4,8 @@ extends NinePatchRect
 @onready var timer = $TalkTimer
 
 
-func say(content: String, speaker: String) -> void:
+func say(content: String, speaker: Node2D, y_padding: int = 32) -> void:
+	align_with_node(speaker, y_padding)
 	label.hide()
 	format_with_text(content)
 	await get_tree().process_frame
@@ -17,6 +18,12 @@ func say(content: String, speaker: String) -> void:
 		timer.start()
 		await timer.timeout
 	label.visible_characters = -1
+
+
+func align_with_node(node: Node2D, y_pad: int = 32) -> void:
+	self.pivot_offset = self.size  # moes pivot offset to bottom right
+	self.position = node.position
+	self.position.y -= y_pad
 
 
 func format_with_text(text: String) -> void:
