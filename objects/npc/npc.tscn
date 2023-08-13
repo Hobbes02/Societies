@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://53g8ppalbsld"]
-
-[ext_resource type="PackedScene" uid="uid://bbc31kbnxocmf" path="res://objects/interactable.tscn" id="1_aphmf"]
+[gd_scene load_steps=2 format=3 uid="uid://53g8ppalbsld"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jbx52"]
 radius = 35.3429
 
-[node name="NPC" instance=ExtResource("1_aphmf")]
+[node name="NPC" type="Area2D"]
+scale = Vector2(0.990706, 0.986726)
+collision_layer = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 
-[node name="InteractionArea" type="CollisionShape2D" parent="." index="1"]
+[node name="InteractionArea" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jbx52")

@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://bbc31kbnxocmf"]
-
-[node name="Interactable" type="Area2D"]
-scale = Vector2(0.990706, 0.986726)
-collision_layer = 0
