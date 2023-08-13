@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_8"
+type="Resource"
+uid="uid://pv5diswktrck"
+path="res://.godot/imported/error_no_file.dialogue-c060ebe87f4dcde900646ee526dbf42e.tres"
+
+[deps]
+
+source_file="res://dialogue/error_no_file.dialogue"
+dest_files=["res://.godot/imported/error_no_file.dialogue-c060ebe87f4dcde900646ee526dbf42e.tres"]
+
+[params]
+
+defaults=true

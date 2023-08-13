@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://53g8ppalbsld"]
+[gd_scene load_steps=3 format=3 uid="uid://53g8ppalbsld"]
+
+[ext_resource type="Script" path="res://objects/npc/npc.gd" id="1_2cdtu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jbx52"]
 radius = 35.3429
@@ -6,8 +8,12 @@ radius = 35.3429
 [node name="NPC" type="Area2D"]
 scale = Vector2(0.990706, 0.986726)
 collision_layer = 0
+script = ExtResource("1_2cdtu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="InteractionArea" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jbx52")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

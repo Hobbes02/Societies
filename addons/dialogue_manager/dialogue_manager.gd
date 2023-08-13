@@ -13,33 +13,6 @@ const DialogueSettings = preload("res://addons/dialogue_manager/components/setti
 const DialogueLine = preload("res://addons/dialogue_manager/dialogue_line.gd")
 const DialogueResponse = preload("res://addons/dialogue_manager/dialogue_response.gd")
 
-const SUPPORTED_ARRAY_METHODS = [
-	"assign",
-	"append",
-	"append_array",
-	"back",
-	"count",
-	"clear",
-	"erase",
-	"has",
-	"insert",
-	"is_empty",
-	"max",
-	"min",
-	"pick_random",
-	"pop_at",
-	"pop_back",
-	"pop_front",
-	"push_back",
-	"push_front",
-	"remove_at",
-	"reverse",
-	"shuffle",
-	"size",
-	"sort"
-]
-const SUPPORTED_DICTIONARY_METHODS = ["has", "has_all", "get", "keys", "values", "size"]
-
 
 enum MutationBehaviour {
 	Wait,
@@ -61,13 +34,16 @@ var game_states: Array = []
 # Allow dialogue to call singletons
 var include_singletons: bool = true
 
+# Allow dialogue to call static methods/properties on classes
+var include_classes: bool = true
+
 # Manage translation behaviour
 var translation_source: TranslationSource = TranslationSource.Guess
 
 var _node_properties: Array = []
 
 
-func _init() -> void:
+func _ready() -> void:
 	# Make the dialogue manager available as a singleton
 	Engine.register_singleton("DialogueManager", self)
 
@@ -78,8 +54,6 @@ func _init() -> void:
 		_node_properties.append(property.name)
 	temp_node.free()
 
-
-func _ready() -> void:
 	# Add any autoloads to a generic state so we can refer to them by name
 	var autoloads: Dictionary = {}
 	for child in get_tree().root.get_children():
@@ -510,6 +484,10 @@ func get_responses(ids: Array, resource: DialogueResource, id_trail: String, ext
 
 # Get a value on the current scene or game state
 func get_state_value(property: String, extra_game_states: Array):
+	# Special case for static primitive calls
+	if property == "Color":
+		return Color()
+
 	var expression = Expression.new()
 	if expression.parse(property) != OK:
 		assert(false, DialogueConstants.translate("runtime.invalid_expression").format({ expression = property, error = expression.get_error_text() }))
@@ -525,6 +503,11 @@ func get_state_value(property: String, extra_game_states: Array):
 
 	if include_singletons and Engine.has_singleton(property):
 		return Engine.get_singleton(property)
+
+	if include_classes:
+		for class_data in ProjectSettings.get_global_class_list():
+			if class_data.class == property:
+				return load(class_data.path).new()
 
 	assert(false, DialogueConstants.translate("runtime.property_not_found").format({ property = property, states = str(get_game_states(extra_game_states)) }))
 
@@ -583,20 +566,30 @@ func resolve(tokens: Array, extra_game_states: Array):
 				"Vector4i":
 					token["type"] = "value"
 					token["value"] = Vector4i(args[0], args[1], args[2], args[3])
+				"Quaternion":
+					token["type"] = "value"
+					token["value"] = Quaternion(args[0], args[1], args[2], args[3])
+				"Color":
+					token["type"] = "value"
+					match args.size():
+						0:
+							token["value"] = Color()
+						1:
+							token["value"] = Color(args[0])
+						2:
+							token["value"] = Color(args[0], args[1])
+						3:
+							token["value"] = Color(args[0], args[1], args[2])
+						4:
+							token["value"] = Color(args[0], args[1], args[2], args[3])
 				_:
 					if tokens[i - 1].type == DialogueConstants.TOKEN_DOT:
 						# If we are calling a deeper function then we need to collapse the
 						# value into the thing we are calling the function on
 						var caller: Dictionary = tokens[i - 2]
-						if typeof(caller.value) == TYPE_DICTIONARY:
+						if typeof(caller.value) in DialogueConstants.SUPPORTED_PRIMITIVES:
 							caller["type"] = "value"
-							caller["value"] = resolve_dictionary_method(caller.value, function_name, args)
-							tokens.remove_at(i)
-							tokens.remove_at(i-1)
-							i -= 2
-						elif typeof(caller.value) == TYPE_ARRAY:
-							caller["type"] = "value"
-							caller["value"] = resolve_array_method(caller.value, function_name, args)
+							caller["value"] = resolve_primitive_method(caller.value, function_name, args)
 							tokens.remove_at(i)
 							tokens.remove_at(i-1)
 							i -= 2
@@ -607,17 +600,13 @@ func resolve(tokens: Array, extra_game_states: Array):
 							tokens.remove_at(i-1)
 							i -= 2
 						else:
-							assert(false, DialogueConstants.translate("runtime.method_not_callable").format({ method = function_name, object = str(caller) }))
+							assert(false, DialogueConstants.translate("runtime.method_not_callable").format({ method = function_name, object = str(caller.value) }))
 					else:
 						var found: bool = false
 						for state in get_game_states(extra_game_states):
-							if typeof(state) == TYPE_DICTIONARY and function_name in SUPPORTED_DICTIONARY_METHODS:
+							if typeof(state) in DialogueConstants.SUPPORTED_PRIMITIVES and thing_has_method(state, function_name, args):
 								token["type"] = "value"
-								token["value"] = resolve_dictionary_method(state, function_name, args)
-								found = true
-							elif typeof(state) == TYPE_ARRAY and function_name in SUPPORTED_ARRAY_METHODS:
-								token["type"] = "value"
-								token["value"] = resolve_array_method(state, function_name, args)
+								token["value"] = resolve_primitive_method(state, function_name, args)
 								found = true
 							elif thing_has_method(state, function_name, args):
 								token["type"] = "value"
@@ -743,6 +732,8 @@ func resolve(tokens: Array, extra_game_states: Array):
 					# value into the thing we are referencing from
 					caller["type"] = "value"
 					if typeof(caller.value) == TYPE_ARRAY:
+						caller["value"] = caller.value[property]
+					elif typeof(caller.value) == TYPE_COLOR:
 						caller["value"] = caller.value[property]
 					else:
 						caller["value"] = caller.value.get(property)
@@ -996,9 +987,13 @@ func is_valid(line: DialogueLine) -> bool:
 func thing_has_method(thing, method: String, args: Array) -> bool:
 	match typeof(thing):
 		TYPE_DICTIONARY:
-			return method in SUPPORTED_DICTIONARY_METHODS
+			return method in DialogueConstants.SUPPORTED_DICTIONARY_METHODS
 		TYPE_ARRAY:
-			return method in SUPPORTED_ARRAY_METHODS
+			return method in DialogueConstants.SUPPORTED_ARRAY_METHODS
+		TYPE_QUATERNION:
+			return method in DialogueConstants.SUPPORTED_QUATERNION_METHODS
+		TYPE_COLOR:
+			return method in DialogueConstants.SUPPORTED_COLOR_METHODS
 
 	if method in ["call", "call_deferred"]:
 		return thing.has_method(args[0])
@@ -1019,6 +1014,20 @@ func thing_has_property(thing: Object, property: String) -> bool:
 			return true
 
 	return false
+
+
+func resolve_primitive_method(primitive, method_name: String, args: Array):
+	match typeof(primitive):
+		TYPE_ARRAY:
+			return resolve_array_method(primitive, method_name, args)
+		TYPE_DICTIONARY:
+			return resolve_dictionary_method(primitive, method_name, args)
+		TYPE_QUATERNION:
+			return resolve_quaternion_method(primitive, method_name, args)
+		TYPE_COLOR:
+			return resolve_color_method(primitive, method_name, args)
+
+	return null
 
 
 func resolve_array_method(array: Array, method_name: String, args: Array):
@@ -1100,3 +1109,119 @@ func resolve_dictionary_method(dictionary: Dictionary, method_name: String, args
 			return dictionary.size()
 
 	assert(false, DialogueConstants.translate("runtime.unsupported_dictionary_method").format({ method_name = method_name }))
+
+
+func resolve_quaternion_method(quaternion: Quaternion, method_name: String, args: Array):
+	match method_name:
+		"angle_to":
+			return quaternion.angle_to(args[0])
+		"dot":
+			return quaternion.dot(args[0])
+		"exp":
+			return quaternion.exp()
+		"from_euler":
+			return quaternion.from_euler(args[0])
+		"get_angle":
+			return quaternion.get_angle()
+		"get_axis":
+			return quaternion.get_axis()
+		"get_euler":
+			return quaternion.get_euler() if args.size() == 0 else quaternion.get_euler(args[0])
+		"inverse":
+			return quaternion.inverse()
+		"is_equal_approx":
+			return quaternion.is_equal_approx(args[0])
+		"is_finite":
+			return quaternion.is_finite()
+		"is_normalized":
+			return quaternion.is_normalized()
+		"length":
+			return quaternion.length()
+		"length_squared":
+			return quaternion.length_squared()
+		"log":
+			return quaternion.log()
+		"normalized":
+			return quaternion.normalized()
+		"slerp":
+			return quaternion.slerp(args[0], args[1])
+		"slerpni":
+			return quaternion.slerpni(args[0], args[1])
+		"spherical_cubic_interpolate":
+			return quaternion.spherical_cubic_interpolate(args[0], args[1], args[2], args[3])
+		"spherical_cubic_interpolate_in_time":
+			return quaternion.spherical_cubic_interpolate_in_time(args[0], args[1], args[2], args[3], args[4], args[5], args[6])
+
+	assert(false, DialogueConstants.translate("runtime.unsupported_quaternion_method").format({ method_name = method_name }))
+
+
+func resolve_color_method(color: Color, method_name: String, args: Array):
+	match method_name:
+		"blend":
+			return color.blend(args[0])
+		"clamp":
+			match args.size():
+				0:
+					return color.clamp()
+				1:
+					return color.clamp(args[0])
+				2:
+					return color.clamp(args[0], args[1])
+		"darkened":
+			return color.darkened(args[0])
+		"from_hsv":
+			match args.size():
+				3:
+					return color.from_hsv(args[0], args[1], args[2])
+				4:
+					return color.from_hsv(args[0], args[1], args[2], args[3])
+		"from_ok_hsl":
+			match args.size():
+				3:
+					return color.from_ok_hsl(args[0], args[1], args[2])
+				4:
+					return color.from_ok_hsl(args[0], args[1], args[2], args[3])
+		"from_rgbe9995":
+			return color.from_rgbe9995(args[0])
+		"from_string":
+			return color.from_string(args[0], args[1])
+		"get_luminance":
+			return color.get_luminance()
+		"hex":
+			return color.hex(args[0])
+		"hex64":
+			return color.hex64(args[0])
+		"html":
+			return color.html(args[0])
+		"html_is_valid":
+			return color.html_is_valid(args[0])
+		"inverted":
+			return color.inverted()
+		"is_equal_approx":
+			return color.is_equal_approx(args[0])
+		"lerp":
+			return color.lerp(args[0], args[1])
+		"lightened":
+			return color.lightened(args[0])
+		"linear_to_srgb":
+			return color.linear_to_srgb()
+		"srgb_to_linear":
+			return color.srgb_to_linear()
+		"to_abgr32":
+			return color.to_abgr32()
+		"to_abgr64":
+			return color.to_abgr64()
+		"to_argb32":
+			return color.to_argb32()
+		"to_argb64":
+			return color.to_argb64()
+		"to_html":
+			match args.size():
+				0:
+					return color.to_html()
+				1:
+					return color.to_html(args[0])
+		"to_rgba32":
+			return color.to_rgba32()
+		"to_rgba64":
+			return color.to_rgba64()

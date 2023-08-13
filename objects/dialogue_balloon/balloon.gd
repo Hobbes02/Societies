@@ -8,6 +8,8 @@ extends CanvasLayer
 @onready var responses_menu: VBoxContainer = $Balloon/Margin/VBox/Responses
 @onready var response_template: RichTextLabel = %ResponseTemplate
 
+@export var continue_action: String = "continue_dialogue"
+
 ## The dialogue resource
 var resource: DialogueResource
 
@@ -193,7 +195,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		next(dialogue_line.responses[item.get_index()].next_id)
-	elif event.is_action_pressed("ui_accept") and item in get_responses():
+	elif event.is_action_pressed(continue_action) and item in get_responses():
 		next(dialogue_line.responses[item.get_index()].next_id)
 
 
@@ -206,7 +208,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		next(dialogue_line.next_id)
-	elif event.is_action_pressed("ui_accept") and get_viewport().gui_get_focus_owner() == balloon:
+	elif event.is_action_pressed(continue_action) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
 
 
