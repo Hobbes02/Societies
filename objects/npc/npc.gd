@@ -6,6 +6,7 @@ const DialogueBalloon = preload("res://objects/dialogue_balloon/balloon.tscn")
 @export var dialogue_start_title: String
 
 var can_interact: bool = false
+var failsafe_dialogue: DialogueResource = preload("res://dialogue/error_no_file.dialogue")
 
 
 func _input(event: InputEvent) -> void:
@@ -13,12 +14,10 @@ func _input(event: InputEvent) -> void:
 		can_interact = false
 		var balloon = DialogueBalloon.instantiate()
 		add_child(balloon)
-		balloon.start(dialogue_resource, dialogue_start_title)
-		
-		var args: Array = [0]
-		while args[0] != dialogue_resource:
-			args = await DialogueManager.dialogue_ended
-		can_interact = true
+		if dialogue_resource == null or dialogue_start_title == "":
+			balloon.start(failsafe_dialogue, "start")
+		else:
+			balloon.start(dialogue_resource, dialogue_start_title)
 
 
 func _on_body_entered(body: Node2D) -> void:

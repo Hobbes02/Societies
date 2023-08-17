@@ -55,6 +55,11 @@ save/autosave=false
 general/states=["DialogueGlobals"]
 general/custom_test_scene_path="res://objects/dialogue_balloon/test_dialogue_runner.tscn"
 
+[display]
+
+window/size/mode=2
+window/stretch/mode="viewport"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
