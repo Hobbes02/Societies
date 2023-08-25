@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://k3fm7ocdph3w"]
+
+[ext_resource type="Texture2D" uid="uid://bs6vc7ksnovb" path="res://visuals/buildings/houses/house_small.png" id="1_3wo8o"]
+[ext_resource type="Script" path="res://objects/buildings/building.gd" id="1_j4wkn"]
+[ext_resource type="Texture2D" uid="uid://d0pw4ialcm0v8" path="res://visuals/buildings/doors/wooden_door.png" id="2_mox7y"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nr7kd"]
+blend_mode = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7dhdl"]
+size = Vector2(12, 15)
+
+[node name="Building" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_j4wkn")
+
+[node name="MainHouse" type="Sprite2D" parent="."]
+texture = ExtResource("1_3wo8o")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+
+[node name="Door" type="Sprite2D" parent="CanvasGroup"]
+clip_children = 2
+position = Vector2(0, 15)
+texture = ExtResource("2_mox7y")
+
+[node name="Mask" type="Sprite2D" parent="CanvasGroup"]
+clip_children = 2
+material = SubResource("CanvasItemMaterial_nr7kd")
+position = Vector2(-12, 15)
+texture = ExtResource("2_mox7y")
+
+[node name="Doorway" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doorway"]
+position = Vector2(0, 15.5)
+shape = SubResource("RectangleShape2D_7dhdl")
+
+[connection signal="body_entered" from="Doorway" to="." method="_on_doorway_body_entered"]
+[connection signal="body_exited" from="Doorway" to="." method="_on_doorway_body_exited"]

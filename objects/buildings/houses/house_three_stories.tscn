@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://cs6sx17rf55ea"]
+
+[ext_resource type="PackedScene" uid="uid://k3fm7ocdph3w" path="res://objects/buildings/building.tscn" id="1_50y3a"]
+[ext_resource type="Texture2D" uid="uid://l1ksg8app14b" path="res://visuals/buildings/houses/house_three_stories.png" id="2_ql8wg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ew82d"]
+size = Vector2(12, 15)
+
+[sub_resource type="Animation" id="Animation_ens4s"]
+resource_name = "open_door"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasGroup/Door:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 51), Vector2(-12, 51)]
+}
+
+[sub_resource type="Animation" id="Animation_slp5g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasGroup/Door:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 51)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bupbv"]
+_data = {
+"RESET": SubResource("Animation_slp5g"),
+"open_door": SubResource("Animation_ens4s")
+}
+
+[node name="HouseThreeStories" node_paths=PackedStringArray("animation_player") instance=ExtResource("1_50y3a")]
+animation_player = NodePath("AnimationPlayer")
+
+[node name="MainHouse" parent="." index="0"]
+texture = ExtResource("2_ql8wg")
+
+[node name="Door" parent="CanvasGroup" index="0"]
+position = Vector2(0, 51)
+
+[node name="Mask" parent="CanvasGroup" index="1"]
+position = Vector2(-12, 51)
+
+[node name="CollisionShape2D" parent="Doorway" index="0"]
+position = Vector2(0, 51.5)
+shape = SubResource("RectangleShape2D_ew82d")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_bupbv")
+}

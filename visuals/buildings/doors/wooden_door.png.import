@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://l1ksg8app14b"
-path="res://.godot/imported/house_3_stories.png-89ce933bc9b8bfaea06b073a83da43b5.ctex"
+uid="uid://d0pw4ialcm0v8"
+path="res://.godot/imported/wooden_door.png-7ca166d6624a42919e061a3dff15ceac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://visuals/buildings/houses/house_3_stories.png"
-dest_files=["res://.godot/imported/house_3_stories.png-89ce933bc9b8bfaea06b073a83da43b5.ctex"]
+source_file="res://visuals/buildings/doors/wooden_door.png"
+dest_files=["res://.godot/imported/wooden_door.png-7ca166d6624a42919e061a3dff15ceac.ctex"]
 
 [params]
 
