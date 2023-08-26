@@ -1,13 +1,97 @@
-[gd_scene load_steps=5 format=3 uid="uid://7oe6ekia4jat"]
+[gd_scene load_steps=7 format=3 uid="uid://7oe6ekia4jat"]
 
 [ext_resource type="Script" path="res://objects/player/player.gd" id="1_o0d6m"]
 [ext_resource type="Texture2D" uid="uid://cmyeghddy80q0" path="res://visuals/player/player.png" id="1_ptifw"]
 
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_takgo"]
+[sub_resource type="Animation" id="Animation_2v7q0"]
+resource_name = "crouch"
+length = 0.002
+step = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.002),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:shape:height")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.002),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [15.98, 7.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:shape:radius")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.002),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3.98, 3.98]
+}
+
+[sub_resource type="Animation" id="Animation_u13dv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:shape:height")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [15.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:shape:radius")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cc4h0"]
+_data = {
+"RESET": SubResource("Animation_u13dv"),
+"crouch": SubResource("Animation_2v7q0")
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7sbgy"]
-radius = 4.0
-height = 16.0
+radius = 3.98
+height = 15.98
 
 [node name="Player" type="CharacterBody2D"]
 texture_filter = 1
@@ -17,11 +101,9 @@ script = ExtResource("1_o0d6m")
 texture = ExtResource("1_ptifw")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeBlendSpace2D_takgo")
-anim_player = NodePath("../AnimationPlayer")
-parameters/blend_position = Vector2(0, 0)
+libraries = {
+"": SubResource("AnimationLibrary_cc4h0")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_7sbgy")
