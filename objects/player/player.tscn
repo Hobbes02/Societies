@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://7oe6ekia4jat"]
+
+[ext_resource type="Script" path="res://objects/player/player.gd" id="1_o0d6m"]
+[ext_resource type="Texture2D" uid="uid://cmyeghddy80q0" path="res://visuals/player/player.png" id="1_ptifw"]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_takgo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7sbgy"]
+radius = 4.0
+height = 16.0
+
+[node name="Player" type="CharacterBody2D"]
+texture_filter = 1
+script = ExtResource("1_o0d6m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ptifw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendSpace2D_takgo")
+anim_player = NodePath("../AnimationPlayer")
+parameters/blend_position = Vector2(0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_7sbgy")
