@@ -27,7 +27,7 @@ texture = ExtResource("2_mox7y")
 [node name="Mask" type="Sprite2D" parent="CanvasGroup"]
 clip_children = 2
 material = SubResource("CanvasItemMaterial_nr7kd")
-position = Vector2(-12, 15)
+position = Vector2(-8, 15)
 texture = ExtResource("2_mox7y")
 
 [node name="Doorway" type="Area2D" parent="."]

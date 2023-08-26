@@ -3,22 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://k3fm7ocdph3w" path="res://objects/buildings/building.tscn" id="1_5yogf"]
 [ext_resource type="Texture2D" uid="uid://dyl5slmt4vdb1" path="res://visuals/buildings/houses/house_two_addons.png" id="2_m34oo"]
 
-[sub_resource type="Animation" id="Animation_3utt3"]
-resource_name = "open_door"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasGroup/Door:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 15), Vector2(-12, 15)]
-}
-
 [sub_resource type="Animation" id="Animation_qykfv"]
 length = 0.001
 tracks/0/type = "value"
@@ -32,6 +16,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 15)]
+}
+
+[sub_resource type="Animation" id="Animation_3utt3"]
+resource_name = "open_door"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasGroup/Door:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 15), Vector2(-8, 15)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8fhv1"]
