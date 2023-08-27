@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-const JUMP_VELOCITY: float = -250.0
-@export var speed: float = 150.0
+const JUMP_VELOCITY: float = -225.0
+@export var speed: float = 95.0
 var bodies_in_headspace: int = 0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var sprint_speed: float = 175.0
+var sprint_speed: float = 140.0
 
 func _ready() -> void:
 	$AnimationPlayer.play("RESET")
