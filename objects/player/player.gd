@@ -3,6 +3,7 @@ extends CharacterBody2D
 const JUMP_VELOCITY: float = -225.0
 @export var speed: float = 95.0
 var bodies_in_headspace: int = 0
+var walk_particle_color: Color = Color(0, 0, 0, 0)
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var sprint_speed: float = 140.0
 
@@ -26,6 +27,9 @@ func _physics_process(delta):
 			$AnimationPlayer.play_backwards("crouch")
 			$HeadspaceDetector.monitoring = false
 
+	var tile_pos: Vector2 = Vector2(position.x, position.y + 12)
+	
+	
 	var direction = Input.get_axis("walk_l", "walk_r")
 	if direction:
 		if Input.is_action_pressed("sprint"):
