@@ -1,7 +1,19 @@
 extends CharacterBody2D
 
+signal get_tile_data
+enum TileTypes{
+ OTHER,
+ GRAVEL,
+ BLUE_STONE,
+ CONCRETE,
+ DAMAGED_CONCRETE,
+ GRASS,
+ DIRT
+}
 const JUMP_VELOCITY: float = -225.0
 @export var speed: float = 95.0
+@export var at_feet_tile: int
+var tile_pos: Vector2
 var bodies_in_headspace: int = 0
 var walk_particle_color: Color = Color(0, 0, 0, 0)
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -27,8 +39,9 @@ func _physics_process(delta):
 			$AnimationPlayer.play_backwards("crouch")
 			$HeadspaceDetector.monitoring = false
 
-	var tile_pos: Vector2 = Vector2(position.x, position.y + 12)
-	
+	tile_pos = Vector2(position.x, position.y + 12)
+	emit_signal("get_tile_data")
+	print(at_feet_tile)
 	
 	var direction = Input.get_axis("walk_l", "walk_r")
 	if direction:
