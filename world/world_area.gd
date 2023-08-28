@@ -29,6 +29,7 @@ func _process(delta: float) -> void:
 		tile_type = tile_data.get_custom_data(tile_type_data_layer)
 	else:
 		print("tile_data returned null")
+		tile_type = 0
 
 func _on_player_get_tile_data() -> void:
 	$Player.at_feet_tile = tile_type
