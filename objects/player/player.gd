@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 signal get_tile_data
 enum TileTypes{
- OTHER,
+ EMPTY,
  GRAVEL,
  BLUE_STONE,
  CONCRETE,

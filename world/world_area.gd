@@ -1,14 +1,5 @@
 extends Node2D
 
-enum TileTypes{
- OTHER,
- GRAVEL,
- BLUE_STONE,
- CONCRETE,
- DAMAGED_CONCRETE,
- GRASS,
- DIRT
-}
 var retrival_pos: Vector2
 var tile_pos: Vector2i
 var tile_data: TileData
