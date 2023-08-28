@@ -436,7 +436,6 @@ layer_2/tile_data = PackedInt32Array(4522058, 131073, 0, 4587594, 131073, 0, 465
 
 [node name="Player" parent="." instance=ExtResource("2_f3isx")]
 position = Vector2(585, 480)
-speed = 95.0
 
 [node name="PlayerCam" type="Camera2D" parent="Player"]
 zoom = Vector2(3, 3)
