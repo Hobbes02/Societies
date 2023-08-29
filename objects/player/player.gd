@@ -20,7 +20,16 @@ var walk_emit: int = 10
 var walk_emit_gravity: Vector2 = Vector2(0,400)
 var sprint_emit: int = 14
 var sprint_emit_gravity: Vector2 = Vector2(0,800)
-var particle_color: Color = Color(0,0,0,0)
+var particle_color: Array = [
+	Color(0,0,0,0),
+	Color("727784"),
+	Color("838997"),
+	Color("929292"),
+	Color("8b8b8b"),
+	Color("458149"),
+	Color("8d6b52")
+]
+
 
 var tile_pos: Vector2
 
@@ -35,22 +44,7 @@ func _physics_process(delta):
 	tile_pos = Vector2(position.x, position.y + 12)
 	emit_signal("get_tile_data")
 	print(at_feet_tile)
-	match at_feet_tile:
-		TileTypes.EMPTY:
-			particle_color = Color(0,0,0,0)
-		TileTypes.GRAVEL:
-			particle_color = Color("727784")
-		TileTypes.BLUE_STONE:
-			particle_color = Color("838997")
-		TileTypes.CONCRETE:
-			particle_color = Color("929292")
-		TileTypes.DAMAGED_CONCRETE:
-			particle_color = Color("8b8b8b")
-		TileTypes.GRASS:
-			particle_color = Color("458149")
-		TileTypes.DIRT:
-			particle_color = Color("8d6b52")
-	$WalkParticles.color = particle_color
+	$WalkParticles.color = particle_color[at_feet_tile]
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
