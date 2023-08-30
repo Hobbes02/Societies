@@ -12,7 +12,7 @@ enum TileTypes{
 }
 const JUMP_VELOCITY: float = -225.0
 @export var speed: float = 95.0
-@export var at_feet_tile: int
+@export var at_feet_tile_id: int
 var sprint_speed: float = 140.0
 var crouch_speed: float = 50.0
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -46,10 +46,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 #	Gets tile data from the tile at 'tile_pos'
 	tile_pos = Vector2(position.x, position.y + 12)
-	emit_signal("get_tile_data")
-	print(at_feet_tile)
+	emit_signal("get_tile_data", tile_pos)
+	print(at_feet_tile_id)
 #	Sets the $WalkParticles color
-	walk_particles.color = particle_color[at_feet_tile]
+	walk_particles.color = particle_color[at_feet_tile_id]
 #	Falling
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -105,3 +105,6 @@ func _on_headspace_detector_body_entered(body: Node2D) -> void:
 
 func _on_headspace_detector_body_exited(body: Node2D) -> void:
 	bodies_in_headspace -= 1
+
+func _on_world_area_at_feet_tile_id(at_feet_tile__id: int) -> void:
+	at_feet_tile_id = at_feet_tile__id

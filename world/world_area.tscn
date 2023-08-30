@@ -442,4 +442,5 @@ zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 position_smoothing_speed = 2.5
 
+[connection signal="at_feet_tile_id" from="." to="Player" method="_on_world_area_at_feet_tile_id"]
 [connection signal="get_tile_data" from="Player" to="." method="_on_player_get_tile_data"]
