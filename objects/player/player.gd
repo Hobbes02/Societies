@@ -10,6 +10,12 @@ enum TileTypes{
 	GRASS,
 	DIRT
 }
+enum States{
+	GROUND,
+	AIR,
+	LADDER,
+	EMPTY
+}
 const JUMP_VELOCITY: float = -225.0
 @export var speed: float = 95.0
 @export var at_feet_tile_id: int
@@ -35,12 +41,14 @@ var tile_pos: Vector2
 
 var bodies_in_headspace: int = 0
 
+@onready var state: int = 0
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var walk_particles: CPUParticles2D = $WalkParticles
 @onready var jump_particles: CPUParticles2D = $JumpParticles
 @onready var headspace_detector: Area2D = $HeadspaceDetector
 
 func _ready() -> void:
+	state = States.AIR
 	anim_player.play("RESET")
 
 func _physics_process(delta: float) -> void:
@@ -50,54 +58,81 @@ func _physics_process(delta: float) -> void:
 	print(at_feet_tile_id)
 #	Sets the $WalkParticles color
 	walk_particles.color = particle_color[at_feet_tile_id]
-#	Falling
-	if not is_on_floor():
-		velocity.y += gravity * delta
-
-#	Jumping and Jump particle emission
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		jump_particles.emitting = true
-		jump_particles.emitting = false
-		jump_particles.restart()
-		velocity.y = JUMP_VELOCITY
-
-#	Crouching
-	if Input.is_action_pressed("crouch"):
-		anim_player.play("crouch")
-		headspace_detector.monitoring = true
+	
+#	State setter
+	if is_on_floor():
+		state = States.GROUND
 	else:
-#		Headspace Clearance
-		if bodies_in_headspace > 0:
-			anim_player.play("crouch")
-		else:
-			anim_player.play_backwards("crouch")
-			headspace_detector.monitoring = false
+		state = States.AIR
+	
+#	State machine
+	match state:
 
-#	Walking and Walk particle emission
-	if (Input.is_action_pressed("walk_l") or Input.is_action_pressed("walk_r")) and is_on_floor():
-		walk_particles.restart()
-		walk_particles.emitting = true
-		if Input.is_action_pressed("sprint"):
-			walk_particles.amount = sprint_emit
-			walk_particles.gravity = sprint_emit_gravity
-		elif Input.is_action_pressed("crouch"):
-			walk_particles.emitting = false
-		else:
-			walk_particles.amount = walk_emit
-			walk_particles.gravity = walk_emit_gravity
-	elif Input.is_action_just_released("walk_l") or Input.is_action_just_released("walk_r") or not is_on_floor():
-		walk_particles.emitting = false
-	var direction: int = Input.get_axis("walk_l", "walk_r")
-	if direction:
-		if Input.is_action_pressed("sprint"):
-			velocity.x = direction * sprint_speed
-		elif Input.is_action_pressed("crouch"):
-			velocity.x = direction * crouch_speed
-		else:
-			velocity.x = direction * speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-	move_and_slide()
+
+		States.AIR:
+			#Movement
+			if Input.is_action_pressed("walk_l") or Input.is_action_pressed("walk_r"):
+				var direction: int = Input.get_axis("walk_l", "walk_r")
+				if direction:
+					if Input.is_action_pressed("sprint"):
+						velocity.x = direction * sprint_speed
+					elif Input.is_action_pressed("crouch"):
+						velocity.x = direction * crouch_speed
+					else:
+						velocity.x = direction * speed
+				else:
+					velocity.x = move_toward(velocity.x, 0, speed)
+				move_and_slide()
+				
+			#	Falling
+			velocity.y += gravity * delta
+
+
+		States.GROUND:
+		#	Jumping and Jump particle emission
+			if Input.is_action_just_pressed("jump") and is_on_floor():
+				jump_particles.emitting = true
+				jump_particles.emitting = false
+				jump_particles.restart()
+				velocity.y = JUMP_VELOCITY
+
+		#	Crouching
+			if Input.is_action_pressed("crouch"):
+				anim_player.play("crouch")
+				headspace_detector.monitoring = true
+			else:
+		#		Headspace Clearance
+				if bodies_in_headspace > 0:
+					anim_player.play("crouch")
+				else:
+					anim_player.play_backwards("crouch")
+					headspace_detector.monitoring = false
+
+		#	Walking and Walk particle emission
+			if (Input.is_action_pressed("walk_l") or Input.is_action_pressed("walk_r")) and is_on_floor():
+				walk_particles.restart()
+				walk_particles.emitting = true
+				if Input.is_action_pressed("sprint"):
+					walk_particles.amount = sprint_emit
+					walk_particles.gravity = sprint_emit_gravity
+				elif Input.is_action_pressed("crouch"):
+					walk_particles.emitting = false
+				else:
+					walk_particles.amount = walk_emit
+					walk_particles.gravity = walk_emit_gravity
+			elif Input.is_action_just_released("walk_l") or Input.is_action_just_released("walk_r") or not is_on_floor():
+				walk_particles.emitting = false
+			var direction: int = Input.get_axis("walk_l", "walk_r")
+			if direction:
+				if Input.is_action_pressed("sprint"):
+					velocity.x = direction * sprint_speed
+				elif Input.is_action_pressed("crouch"):
+					velocity.x = direction * crouch_speed
+				else:
+					velocity.x = direction * speed
+			else:
+				velocity.x = move_toward(velocity.x, 0, speed)
+			move_and_slide()
 
 #Headspace Clearance Detection
 func _on_headspace_detector_body_entered(body: Node2D) -> void:
