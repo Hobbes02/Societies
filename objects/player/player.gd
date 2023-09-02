@@ -70,7 +70,10 @@ func _physics_process(delta: float) -> void:
 
 
 		States.AIR:
+			#Falling
+			velocity.y += gravity * delta
 			#Movement
+			
 			if Input.is_action_pressed("walk_l") or Input.is_action_pressed("walk_r"):
 				var direction: int = Input.get_axis("walk_l", "walk_r")
 				if direction:
@@ -83,9 +86,6 @@ func _physics_process(delta: float) -> void:
 				else:
 					velocity.x = move_toward(velocity.x, 0, speed)
 				move_and_slide()
-				
-			#	Falling
-			velocity.y += gravity * delta
 
 
 		States.GROUND:
@@ -133,6 +133,7 @@ func _physics_process(delta: float) -> void:
 			else:
 				velocity.x = move_toward(velocity.x, 0, speed)
 			move_and_slide()
+			velocity.y += gravity * delta
 
 #Headspace Clearance Detection
 func _on_headspace_detector_body_entered(body: Node2D) -> void:
