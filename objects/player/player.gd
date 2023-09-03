@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal get_tile_data
+
 enum TileTypes{
 	EMPTY,
 	GRAVEL,
@@ -11,8 +12,11 @@ enum TileTypes{
 	DIRT
 }
 const JUMP_VELOCITY: float = -225.0
+
+const WalkParticles = preload("res://objects/player/particles/walk_particles.tscn")
+
 @export var speed: float = 95.0
-@export var at_feet_tile_id: int
+
 var sprint_speed: float = 140.0
 var crouch_speed: float = 50.0
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -36,20 +40,17 @@ var tile_pos: Vector2
 var bodies_in_headspace: int = 0
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
-@onready var walk_particles: CPUParticles2D = $WalkParticles
 @onready var jump_particles: CPUParticles2D = $JumpParticles
 @onready var headspace_detector: Area2D = $HeadspaceDetector
+
 
 func _ready() -> void:
 	anim_player.play("RESET")
 
+
 func _physics_process(delta: float) -> void:
 #	Gets tile data from the tile at 'tile_pos'
 	tile_pos = Vector2(position.x, position.y + 12)
-	emit_signal("get_tile_data", tile_pos)
-	print(at_feet_tile_id)
-#	Sets the $WalkParticles color
-	walk_particles.color = particle_color[at_feet_tile_id]
 #	Falling
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -74,19 +75,8 @@ func _physics_process(delta: float) -> void:
 			headspace_detector.monitoring = false
 
 #	Walking and Walk particle emission
-	if (Input.is_action_pressed("walk_l") or Input.is_action_pressed("walk_r")) and is_on_floor():
-		walk_particles.restart()
-		walk_particles.emitting = true
-		if Input.is_action_pressed("sprint"):
-			walk_particles.amount = sprint_emit
-			walk_particles.gravity = sprint_emit_gravity
-		elif Input.is_action_pressed("crouch"):
-			walk_particles.emitting = false
-		else:
-			walk_particles.amount = walk_emit
-			walk_particles.gravity = walk_emit_gravity
-	elif Input.is_action_just_released("walk_l") or Input.is_action_just_released("walk_r") or not is_on_floor():
-		walk_particles.emitting = false
+	if (Input.is_action_pressed("walk_l") or Input.is_action_pressed("walk_r")) and is_on_floor() and not Input.is_action_pressed("crouch"):
+		get_tile_data.emit(tile_pos)
 	var direction: int = Input.get_axis("walk_l", "walk_r")
 	if direction:
 		if Input.is_action_pressed("sprint"):
@@ -99,12 +89,18 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, speed)
 	move_and_slide()
 
-#Headspace Clearance Detection
+
+# Headspace Clearance Detection
 func _on_headspace_detector_body_entered(body: Node2D) -> void:
 	bodies_in_headspace += 1
+
 
 func _on_headspace_detector_body_exited(body: Node2D) -> void:
 	bodies_in_headspace -= 1
 
-func _on_world_area_at_feet_tile_id(at_feet_tile__id: int) -> void:
-	at_feet_tile_id = at_feet_tile__id
+
+func _on_world_area_at_feet_tile_id(at_feet_tile_id: int) -> void:
+	var particles: CPUParticles2D = WalkParticles.instantiate()
+	particles.color = particle_color[at_feet_tile_id]
+	particles.restart()
+	add_child(particles)

@@ -6,14 +6,18 @@ var tiles: int = 1
 var tile_pos: Vector2i
 var tile_type_data_layer: String = "tile_type"
 var tile_id: int
+
 @onready var tile_map: TileMap = $TileMap
 @onready var player: CharacterBody2D = $Player
+
 
 func _ready() -> void:
 	pass
 
+
 func _process(delta: float) -> void:
 	pass
+
 
 func _on_player_get_tile_data(retrival_pos: Vector2i) -> void:
 #	gets the global coods of the tile at 'retrival_pos'
@@ -25,6 +29,6 @@ func _on_player_get_tile_data(retrival_pos: Vector2i) -> void:
 #		sets 'tile_id' to the custom data
 		tile_id = tile_data.get_custom_data(tile_type_data_layer)
 	else:
-		print("tile_data returned null")
 		tile_id = 0
-	emit_signal("at_feet_tile_id", tile_id)
+	
+	at_feet_tile_id.emit(tile_id)
