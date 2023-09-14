@@ -13,9 +13,7 @@ enum TileTypes{
 }
 const JUMP_VELOCITY: float = -225.0
 
-const WalkParticles = preload("res://objects/player/particles/walk_particles.tscn")
-
-@export var speed: float = 95.0
+@export var speed: float = 90.0
 
 var sprint_speed: float = 140.0
 var crouch_speed: float = 50.0
@@ -42,6 +40,7 @@ var bodies_in_headspace: int = 0
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var jump_particles: CPUParticles2D = $JumpParticles
 @onready var headspace_detector: Area2D = $HeadspaceDetector
+@onready var sprite: Sprite2D = $Sprite2D
 
 
 func _ready() -> void:
@@ -63,31 +62,41 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 
 #	Crouching
-	if Input.is_action_pressed("crouch"):
+	if Input.is_action_just_pressed("crouch"):
 		anim_player.play("crouch")
 		headspace_detector.monitoring = true
-	else:
+	elif Input.is_action_just_released("crouch"):
 #		Headspace Clearance
 		if bodies_in_headspace > 0:
 			anim_player.play("crouch")
 		else:
-			anim_player.play_backwards("crouch")
+			anim_player.play("idle")
 			headspace_detector.monitoring = false
 
-#	Walking and Walk particle emission
-	if (Input.is_action_pressed("walk_l") or Input.is_action_pressed("walk_r")) and is_on_floor() and not Input.is_action_pressed("crouch"):
-		get_tile_data.emit(tile_pos)
+#	Walking and Walk animations
 	var direction: int = Input.get_axis("walk_l", "walk_r")
 	if direction:
 		if Input.is_action_pressed("sprint"):
 			velocity.x = direction * sprint_speed
+			anim_player.play("sprint")
 		elif Input.is_action_pressed("crouch"):
 			velocity.x = direction * crouch_speed
+			anim_player.play("crouch walk")
 		else:
 			velocity.x = direction * speed
+			anim_player.play("walk")
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
+		if Input.is_action_pressed("crouch"):
+			anim_player.play("crouch")
+		else:
+			anim_player.play("idle")
 	move_and_slide()
+	
+	if direction > 0:
+		sprite.flip_h = false
+	elif direction < 0:
+		sprite.flip_h = true
 
 
 # Headspace Clearance Detection
@@ -97,10 +106,3 @@ func _on_headspace_detector_body_entered(body: Node2D) -> void:
 
 func _on_headspace_detector_body_exited(body: Node2D) -> void:
 	bodies_in_headspace -= 1
-
-
-func _on_world_area_at_feet_tile_id(at_feet_tile_id: int) -> void:
-	var particles: CPUParticles2D = WalkParticles.instantiate()
-	particles.color = particle_color[at_feet_tile_id]
-	particles.restart()
-	add_child(particles)
