@@ -563,7 +563,7 @@ script = ExtResource("1_o0d6m")
 
 [node name="HeadSpaceDetector" type="RayCast2D" parent="."]
 position = Vector2(0, 3)
-target_position = Vector2(0, -12)
+target_position = Vector2(0, -9)
 collision_mask = 12
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -595,7 +595,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="CoyoteTime" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.15
 one_shot = true
 
 [connection signal="body_entered" from="LandDetector" to="." method="_on_land_detector_body_entered"]

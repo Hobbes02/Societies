@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://objects/npc/npc.gd" id="1_2cdtu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jbx52"]
-radius = 35.3429
+radius = 23.2379
 
 [node name="NPC" type="Area2D"]
 scale = Vector2(0.990706, 0.986726)

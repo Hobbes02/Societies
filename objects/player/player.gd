@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 enum MoveStates {
@@ -33,7 +34,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 
 #	Jumping
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and not headspace_detector.is_colliding():
 		if is_on_floor() or not coyote_timer.is_stopped():
 			velocity.y = JUMP_VELOCITY
 			coyote_timer.stop()

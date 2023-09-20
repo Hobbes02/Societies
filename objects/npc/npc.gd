@@ -1,12 +1,22 @@
+@tool
+class_name NPC
 extends Area2D
 
 const DialogueBalloon = preload("res://objects/dialogue_balloon/balloon.tscn")
 
 @export var dialogue_resource: DialogueResource
-@export var dialogue_start_title: String
+@export var dialogue_start_title: String = "start"
+@export var texture: Texture2D :
+	set(new_value):
+		texture = new_value
+		$Sprite2D.texture = texture
 
 var can_interact: bool = false
 var failsafe_dialogue: DialogueResource = preload("res://dialogue/error_no_file.dialogue")
+
+
+func _ready() -> void:
+	$Sprite2D.texture = texture
 
 
 func _input(event: InputEvent) -> void:

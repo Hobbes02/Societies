@@ -1,10 +1,10 @@
 ~ start
 
-Hobbes: Hey there!
-Hobbes: Here are some choices:
+Bob: Hey there!
+Bob: Here are some choices:
 - Option 1
-	Hobbes: You chose option 1
+	Bob: You chose option 1
 - Option 2
-	Hobbes: You chose option 2
+	Bob: You chose option 2
 
 => END

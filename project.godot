@@ -58,6 +58,7 @@ general/custom_test_scene_path="res://objects/dialogue_balloon/test_dialogue_run
 [display]
 
 window/size/mode=2
+window/size/initial_position_type=3
 window/stretch/mode="viewport"
 
 [editor_plugins]
