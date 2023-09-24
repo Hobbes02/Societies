@@ -1,8 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://coamdy8krcs0e"]
+[gd_scene load_steps=11 format=3 uid="uid://coamdy8krcs0e"]
 
 [ext_resource type="Texture2D" uid="uid://b06i8ku64lmwk" path="res://visuals/tiles/main_tileset.png" id="1_4exgu"]
 [ext_resource type="Script" path="res://world/world_area.gd" id="1_ra7vo"]
 [ext_resource type="PackedScene" uid="uid://7oe6ekia4jat" path="res://objects/player/player.tscn" id="2_f3isx"]
+[ext_resource type="PackedScene" uid="uid://53g8ppalbsld" path="res://objects/npc/npc.tscn" id="3_8gv62"]
+[ext_resource type="Resource" uid="uid://dxqfvqus2g5e8" path="res://dialogue/test.dialogue" id="4_m8rn4"]
+[ext_resource type="Texture2D" uid="uid://dpex06nqoynck" path="res://visuals/objects/fire_barrel.png" id="5_d8n34"]
+[ext_resource type="FontFile" uid="uid://bpbdu8d1oxeeo" path="res://visuals/fonts/dogicapixel.ttf" id="7_6nmmv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x0rnf"]
 resource_name = "tiles"
@@ -410,10 +414,19 @@ sources/0 = SubResource("TileSetAtlasSource_x0rnf")
 sources/1 = SubResource("TileSetAtlasSource_ouyp5")
 
 [node name="WorldArea" type="Node2D"]
+process_mode = 3
 texture_filter = 1
 script = ExtResource("1_ra7vo")
 
+[node name="Camera" type="Camera2D" parent="."]
+process_mode = 3
+position = Vector2(651, 480)
+zoom = Vector2(5, 5)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.5
+
 [node name="TileMap" type="TileMap" parent="."]
+process_mode = 3
 tile_set = SubResource("TileSet_vxxvh")
 format = 2
 layer_0/name = "background"
@@ -435,11 +448,23 @@ layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array(4522058, 131073, 0, 4587594, 131073, 0, 4653130, 131073, 0, 4718666, 131073, 0, 4784202, 131073, 0, 4849738, 131073, 0, 4522061, 131073, 0, 4587597, 131073, 0, 4653133, 131073, 0, 4718669, 131073, 0, 4784205, 131073, 0, 4456528, 131073, 0, 4522064, 131073, 0, 4587600, 131073, 0, 4653136, 131073, 0, 4456518, 131073, 0, 4522054, 131073, 0, 4587590, 131073, 0, 4653126, 131073, 0, 4718662, 131073, 0, 4784198, 131073, 0, 4325444, 131073, 0, 4390980, 131073, 0, 4456516, 131073, 0, 4522052, 131073, 0, 4587588, 131073, 0, 4259915, 131073, 0, 4325451, 131073, 0, 4390987, 131073, 0, 4390986, 131073, 0, 4456522, 131073, 0, 4325448, 131073, 0, 4390984, 131073, 0, 4259911, 131073, 0, 4325447, 131073, 0, 4128839, 131073, 0, 4194375, 131073, 0, 3997767, 131073, 0, 4063303, 131073, 0, 4325445, 131073, 0, 4259909, 131073, 0, 4194373, 131073, 0, 4128837, 131073, 0, 4063301, 131073, 0, 3997765, 131073, 0, 4390982, 131073, 0, 4194379, 131073, 0, 4128843, 131073, 0, 4063307, 131073, 0, 3997771, 131073, 0, 4194380, 131073, 0, 4194381, 131073, 0, 4259917, 131073, 0, 4325453, 131073, 0, 4390989, 131073, 0, 4456525, 131073, 0, 4390992, 131073, 0, 4325456, 131073, 0, 4259920, 131073, 0, 4194384, 131073, 0, 4194383, 131073, 0, 4128847, 131073, 0, 4063311, 131073, 0, 3997775, 131073, 0, 4194385, 131073, 0, 4128849, 131073, 0, 4128850, 131073, 0, 4063313, 131073, 0, 3997777, 131073, 0, 4325446, 131073, 0, 4390983, 131073, 0, 4390981, 131073, 0)
 
 [node name="NPCs" type="Node2D" parent="."]
+process_mode = 1
+
+[node name="NPC" parent="NPCs" instance=ExtResource("3_8gv62")]
+position = Vector2(551, 480)
+dialogue_resource = ExtResource("4_m8rn4")
+texture = ExtResource("5_d8n34")
 
 [node name="Player" parent="." instance=ExtResource("2_f3isx")]
-position = Vector2(585, 480)
+position = Vector2(652, 480)
 
-[node name="PlayerCamera" type="Camera2D" parent="Player"]
-zoom = Vector2(5, 5)
-position_smoothing_enabled = true
-position_smoothing_speed = 2.5
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+offset_left = 588.0
+offset_top = 457.0
+offset_right = 684.0
+offset_bottom = 480.0
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("7_6nmmv")
+theme_override_font_sizes/font_size = 8
+text = "hey there amigo"

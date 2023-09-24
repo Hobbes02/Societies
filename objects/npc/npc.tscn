@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://objects/npc/npc.gd" id="1_2cdtu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jbx52"]
-radius = 23.2379
+radius = 22.2295
 
-[node name="NPC" type="Area2D"]
+[node name="NPC" type="Area2D" groups=["can_focus_camera"]]
 scale = Vector2(0.990706, 0.986726)
 collision_layer = 2
 script = ExtResource("1_2cdtu")
@@ -14,6 +14,13 @@ script = ExtResource("1_2cdtu")
 
 [node name="InteractionArea" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jbx52")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-1, 0)
+enabled = false
+zoom = Vector2(5, 5)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.5
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

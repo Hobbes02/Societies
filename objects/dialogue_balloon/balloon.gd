@@ -1,14 +1,14 @@
 extends CanvasLayer
 
 
-@onready var balloon: Panel = $Balloon
+@onready var balloon: ColorRect = $Balloon
 @onready var margin: MarginContainer = $Balloon/Margin
 @onready var character_label: RichTextLabel = $Balloon/Margin/VBox/CharacterLabel
 @onready var dialogue_label := $Balloon/Margin/VBox/DialogueLabel
 @onready var responses_menu: VBoxContainer = $Balloon/Margin/VBox/Responses
 @onready var response_template: RichTextLabel = %ResponseTemplate
 
-@export var continue_action: String = "continue_dialogue"
+@export var dialogue_continue_action: String = "continue_dialogue"
 
 ## The dialogue resource
 var resource: DialogueResource
@@ -92,7 +92,7 @@ func _ready() -> void:
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
 	get_viewport().set_input_as_handled()
 
@@ -195,7 +195,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		next(dialogue_line.responses[item.get_index()].next_id)
-	elif event.is_action_pressed(continue_action) and item in get_responses():
+	elif event.is_action_pressed(dialogue_continue_action) and item in get_responses():
 		next(dialogue_line.responses[item.get_index()].next_id)
 
 
@@ -208,7 +208,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		next(dialogue_line.next_id)
-	elif event.is_action_pressed(continue_action) and get_viewport().gui_get_focus_owner() == balloon:
+	elif event.is_action_pressed(dialogue_continue_action) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
 
 

@@ -556,7 +556,8 @@ height = 15.4
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wqw8"]
 size = Vector2(4, 2)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["can_focus_camera"]]
+process_mode = 1
 texture_filter = 1
 collision_mask = 14
 script = ExtResource("1_o0d6m")
@@ -564,6 +565,11 @@ script = ExtResource("1_o0d6m")
 [node name="HeadSpaceDetector" type="RayCast2D" parent="."]
 position = Vector2(0, 3)
 target_position = Vector2(0, -9)
+collision_mask = 12
+
+[node name="JumpDetector" type="RayCast2D" parent="."]
+position = Vector2(0, -2)
+target_position = Vector2(0, -10)
 collision_mask = 12
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

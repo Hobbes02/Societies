@@ -2,6 +2,9 @@
 class_name NPC
 extends Area2D
 
+signal focus_camera(node: Node2D)
+signal unfocus_camera()
+
 const DialogueBalloon = preload("res://objects/dialogue_balloon/balloon.tscn")
 
 @export var dialogue_resource: DialogueResource
@@ -17,6 +20,7 @@ var failsafe_dialogue: DialogueResource = preload("res://dialogue/error_no_file.
 
 func _ready() -> void:
 	$Sprite2D.texture = texture
+	DialogueManager.dialogue_ended.connect(_dialogue_ended)
 
 
 func _input(event: InputEvent) -> void:
@@ -24,10 +28,19 @@ func _input(event: InputEvent) -> void:
 		can_interact = false
 		var balloon = DialogueBalloon.instantiate()
 		add_child(balloon)
+		get_tree().paused = true
+		focus_camera.emit(self)
 		if dialogue_resource == null or dialogue_start_title == "":
 			balloon.start(failsafe_dialogue, "start")
 		else:
 			balloon.start(dialogue_resource, dialogue_start_title)
+
+
+func _dialogue_ended(resource: DialogueResource) -> void:
+	if resource != dialogue_resource:
+		return
+	get_tree().paused = false
+	unfocus_camera.emit()
 
 
 func _on_body_entered(body: Node2D) -> void:

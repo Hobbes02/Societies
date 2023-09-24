@@ -22,6 +22,7 @@ var current_move_state: MoveStates = MoveStates.Walk
 @onready var jump_buffer: Timer = $JumpBuffer
 @onready var coyote_timer: Timer = $CoyoteTime
 @onready var headspace_detector: RayCast2D = $HeadSpaceDetector
+@onready var jump_detector: RayCast2D = $JumpDetector
 
 
 func _ready() -> void:
@@ -34,7 +35,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 
 #	Jumping
-	if Input.is_action_just_pressed("jump") and not headspace_detector.is_colliding():
+	if Input.is_action_just_pressed("jump") and not headspace_detector.is_colliding() and not jump_detector.is_colliding():
 		if is_on_floor() or not coyote_timer.is_stopped():
 			velocity.y = JUMP_VELOCITY
 			coyote_timer.stop()
@@ -100,10 +101,20 @@ func handle_animations() -> void:
 
 func _on_land_detector_body_entered(body: Node2D) -> void:
 	if not jump_buffer.is_stopped():
-		velocity.y = JUMP_VELOCITY
+		if not jump_detector.is_colliding():
+			velocity.y = JUMP_VELOCITY
 		jump_buffer.stop()
 
 
 func _on_land_detector_body_exited(body: Node2D) -> void:
 	if not Input.is_action_pressed("jump"):
 		coyote_timer.start()
+
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_PAUSED:
+			if headspace_detector.is_colliding():
+				anim_player.play("crawl idle")
+			else:
+				anim_player.play("idle")
