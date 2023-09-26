@@ -11,6 +11,10 @@ func _ready() -> void:
 			node.focus_camera.connect(_on_focus_camera)
 		if node.has_signal("unfocus_camera"):
 			node.unfocus_camera.connect(_on_unfocus_camera)
+	
+	camera.position_smoothing_enabled = false
+	camera.global_position = camera_following_node.global_position
+	camera.position_smoothing_enabled = true
 
 
 func _on_focus_camera(node: Node2D) -> void:
@@ -23,3 +27,4 @@ func _on_unfocus_camera() -> void:
 
 func _process(delta: float) -> void:
 	camera.global_position = camera_following_node.global_position
+

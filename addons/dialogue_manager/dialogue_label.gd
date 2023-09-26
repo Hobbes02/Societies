@@ -1,4 +1,6 @@
-extends RichTextLabel
+@icon("./assets/icon.svg")
+
+class_name DialogueLabel extends RichTextLabel
 
 
 signal spoke(letter: String, letter_index: int, speed: float)
@@ -7,7 +9,7 @@ signal finished_typing()
 
 
 ## The action to press to skip typing
-@export var skip_action: String = "ui_cancel"
+@export var skip_action: String = "continue_dialogue"
 
 ## The speed with which the text types out
 @export var seconds_per_step: float = 0.02
@@ -48,24 +50,22 @@ func _process(delta: float) -> void:
 			if waiting_seconds <= 0:
 				type_next(delta, waiting_seconds)
 		else:
+			# Make sure any mutations at the end of the line get run
+			mutate_inline_mutations(get_total_character_count())
 			self.is_typing = false
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if self.is_typing and visible_ratio < 1 and event.is_action_pressed(skip_action):
 		get_viewport().set_input_as_handled()
-
-		# Run any inline mutations that haven't been run yet
-		for i in range(visible_characters, get_total_character_count()):
-			mutate_inline_mutations(i)
-		visible_characters = get_total_character_count()
-		self.is_typing = false
+		skip_typing()
 
 
 # Start typing out the text
 func type_out() -> void:
 	text = dialogue_line.text
 	visible_characters = 0
+	visible_ratio = 0
 	self.is_typing = true
 	waiting_seconds = 0
 
@@ -75,11 +75,16 @@ func type_out() -> void:
 	if get_total_character_count() == 0:
 		self.is_typing = false
 	elif seconds_per_step == 0:
-		# Run any inline mutations
-		for i in range(0, get_total_character_count()):
-			mutate_inline_mutations(i)
+		mutation_remaining_mutations()
 		visible_characters = get_total_character_count()
 		self.is_typing = false
+
+
+# Stop typing out the text and jump right to the end
+func skip_typing() -> void:
+	mutation_remaining_mutations()
+	visible_characters = get_total_character_count()
+	self.is_typing = false
 
 
 # Type out the next character(s)
@@ -129,6 +134,12 @@ func get_speed(at_index: int) -> float:
 	return speed
 
 
+# Run any inline mutations that haven't been run yet
+func mutation_remaining_mutations() -> void:
+	for i in range(visible_characters, get_total_character_count() + 1):
+		mutate_inline_mutations(i)
+
+
 # Run any mutations at the current typing position
 func mutate_inline_mutations(index: int) -> void:
 	for inline_mutation in dialogue_line.inline_mutations:
@@ -150,5 +161,9 @@ func _should_auto_pause() -> bool:
 		var possible_number: String = parsed_text.substr(visible_characters - 2, 3)
 		if str(float(possible_number)) == possible_number:
 			return false
+
+	# Ignore two non-"." characters next to each other
+	if visible_characters > 1 and parsed_text[visible_characters - 1] in pause_at_characters.replace(".", "").split():
+		return false
 
 	return parsed_text[visible_characters - 1] in pause_at_characters.split()

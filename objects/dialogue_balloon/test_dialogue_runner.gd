@@ -1,6 +1,6 @@
 extends BaseDialogueTestScene
 
-const Balloon = preload("res://objects/dialogue_balloon/balloon.tscn")
+const Balloon = preload("res://objects/speech_bubble/speech_bubble.tscn")
 
 func _ready() -> void:
 	var balloon: Node = Balloon.instantiate()

@@ -56,7 +56,6 @@ scroll_active = false
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_cw7hc")
 text = "Dialogue"
-skip_action = "continue_dialogue"
 pause_at_characters = ".?!,"
 
 [node name="Responses" type="VBoxContainer" parent="Balloon/Margin/VBox"]

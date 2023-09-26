@@ -562,11 +562,6 @@ texture_filter = 1
 collision_mask = 14
 script = ExtResource("1_o0d6m")
 
-[node name="HeadSpaceDetector" type="RayCast2D" parent="."]
-position = Vector2(0, 3)
-target_position = Vector2(0, -9)
-collision_mask = 12
-
 [node name="JumpDetector" type="RayCast2D" parent="."]
 position = Vector2(0, -2)
 target_position = Vector2(0, -10)
@@ -603,6 +598,11 @@ one_shot = true
 [node name="CoyoteTime" type="Timer" parent="."]
 wait_time = 0.15
 one_shot = true
+
+[node name="HeadSpaceDetector" type="RayCast2D" parent="."]
+position = Vector2(0, 3)
+target_position = Vector2(0, -9)
+collision_mask = 12
 
 [connection signal="body_entered" from="LandDetector" to="." method="_on_land_detector_body_entered"]
 [connection signal="body_exited" from="LandDetector" to="." method="_on_land_detector_body_exited"]

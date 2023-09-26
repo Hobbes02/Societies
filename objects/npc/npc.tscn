@@ -11,16 +11,10 @@ collision_layer = 2
 script = ExtResource("1_2cdtu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1.19209e-07)
 
 [node name="InteractionArea" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jbx52")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-1, 0)
-enabled = false
-zoom = Vector2(5, 5)
-position_smoothing_enabled = true
-position_smoothing_speed = 2.5
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

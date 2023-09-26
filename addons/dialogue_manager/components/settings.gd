@@ -8,12 +8,15 @@ const DialogueConstants = preload("res://addons/dialogue_manager/constants.gd")
 ### Editor config
 
 const DEFAULT_SETTINGS = {
-	"states" = [],
-	"missing_translations_are_errors" = false,
-	"wrap_lines" = false,
-	"new_with_template" = true,
-	"include_all_responses" = false,
-	"custom_test_scene_path" = "res://addons/dialogue_manager/test_scene.tscn"
+	states = [],
+	missing_translations_are_errors = false,
+	export_characters_in_translation = true,
+	wrap_lines = false,
+	new_with_template = true,
+	include_all_responses = false,
+	ignore_missing_state_values = false,
+	custom_test_scene_path = "res://addons/dialogue_manager/test_scene.tscn",
+	default_csv_locale = "en"
 }
 
 
@@ -22,6 +25,7 @@ static func prepare() -> void:
 	for key in [
 		"states",
 		"missing_translations_are_errors",
+		"export_characters_in_translation",
 		"wrap_lines",
 		"new_with_template",
 		"include_all_responses",
