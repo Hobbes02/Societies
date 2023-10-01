@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://coamdy8krcs0e"]
+[gd_scene load_steps=12 format=3 uid="uid://coamdy8krcs0e"]
 
 [ext_resource type="Texture2D" uid="uid://b06i8ku64lmwk" path="res://visuals/tiles/main_tileset.png" id="1_4exgu"]
 [ext_resource type="Script" path="res://world/world_area.gd" id="1_ra7vo"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://53g8ppalbsld" path="res://objects/npc/npc.tscn" id="3_8gv62"]
 [ext_resource type="Resource" uid="uid://dxqfvqus2g5e8" path="res://dialogue/test.dialogue" id="4_m8rn4"]
 [ext_resource type="Texture2D" uid="uid://dpex06nqoynck" path="res://visuals/objects/fire_barrel.png" id="5_d8n34"]
-[ext_resource type="PackedScene" uid="uid://pua42f1v4k65" path="res://objects/speech_bubble/speech_bubble.tscn" id="8_7li2b"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_het4r"]
 tile_data = PackedInt32Array(0, 786432, 0, 65536, 786432, 1)
@@ -430,6 +429,7 @@ script = ExtResource("1_ra7vo")
 
 [node name="Camera" type="Camera2D" parent="."]
 process_mode = 3
+position = Vector2(2976, 2008)
 position_smoothing_enabled = true
 position_smoothing_speed = 2.5
 
@@ -466,11 +466,5 @@ dialogue_resource = ExtResource("4_m8rn4")
 texture = ExtResource("5_d8n34")
 
 [node name="Player" parent="." instance=ExtResource("2_f3isx")]
-position = Vector2(2974, 2005)
+position = Vector2(2976, 2008)
 scale = Vector2(4, 4)
-
-[node name="SpeechBubble" parent="." instance=ExtResource("8_7li2b")]
-offset_left = 2045.0
-offset_top = 1860.0
-offset_right = 2045.0
-offset_bottom = 1860.0

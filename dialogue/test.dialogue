@@ -1,10 +1,20 @@
 ~ start
 
 Bob: Hey there!
+Bob: This is some multiline text right here that I'm using [shake rate=20]right now[/shake]
 Bob: Here are some choices:
 - Option 1
-	Bob: You chose option 1
+	Bob: You shure do don done done do that ya did sure did choose option 1
+	Bob: That was a good choice
 - Option 2
 	Bob: You chose option 2
+- Restart the conversation
+	=> start
+
+Bob: Here's something a bit longer, so that it takes up multiple lines.
+
+Player: That was pretty cool
+Player: Goodbye!
+
 
 => END!

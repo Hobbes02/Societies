@@ -61,6 +61,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		skip_typing()
 
 
+# Show all the text at once
+func show_all_text() -> void:
+	text = dialogue_line.text
+	visible_characters = -1
+
+
+# Hide all the text at once
+func hide_all_text() -> void:
+	visible_characters = 0
+
+
 # Start typing out the text
 func type_out() -> void:
 	text = dialogue_line.text
