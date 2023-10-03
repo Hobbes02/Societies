@@ -1,23 +1,34 @@
-[gd_scene load_steps=3 format=3 uid="uid://53g8ppalbsld"]
+[gd_scene load_steps=6 format=3 uid="uid://ct4y4tiykpvss"]
 
-[ext_resource type="Script" path="res://objects/npc/npc.gd" id="1_2cdtu"]
+[ext_resource type="Script" path="res://objects/npc/npc.gd" id="1_bblki"]
+[ext_resource type="Texture2D" uid="uid://cmyeghddy80q0" path="res://visuals/player/player.png" id="2_8vort"]
+[ext_resource type="PackedScene" uid="uid://dga3u0pbhej4u" path="res://objects/interactable/interactable.tscn" id="3_111kf"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jbx52"]
-radius = 22.2295
+[sub_resource type="CircleShape2D" id="CircleShape2D_x6byy"]
+radius = 27.0185
 
-[node name="NPC" type="Area2D" groups=["can_focus_camera"]]
-scale = Vector2(0.990706, 0.986726)
-collision_layer = 2
-script = ExtResource("1_2cdtu")
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wxktf"]
+radius = 3.0
+height = 15.0
+
+[node name="NPC" type="CharacterBody2D" groups=["can_focus_camera"]]
+process_mode = 3
+texture_filter = 1
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("1_bblki")
+
+[node name="Interactable" parent="." instance=ExtResource("3_111kf")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+shape = SubResource("CircleShape2D_x6byy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 1.19209e-07)
+texture = ExtResource("2_8vort")
 
-[node name="InteractionArea" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_jbx52")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("CapsuleShape2D_wxktf")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 128
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="ended" from="Interactable" to="." method="_on_interactable_ended"]
+[connection signal="focus_camera" from="Interactable" to="." method="_on_interactable_focus_camera"]

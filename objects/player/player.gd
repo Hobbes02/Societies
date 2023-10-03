@@ -107,8 +107,9 @@ func _on_land_detector_body_entered(body: Node2D) -> void:
 
 
 func _on_land_detector_body_exited(body: Node2D) -> void:
-	if not Input.is_action_pressed("jump"):
-		coyote_timer.start()
+	if velocity.y < 0:
+		return
+	coyote_timer.start()
 
 
 func _notification(what: int) -> void:

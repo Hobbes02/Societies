@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 
 DialogueGlobals="*res://dialogue/dialogue_globals.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+Utils="*res://global/utils.gd"
 
 [dialogic]
 
@@ -137,9 +138,10 @@ locale/translations_pot_files=PackedStringArray("res://dialogue/test.dialogue", 
 [layer_names]
 
 2d_physics/layer_1="Player"
-2d_physics/layer_2="NPCs"
+2d_physics/layer_2="Interaction"
 2d_physics/layer_3="Ground"
 2d_physics/layer_4="Props"
+2d_physics/layer_5="NPCs"
 
 [physics]
 

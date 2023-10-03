@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+signal center_node(node: Node2D)
 
 @onready var balloon: PanelContainer = $Balloon
 @onready var margin: MarginContainer = $Balloon/Margin
@@ -21,6 +22,9 @@ var is_waiting_for_input: bool = false
 
 ## See if we are running a long mutation and should hide the balloon
 var will_hide_balloon: bool = false
+
+## List of characters to center on the screen
+var characters: Dictionary
 
 ## The current line
 var dialogue_line: DialogueLine:
@@ -57,6 +61,10 @@ var dialogue_line: DialogueLine:
 				item.text = response.text
 				item.show()
 				responses_menu.add_child(item)
+
+		# Center character
+		if characters.has(dialogue_line.character):
+			center_node.emit(characters[dialogue_line.character])
 
 		# Show our balloon
 		balloon.show()
@@ -96,7 +104,8 @@ func _unhandled_input(_event: InputEvent) -> void:
 
 
 ## Start some dialogue
-func start(dialogue_resource: DialogueResource, title: String, extra_game_states: Array = []) -> void:
+func start(dialogue_resource: DialogueResource, title: String, character_nodes: Dictionary = {}, extra_game_states: Array = []) -> void:
+	characters = character_nodes
 	temporary_game_states = extra_game_states
 	is_waiting_for_input = false
 	resource = dialogue_resource
