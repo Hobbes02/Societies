@@ -53,6 +53,8 @@ enum INTERACTIONS {
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
 	if interaction_type == INTERACTIONS.DIALOGUE:
 		DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
 		await get_tree().create_timer(0.2).timeout
@@ -60,6 +62,8 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if Engine.is_editor_hint():
+		return
 	if event.is_action_pressed("interact") and can_interact:
 		if pauses_game and interaction_type != INTERACTIONS.CHANGE_SCENE:
 			get_tree().paused = true
@@ -89,6 +93,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_dialogue_ended(resource: DialogueResource) -> void:
+	if Engine.is_editor_hint():
+		return
 	if pauses_game:
 		get_tree().paused = false
 	ended.emit()
@@ -99,13 +105,19 @@ func _on_dialogue_ended(resource: DialogueResource) -> void:
 
 
 func _on_balloon_center_node(node: Node2D) -> void:
+	if Engine.is_editor_hint():
+		return
 	focus_camera.emit(node)
 
 
 func _on_body_entered(body: Node2D) -> void:
+	if Engine.is_editor_hint():
+		return
 	can_interact = true
 
 
 func _on_body_exited(body: Node2D) -> void:
+	if Engine.is_editor_hint():
+		return
 	can_interact = false
 
