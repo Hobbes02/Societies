@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ct4y4tiykpvss"]
+[gd_scene load_steps=7 format=3 uid="uid://ct4y4tiykpvss"]
 
 [ext_resource type="Script" path="res://objects/npc/npc.gd" id="1_bblki"]
 [ext_resource type="Texture2D" uid="uid://cmyeghddy80q0" path="res://visuals/player/player.png" id="2_8vort"]
@@ -6,6 +6,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x6byy"]
 radius = 27.0185
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uuylf"]
+size = Vector2(4, 2)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wxktf"]
 radius = 3.0
@@ -19,16 +22,65 @@ collision_mask = 4
 script = ExtResource("1_bblki")
 
 [node name="Interactable" parent="." instance=ExtResource("3_111kf")]
+visible = false
+title = ""
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
 shape = SubResource("CircleShape2D_x6byy")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_8vort")
+[node name="Rays" type="Node2D" parent="."]
+visible = false
+
+[node name="LeftJump" type="RayCast2D" parent="Rays"]
+position = Vector2(0, -16)
+target_position = Vector2(-10, 0)
+collision_mask = 4
+
+[node name="LeftFeet" type="RayCast2D" parent="Rays"]
+position = Vector2(0, 5)
+target_position = Vector2(-10, 0)
+collision_mask = 4
+
+[node name="LeftHead" type="RayCast2D" parent="Rays"]
+position = Vector2(0, -3)
+target_position = Vector2(-10, 0)
+collision_mask = 4
+
+[node name="RightJump" type="RayCast2D" parent="Rays"]
+position = Vector2(0, -16)
+target_position = Vector2(10, 0)
+collision_mask = 4
+
+[node name="RightFeet" type="RayCast2D" parent="Rays"]
+position = Vector2(0, 5)
+target_position = Vector2(10, 0)
+collision_mask = 4
+
+[node name="RightHead" type="RayCast2D" parent="Rays"]
+position = Vector2(0, -3)
+target_position = Vector2(10, 0)
+collision_mask = 4
+
+[node name="JumpDetector" type="RayCast2D" parent="Rays"]
+position = Vector2(0, -4)
+target_position = Vector2(0, -8)
+collision_mask = 4
+
+[node name="LandDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LandDetector"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_uuylf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_wxktf")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_8vort")
+
 [connection signal="ended" from="Interactable" to="." method="_on_interactable_ended"]
 [connection signal="focus_camera" from="Interactable" to="." method="_on_interactable_focus_camera"]
+[connection signal="body_entered" from="LandDetector" to="." method="_on_land_detector_body_entered"]

@@ -3,6 +3,7 @@ extends Node2D
 @onready var player: CharacterBody2D = $Player
 @onready var camera: Camera2D = $Camera
 @onready var camera_following_node: Node2D = player
+@onready var tilemap: TileMap = $TileMap
 
 
 func _ready() -> void:
@@ -28,3 +29,7 @@ func _on_unfocus_camera() -> void:
 func _process(delta: float) -> void:
 	camera.global_position = camera_following_node.global_position
 
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug"):
+		$NPCs/NPC.pathfind($Destinations/PathfindDestination)

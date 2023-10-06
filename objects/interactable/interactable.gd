@@ -31,9 +31,9 @@ enum INTERACTIONS {
 @export var character_names: Array[String] = []
 @export var character_nodes: Array[Node2D] = []
 
-@export var can_interact: bool = false
-@export var balloon: CanvasLayer
-@export var context: Dictionary
+var can_interact: bool = false
+var balloon: CanvasLayer
+var context: Dictionary
 
 # Animation
 @export_group("Animation")
