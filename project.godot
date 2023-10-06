@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 DialogueGlobals="*res://dialogue/dialogue_globals.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Utils="*res://global/utils.gd"
+Settings="*res://global/settings.gd"
 
 [dialogic]
 
