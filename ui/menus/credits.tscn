@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cby4opep4pisu"]
+[gd_scene load_steps=8 format=3 uid="uid://cby4opep4pisu"]
 
 [ext_resource type="Theme" uid="uid://busbw3eda0iob" path="res://ui/control.tres" id="1_npmuq"]
 [ext_resource type="LabelSettings" path="res://ui/title_label_settings.tres" id="2_grweq"]
 [ext_resource type="Script" path="res://ui/menus/credits.gd" id="2_usykb"]
+[ext_resource type="Theme" uid="uid://7qsrjda850wd" path="res://ui/small_buttons.tres" id="3_bgnyb"]
 [ext_resource type="LabelSettings" path="res://ui/subtitle_1_label_settings.tres" id="3_s6aiy"]
 [ext_resource type="LabelSettings" uid="uid://517dh3ia3hkl" path="res://ui/body_label_settings.tres" id="4_616sj"]
 
@@ -43,19 +44,6 @@ theme_override_constants/margin_bottom = 20
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="MenuButton" type="Button" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(10, 30)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.780392)
-text = "Menu"
-
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -68,9 +56,27 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/ScrollContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="CreditsTitle" type="Label" parent="MarginContainer/HBoxContainer/ScrollContainer/CenterContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/ScrollContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Credits"
+
+[node name="MenuButton" type="Button" parent="MarginContainer/HBoxContainer/ScrollContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(70, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("3_bgnyb")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.780392)
+text = "Menu"
+
+[node name="CreditsTitle" type="Label" parent="MarginContainer/HBoxContainer/ScrollContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Credits   "
 label_settings = ExtResource("2_grweq")
 horizontal_alignment = 1
 
@@ -311,4 +317,4 @@ layout_mode = 2
 theme_override_constants/separation = 10
 theme_override_styles/separator = SubResource("StyleBoxEmpty_arntj")
 
-[connection signal="pressed" from="MarginContainer/HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/ScrollContainer/CenterContainer/VBoxContainer/HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
