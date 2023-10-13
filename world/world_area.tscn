@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://coamdy8krcs0e"]
+[gd_scene load_steps=13 format=3 uid="uid://coamdy8krcs0e"]
 
 [ext_resource type="Texture2D" uid="uid://b06i8ku64lmwk" path="res://visuals/tiles/main_tileset.png" id="1_4exgu"]
 [ext_resource type="Script" path="res://world/world_area.gd" id="1_ra7vo"]
 [ext_resource type="PackedScene" uid="uid://7oe6ekia4jat" path="res://objects/player/player.tscn" id="2_f3isx"]
-[ext_resource type="PackedScene" uid="uid://n8ftmtxks4dy" path="res://objects/destination/pathfind_destination.tscn" id="3_l7yvp"]
 [ext_resource type="PackedScene" uid="uid://ct4y4tiykpvss" path="res://objects/npc/npc.tscn" id="3_mhu25"]
 [ext_resource type="Texture2D" uid="uid://dpex06nqoynck" path="res://visuals/objects/fire_barrel.png" id="4_s6hf6"]
 [ext_resource type="Resource" uid="uid://dxqfvqus2g5e8" path="res://dialogue/test.dialogue" id="5_a6c2c"]
@@ -403,13 +402,13 @@ script = ExtResource("1_ra7vo")
 
 [node name="Camera" type="Camera2D" parent="."]
 process_mode = 3
-position = Vector2(2976, 2008)
+position = Vector2(735, 496)
+zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 position_smoothing_speed = 2.5
 
 [node name="TileMap" type="TileMap" parent="."]
 process_mode = 3
-scale = Vector2(4, 4)
 tile_set = SubResource("TileSet_vxxvh")
 format = 2
 layer_0/name = "background"
@@ -437,21 +436,16 @@ layer_3/y_sort_origin = 0
 layer_3/z_index = 0
 layer_3/tile_data = PackedInt32Array()
 
-[node name="Destinations" type="Node2D" parent="."]
-
-[node name="PathfindDestination" parent="Destinations" instance=ExtResource("3_l7yvp")]
-position = Vector2(2484, 1829)
-
 [node name="NPCs" type="Node2D" parent="."]
 process_mode = 1
-scale = Vector2(4, 4)
 
 [node name="NPC" parent="NPCs" instance=ExtResource("3_mhu25")]
 position = Vector2(547, 480)
 texture = ExtResource("4_s6hf6")
 dialogue_resource = ExtResource("5_a6c2c")
+speed = 100.0
+jump_velocity = -900.0
 
 [node name="Player" parent="." instance=ExtResource("2_f3isx")]
 z_index = 16
-position = Vector2(2976, 2016)
-scale = Vector2(4, 4)
+position = Vector2(735, 504)
