@@ -20,7 +20,6 @@ signal unfocus_camera()
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var pathfind_destination: Destination
 var is_jumping: bool = false
 @onready var interactable: Interactable = $Interactable
 

@@ -32,4 +32,8 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug"):
-		pass
+		var astar = AStar2D.new()
+		var stats = PathfindEntityStats.new()
+		stats.height = 2
+		astar = $Pathfinder.generate_points(astar, tilemap, 1, stats)
+		$Pathfinder.connect_points(astar, tilemap, 1, stats)

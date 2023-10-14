@@ -603,6 +603,7 @@ one_shot = true
 [node name="CoyoteTime" type="Timer" parent="."]
 wait_time = 0.15
 one_shot = true
+autostart = true
 
 [connection signal="body_entered" from="LandDetector" to="." method="_on_land_detector_body_entered"]
 [connection signal="body_exited" from="LandDetector" to="." method="_on_land_detector_body_exited"]
