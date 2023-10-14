@@ -5,6 +5,8 @@ const DIRECTION_DOWN: int = 2
 const DIRECTION_LEFT: int = 3
 const DIRECTION_RIGHT: int = 4
 
+var show_graph: bool = false
+
 
 func generate_points(graph: AStar2D, tilemap: TileMap, layer: int, stats: PathfindEntityStats) -> AStar2D:
 	var cells: Array = tilemap.get_used_cells(layer)
@@ -25,12 +27,10 @@ func generate_points(graph: AStar2D, tilemap: TileMap, layer: int, stats: Pathfi
 				if res != null:
 					graph = add_point(Vector2i(res.x, res.y - 1), tilemap, graph)
 	
-	print("CREATED ", len(graph.get_point_ids()), " POINTS")
-	
 	return graph
 
 
-func connect_points(graph: AStar2D, tilemap: TileMap, layer: int, stats: PathfindEntityStats) -> void:
+func connect_points(graph: AStar2D, tilemap: TileMap, layer: int, stats: PathfindEntityStats) -> AStar2D:
 	var tilemap_cells: Array = tilemap.get_used_cells(layer)
 	var point_cells: Array = []
 	var cell_size: Vector2 = tilemap.tile_set.tile_size
@@ -66,6 +66,22 @@ func connect_points(graph: AStar2D, tilemap: TileMap, layer: int, stats: Pathfin
 			if res != null and res in point_cells:
 				graph.connect_points(id, graph.get_point_ids()[point_cells.find(res)], graph.get_point_position(id).distance_to(graph.get_point_position(graph.get_point_ids()[point_cells.find(res)])) <= (stats.jump_height * tilemap.tile_set.tile_size.y))
 				add_line(graph.get_point_position(id), graph.get_point_position(graph.get_point_ids()[point_cells.find(res)]))
+		
+		# Find jumpable neighbors
+		if type[0] == -1:
+			for y in range(stats.jump_height):
+				var res = virtual_tile_raycast([point_cells, tilemap_cells], Vector2i(point_cell.x, point_cell.y - y), stats.jump_distance - y, DIRECTION_LEFT, is_cell_valid, stats)
+				if res != null and res in point_cells:
+					graph.connect_points(id, graph.get_point_ids()[point_cells.find(res)])
+					add_line(graph.get_point_position(id), graph.get_point_position(graph.get_point_ids()[point_cells.find(res)]))
+		if type[1] == -1:
+			for y in range(stats.jump_height):
+				var res = virtual_tile_raycast([point_cells, tilemap_cells], Vector2i(point_cell.x, point_cell.y - y), stats.jump_distance - y, DIRECTION_RIGHT, is_cell_valid, stats)
+				if res != null and res in point_cells:
+					graph.connect_points(id, graph.get_point_ids()[point_cells.find(res)])
+					add_line(graph.get_point_position(id), graph.get_point_position(graph.get_point_ids()[point_cells.find(res)]))
+		
+	return graph
 
 
 func add_point(cell: Vector2i, map: TileMap, graph: AStar2D) -> AStar2D:
@@ -80,18 +96,22 @@ func add_point(cell: Vector2i, map: TileMap, graph: AStar2D) -> AStar2D:
 
 
 func add_visual(cell: Vector2i, map: TileMap) -> void:
+	if not show_graph:
+		return
 	var r = $Reference.duplicate()
 	r.global_position = map.to_global(map.map_to_local(cell))
 	add_child(r)
 
 
 func add_line(from: Vector2, to: Vector2) -> void:
+	if not show_graph:
+		return
 	var l = $Line2D.duplicate()
 	l.points = [from, to]
 	add_child(l)
 
 
-func virtual_tile_raycast(cell_arrays: Array[Array], start: Vector2i, distance: int, direction: int) -> Variant:
+func virtual_tile_raycast(cell_arrays: Array[Array], start: Vector2i, distance: int, direction: int, cell_check: Variant = null, stats: Variant = null) -> Variant:
 	for i in range(1, distance - 1):
 		var cell: Vector2i = start
 		match direction:
@@ -104,14 +124,30 @@ func virtual_tile_raycast(cell_arrays: Array[Array], start: Vector2i, distance: 
 			DIRECTION_RIGHT:
 				cell.x = start.x + i
 		
-		for cells in cell_arrays:
+		if cell_check != null:
+			if not cell_check.call(cell_arrays, cell, stats):
+				return null
+			else:
+				for cells in cell_arrays:
+					if cell in cells:
+						return cell
+		else:
+			for cells in cell_arrays:
 				if cell in cells:
 					return cell
 	
 	return null
 
 
-func get_cell_type(cells: Array[Vector2i], cell: Vector2i, stats: PathfindEntityStats) -> Variant:
+func is_cell_valid(cell_arrays: Array[Array], cell: Vector2i, stats: PathfindEntityStats) -> bool:
+	for cells in cell_arrays:
+		for i in range(1, stats.height + 1):
+			if Vector2i(cell.x, cell.y - i) in cells:
+				return false
+	return true
+
+
+func get_cell_type(cells: Array, cell: Vector2i, stats: PathfindEntityStats) -> Variant:
 	var res: Array = [0, 0]
 	
 	for i in range(1, stats.height + 1):

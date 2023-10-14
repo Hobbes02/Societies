@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://coamdy8krcs0e"]
+[gd_scene load_steps=13 format=3 uid="uid://coamdy8krcs0e"]
 
 [ext_resource type="Texture2D" uid="uid://b06i8ku64lmwk" path="res://visuals/tiles/main_tileset.png" id="1_4exgu"]
 [ext_resource type="Script" path="res://world/world_area.gd" id="1_ra7vo"]
@@ -6,8 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://ct4y4tiykpvss" path="res://objects/npc/npc.tscn" id="3_mhu25"]
 [ext_resource type="Texture2D" uid="uid://dpex06nqoynck" path="res://visuals/objects/fire_barrel.png" id="4_s6hf6"]
 [ext_resource type="Resource" uid="uid://dxqfvqus2g5e8" path="res://dialogue/test.dialogue" id="5_a6c2c"]
-[ext_resource type="Script" path="res://world/pathfinding/pathfinder.gd" id="7_3guox"]
-[ext_resource type="Texture2D" uid="uid://cqmkggx80gns4" path="res://visuals/interaction/bubble.png" id="8_58rc8"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_het4r"]
 tile_data = PackedInt32Array(0, 786432, 0, 65536, 786432, 1)
@@ -449,15 +447,3 @@ dialogue_resource = ExtResource("5_a6c2c")
 [node name="Player" parent="." instance=ExtResource("2_f3isx")]
 z_index = 16
 position = Vector2(735, 504)
-
-[node name="Pathfinder" type="Node2D" parent="."]
-script = ExtResource("7_3guox")
-
-[node name="Reference" type="Sprite2D" parent="Pathfinder"]
-position = Vector2(0, 7.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_58rc8")
-
-[node name="Line2D" type="Line2D" parent="Pathfinder"]
-width = 1.0
-default_color = Color(0.462745, 1, 0.247059, 1)
