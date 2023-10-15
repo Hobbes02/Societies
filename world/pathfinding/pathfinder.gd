@@ -6,6 +6,90 @@ const DIRECTION_LEFT: int = 3
 const DIRECTION_RIGHT: int = 4
 
 var show_graph: bool = false
+var show_path: bool = false
+
+var graphs: Array[Dictionary] = []
+
+
+func initialize(tilemap: TileMap, layer: int, stats: PathfindEntityStats) -> int:
+	clear_visuals()
+	var graph = AStar2D.new()
+	
+	graph = generate_points(graph, tilemap, layer, stats)
+	graph = connect_points(graph, tilemap, layer, stats)
+	
+	graphs.append({
+		"graph": graph, 
+		"tilemap": tilemap, 
+		"layer": layer, 
+		"stats": stats
+	})
+	
+	return len(graphs) - 1
+
+
+func find_path(graph_id: int, from: Vector2, to: Vector2) -> Array[PathfindTarget]:
+	if show_path:
+		clear_visuals()
+	
+	var graph: AStar2D = graphs[graph_id].graph
+	var tilemap: TileMap = graphs[graph_id].tilemap
+	var tilemap_layer: int = graphs[graph_id].layer
+	var tile_size: Vector2 = tilemap.tile_set.tile_size
+	var path: Array[PathfindTarget] = []
+	var from_id = graph.get_closest_point(from)
+	var to_id = graph.get_closest_point(to)
+	var id_path = graph.get_id_path(from_id, to_id)
+	
+	if len(id_path) < 1:
+		return []
+	
+	for i in range(len(id_path)):
+		var id = id_path[i]
+		
+		var pos: Vector2 = graph.get_point_position(id)
+		
+		var target = PathfindTarget.new()
+		target.movement_type = target.TYPE_WALK
+		target.position = pos
+		target.direction = -1 if from.x < pos.x else 1
+		if show_path:
+			add_low_level_visual(pos, Color8(0, 0, 128))
+		
+		if i != 0:
+			var prev_pos: Vector2 = graph.get_point_position(id_path[i - 1])
+			
+			target.direction = -1 if pos.x < prev_pos.x else 1
+			
+			var is_walkable = is_pos_in_tilemap(
+				Vector2(pos.x + tile_size.x if pos.x < prev_pos.x else pos.x - tile_size.x, pos.y + tile_size.y), 
+				tilemap, 
+				tilemap_layer
+			)
+			
+			if pos.y < prev_pos.y or (pos.y - prev_pos.y < 4 and not is_walkable) or (prev_pos.y < pos.y and not is_pos_in_tilemap(Vector2(pos.x + tile_size.x if pos.x < prev_pos.x else pos.x - tile_size.x, pos.y), tilemap, tilemap_layer)):
+				var jump = PathfindTarget.new()
+				jump.movement_type = jump.TYPE_JUMP
+				jump.direction = -1 if pos.x < prev_pos.x else 1
+				jump.position = pos
+				path.append(jump)
+				if show_path:
+					add_low_level_visual(pos, Color8(128, 0, 0))
+			elif pos.y > prev_pos.y:
+				var fall = PathfindTarget.new()
+				fall.movement_type = target.TYPE_WALK
+				fall.position = Vector2(pos.x, prev_pos.y)
+				fall.direction = -1 if pos.x < prev_pos.x else 1
+				path.append(fall)
+				if show_path:
+					add_low_level_visual(pos, Color8(0, 128, 0))
+			if show_path:
+				add_line(prev_pos, pos)
+		
+		path.append(target)
+	
+	
+	return path
 
 
 func generate_points(graph: AStar2D, tilemap: TileMap, layer: int, stats: PathfindEntityStats) -> AStar2D:
@@ -51,7 +135,8 @@ func connect_points(graph: AStar2D, tilemap: TileMap, layer: int, stats: Pathfin
 				break
 			if c in point_cells:
 				graph.connect_points(id, graph.get_point_ids()[point_cells.find(c)])
-				add_line(graph.get_point_position(id), graph.get_point_position(graph.get_point_ids()[point_cells.find(c)]))
+				if show_graph:
+					add_line(graph.get_point_position(id), graph.get_point_position(graph.get_point_ids()[point_cells.find(c)]))
 				break
 		
 		# Find drop-down neighbor(s)
@@ -60,12 +145,14 @@ func connect_points(graph: AStar2D, tilemap: TileMap, layer: int, stats: Pathfin
 			var res = virtual_tile_raycast([tilemap_cells, point_cells], Vector2i(point_cell.x - 1, point_cell.y), 64, DIRECTION_DOWN)
 			if res != null and res in point_cells:
 				graph.connect_points(id, graph.get_point_ids()[point_cells.find(res)], graph.get_point_position(id).distance_to(graph.get_point_position(graph.get_point_ids()[point_cells.find(res)])) <= (stats.jump_height * tilemap.tile_set.tile_size.y))
-				add_line(graph.get_point_position(id), graph.get_point_position(graph.get_point_ids()[point_cells.find(res)]))
+				if show_graph:
+					add_line(graph.get_point_position(id), graph.get_point_position(graph.get_point_ids()[point_cells.find(res)]))
 		if type[1] == -1:  # right drop-down
 			var res = virtual_tile_raycast([tilemap_cells, point_cells], Vector2i(point_cell.x + 1, point_cell.y), 64, DIRECTION_DOWN)
 			if res != null and res in point_cells:
 				graph.connect_points(id, graph.get_point_ids()[point_cells.find(res)], graph.get_point_position(id).distance_to(graph.get_point_position(graph.get_point_ids()[point_cells.find(res)])) <= (stats.jump_height * tilemap.tile_set.tile_size.y))
-				add_line(graph.get_point_position(id), graph.get_point_position(graph.get_point_ids()[point_cells.find(res)]))
+				if show_graph:
+					add_line(graph.get_point_position(id), graph.get_point_position(graph.get_point_ids()[point_cells.find(res)]))
 		
 		# Find jumpable neighbors
 		if type[0] == -1:
@@ -73,13 +160,15 @@ func connect_points(graph: AStar2D, tilemap: TileMap, layer: int, stats: Pathfin
 				var res = virtual_tile_raycast([point_cells, tilemap_cells], Vector2i(point_cell.x, point_cell.y - y), stats.jump_distance - y, DIRECTION_LEFT, is_cell_valid, stats)
 				if res != null and res in point_cells:
 					graph.connect_points(id, graph.get_point_ids()[point_cells.find(res)])
-					add_line(graph.get_point_position(id), graph.get_point_position(graph.get_point_ids()[point_cells.find(res)]))
+					if show_graph:
+						add_line(graph.get_point_position(id), graph.get_point_position(graph.get_point_ids()[point_cells.find(res)]))
 		if type[1] == -1:
 			for y in range(stats.jump_height):
 				var res = virtual_tile_raycast([point_cells, tilemap_cells], Vector2i(point_cell.x, point_cell.y - y), stats.jump_distance - y, DIRECTION_RIGHT, is_cell_valid, stats)
 				if res != null and res in point_cells:
 					graph.connect_points(id, graph.get_point_ids()[point_cells.find(res)])
-					add_line(graph.get_point_position(id), graph.get_point_position(graph.get_point_ids()[point_cells.find(res)]))
+					if show_graph:
+						add_line(graph.get_point_position(id), graph.get_point_position(graph.get_point_ids()[point_cells.find(res)]))
 		
 	return graph
 
@@ -101,14 +190,28 @@ func add_visual(cell: Vector2i, map: TileMap) -> void:
 	var r = $Reference.duplicate()
 	r.global_position = map.to_global(map.map_to_local(cell))
 	add_child(r)
+	r.show()
+
+
+func add_low_level_visual(pos: Vector2, color: Color) -> void:
+	var r: Sprite2D = $Reference.duplicate()
+	r.global_position = pos
+	r.modulate = color
+	add_child(r)
+	r.show()
 
 
 func add_line(from: Vector2, to: Vector2) -> void:
-	if not show_graph:
-		return
 	var l = $Line2D.duplicate()
 	l.points = [from, to]
 	add_child(l)
+	l.show()
+
+
+func clear_visuals() -> void:
+	for child in get_children():
+		if "@" in child.name:
+			child.queue_free()
 
 
 func virtual_tile_raycast(cell_arrays: Array[Array], start: Vector2i, distance: int, direction: int, cell_check: Variant = null, stats: Variant = null) -> Variant:
@@ -137,6 +240,12 @@ func virtual_tile_raycast(cell_arrays: Array[Array], start: Vector2i, distance: 
 					return cell
 	
 	return null
+
+
+func is_pos_in_tilemap(pos: Vector2, tilemap: TileMap, layer: int) -> bool:
+	var cell: Vector2i = tilemap.local_to_map(tilemap.to_local(pos))
+	
+	return cell in tilemap.get_used_cells(layer)
 
 
 func is_cell_valid(cell_arrays: Array[Array], cell: Vector2i, stats: PathfindEntityStats) -> bool:

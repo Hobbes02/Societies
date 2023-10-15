@@ -109,7 +109,8 @@ func _on_land_detector_body_entered(body: Node2D) -> void:
 func _on_land_detector_body_exited(body: Node2D) -> void:
 	if velocity.y < 0:
 		return
-	coyote_timer.start()
+	if coyote_timer:
+		coyote_timer.start()
 
 
 func _notification(what: int) -> void:

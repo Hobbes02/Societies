@@ -1,6 +1,7 @@
 extends Node2D
 
-@onready var astar: AStar2D = AStar2D.new()
+var id: int = -1
+
 @onready var player: CharacterBody2D = $Player
 @onready var camera: Camera2D = $Camera
 @onready var camera_following_node: Node2D = player
@@ -17,15 +18,8 @@ func _ready() -> void:
 	camera.global_position = camera_following_node.global_position
 	camera.position_smoothing_enabled = true
 	
-	var stats = PathfindEntityStats.new()
-	stats.height = 2
-	stats.jump_height = 4
-	stats.jump_distance = 8
-	
-	Pathfinder.show_graph = true
-	
-	astar = Pathfinder.generate_points(astar, tilemap, 1, stats)
-	astar = Pathfinder.connect_points(astar, tilemap, 1, stats)
+	#                                                              jump height   jump distance   height
+	id = Pathfinder.initialize(tilemap, 1, PathfindEntityStats.new(4,            8,              2))
 
 
 func _on_focus_camera(node: Node2D) -> void:
@@ -42,4 +36,7 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug"):
-		pass
+		if id != -1:
+			var path = Pathfinder.find_path(id, $NPCs/NPC.global_position, get_global_mouse_position())
+			print(path)
+			$NPCs/NPC.pathfind(path)

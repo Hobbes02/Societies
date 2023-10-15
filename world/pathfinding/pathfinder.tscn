@@ -9,11 +9,13 @@ texture_filter = 1
 script = ExtResource("1_yuj4y")
 
 [node name="Reference" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0.372549, 0.423529, 1, 1)
 position = Vector2(0, 7.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_fy3k5")
 
 [node name="Line2D" type="Line2D" parent="."]
+visible = false
 width = 1.0
 default_color = Color(0.247059, 0.894118, 1, 1)

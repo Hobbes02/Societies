@@ -18,7 +18,6 @@ collision_layer = 16
 collision_mask = 4
 script = ExtResource("1_bblki")
 speed = 100.0
-jump_velocity = -900.0
 
 [node name="Interactable" parent="." instance=ExtResource("3_111kf")]
 title = ""
@@ -33,5 +32,13 @@ shape = SubResource("CapsuleShape2D_wxktf")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_8vort")
 
+[node name="TileCenterMarker" type="Marker2D" parent="."]
+position = Vector2(0, 2)
+gizmo_extents = 1.0
+
+[node name="PhysicsStartTimer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="ended" from="Interactable" to="." method="_on_interactable_ended"]
 [connection signal="focus_camera" from="Interactable" to="." method="_on_interactable_focus_camera"]
+[connection signal="timeout" from="PhysicsStartTimer" to="." method="_on_physics_start_timer_timeout"]
