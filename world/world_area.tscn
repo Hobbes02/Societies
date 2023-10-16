@@ -436,13 +436,22 @@ layer_3/y_sort_origin = 0
 layer_3/z_index = 0
 layer_3/tile_data = PackedInt32Array()
 
+[node name="PathfindDestinations" type="Node2D" parent="."]
+
+[node name="TopHill" type="Marker2D" parent="PathfindDestinations"]
+position = Vector2(696, 444)
+gizmo_extents = 2.0
+
 [node name="NPCs" type="Node2D" parent="."]
 process_mode = 1
 
-[node name="NPC" parent="NPCs" instance=ExtResource("3_mhu25")]
+[node name="Bob" parent="NPCs" node_paths=PackedStringArray("character_nodes") instance=ExtResource("3_mhu25")]
 position = Vector2(556, 480)
+npc_name = "Bob"
 texture = ExtResource("4_s6hf6")
 dialogue_resource = ExtResource("5_a6c2c")
+character_names = Array[String](["Bob"])
+character_nodes = [NodePath(".")]
 
 [node name="Player" parent="." instance=ExtResource("2_f3isx")]
 z_index = 16

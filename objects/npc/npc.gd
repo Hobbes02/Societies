@@ -4,6 +4,8 @@ extends CharacterBody2D
 signal focus_camera(node: Node2D)
 signal unfocus_camera()
 
+@export var npc_name: String = "Bobert"
+
 @export var texture: Texture2D : 
 	set(new_val):
 		texture = new_val
@@ -15,7 +17,7 @@ signal unfocus_camera()
 @export var character_names: Array[String] = []
 @export var character_nodes: Array[Node2D] = []
 
-@export var speed: float = 15.0
+@export var speed: float = 50.0
 
 var jump_velocity: float = -225.0
 
@@ -54,7 +56,6 @@ func next_point() -> void:
 	
 	if current_point == len(path):
 		current_point = -1
-		print("DONE")
 		return
 
 
@@ -73,15 +74,14 @@ func _physics_process(delta: float) -> void:
 		
 		match path[current_point].movement_type:
 			PathfindTarget.TYPE_JUMP:
-				if not is_jumping:
-					print("JUMP!")
+				if not is_jumping and pos.y >= target_pos.y:
 					velocity.y = jump_velocity
 					is_jumping = true
-				if not (pos.x < target_pos.x + 3 and pos.x > target_pos.x - 3):
-					velocity.x = path[current_point].direction * speed
+				if not (pos.x < target_pos.x + 2 and pos.x > target_pos.x - 2):
+					velocity.x = speed if pos.x < target_pos.x else -speed
 				else:
 					velocity.x = 0
-				if pos.distance_to(target_pos) < 8:
+				if pos.distance_to(target_pos) < 4:
 					next_point()
 			PathfindTarget.TYPE_WALK:
 				velocity.x = speed if pos.x < target_pos.x else -speed

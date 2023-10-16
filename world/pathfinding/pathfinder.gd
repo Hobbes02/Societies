@@ -66,8 +66,9 @@ func find_path(graph_id: int, from: Vector2, to: Vector2) -> Array[PathfindTarge
 				tilemap, 
 				tilemap_layer
 			)
+			var distance = abs(pos.x - prev_pos.x)
 			
-			if pos.y < prev_pos.y or (pos.y - prev_pos.y < 4 and not is_walkable) or (prev_pos.y < pos.y and not is_pos_in_tilemap(Vector2(pos.x + tile_size.x if pos.x < prev_pos.x else pos.x - tile_size.x, pos.y), tilemap, tilemap_layer)):
+			if pos.y < prev_pos.y or (pos.y - prev_pos.y < 4 and not is_walkable) or (pos.y > prev_pos.y and distance > tile_size.x * 1.5):
 				var jump = PathfindTarget.new()
 				jump.movement_type = jump.TYPE_JUMP
 				jump.direction = -1 if pos.x < prev_pos.x else 1
@@ -87,7 +88,6 @@ func find_path(graph_id: int, from: Vector2, to: Vector2) -> Array[PathfindTarge
 				add_line(prev_pos, pos)
 		
 		path.append(target)
-	
 	
 	return path
 

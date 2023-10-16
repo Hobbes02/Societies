@@ -7,6 +7,9 @@ var id: int = -1
 @onready var camera_following_node: Node2D = player
 @onready var tilemap: TileMap = $TileMap
 
+@onready var pathfind_destinations: Node2D = $PathfindDestinations
+@onready var npcs: Node2D = $NPCs
+
 func _ready() -> void:
 	for node in get_tree().get_nodes_in_group("can_focus_camera"):
 		if node.has_signal("focus_camera"):
@@ -20,6 +23,26 @@ func _ready() -> void:
 	
 	#                                                              jump height   jump distance   height
 	id = Pathfinder.initialize(tilemap, 1, PathfindEntityStats.new(4,            8,              2))
+
+
+func npc_go(npc_name: String, destination: String) -> void:
+	var marker: Marker2D
+	var npc: CharacterBody2D
+	
+	for d in pathfind_destinations.get_children():
+		if d.name == destination:
+			marker = d
+			break
+	
+	for n in npcs.get_children():
+		if n.npc_name == npc_name:
+			npc = n
+			break
+	
+	if id != -1:
+		var path = Pathfinder.find_path(id, npc.global_position, marker.global_position)
+		if path:
+			npc.pathfind(path)
 
 
 func _on_focus_camera(node: Node2D) -> void:
@@ -36,7 +59,4 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug"):
-		if id != -1:
-			var path = Pathfinder.find_path(id, $NPCs/NPC.global_position, get_global_mouse_position())
-			print(path)
-			$NPCs/NPC.pathfind(path)
+		pass

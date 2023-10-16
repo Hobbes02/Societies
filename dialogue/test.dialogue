@@ -13,8 +13,13 @@ Bob: Here are some choices:
 
 Bob: Here's something a bit longer, so that it takes up multiple lines.
 
-Player: That was pretty cool
-Player: Goodbye!
+Bob: Do you want me to leave?
+- Yes
+	Bob: Ok, bye!
+	do npc_go("Bob", "TopHill")
+	Bob: I'm leaving now.
+- No
+	Bob: Sure, I'll stay right here.
 
 
 => END!
