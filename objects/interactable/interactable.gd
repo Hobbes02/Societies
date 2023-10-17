@@ -94,7 +94,8 @@ func _on_dialogue_ended(resource: DialogueResource) -> void:
 	balloon.queue_free()
 	balloon = null
 	await get_tree().create_timer(0.5).timeout
-	can_interact = true
+	if has_overlapping_bodies():
+		can_interact = true
 
 
 func _on_balloon_center_node(node: Node2D) -> void:
