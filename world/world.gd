@@ -10,6 +10,7 @@ var id: int = -1
 @onready var pathfind_destinations: Node2D = $PathfindDestinations
 @onready var npcs: Node2D = $NPCs
 
+
 func _ready() -> void:
 	for node in get_tree().get_nodes_in_group("can_focus_camera"):
 		if node.has_signal("focus_camera"):
@@ -21,8 +22,22 @@ func _ready() -> void:
 	camera.global_position = camera_following_node.global_position
 	camera.position_smoothing_enabled = true
 	
+	SceneManager.activate.connect(_on_scene_activated)
+	SceneManager.deactivate.connect(_on_scene_deactivated)
+	
 	#                                                              jump height   jump distance   height
 	id = Pathfinder.initialize(tilemap, 1, PathfindEntityStats.new(4,            8,              2))
+
+
+func _on_scene_activated(node: Node) -> void:
+	if node != self:
+		return
+	camera.enabled = true
+
+func _on_scene_deactivated(node: Node) -> void:
+	if node != self:
+		return
+	camera.enabled = false
 
 
 func npc_go(npc_name: String, destination: String) -> void:

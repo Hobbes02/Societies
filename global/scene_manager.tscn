@@ -1,0 +1,119 @@
+[gd_scene load_steps=11 format=3 uid="uid://c5unkr0d7wnol"]
+
+[ext_resource type="Script" path="res://global/scene_manager.gd" id="1_bpfy6"]
+[ext_resource type="FontFile" uid="uid://d02kd8c0tjq0q" path="res://visuals/fonts/thick_pixel.ttf" id="2_t3tm8"]
+[ext_resource type="Texture2D" uid="uid://cqmkggx80gns4" path="res://visuals/interaction/bubble.png" id="3_phd4y"]
+
+[sub_resource type="Animation" id="Animation_57arl"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/ColorRect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-1152, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_hsb6a"]
+resource_name = "slide_in"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/ColorRect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-1152, -0.25, 0, 0.2, 129.934, 0, -0.8, -0.824905, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="Animation" id="Animation_a1hd1"]
+resource_name = "slide_out"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/ColorRect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.3, 0.440704, -1152, -0.6, 1.14929, 0.2, 129.934),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yscu8"]
+_data = {
+"RESET": SubResource("Animation_57arl"),
+"slide_in": SubResource("Animation_hsb6a"),
+"slide_out": SubResource("Animation_a1hd1")
+}
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3psqd"]
+texture = ExtResource("3_phd4y")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+modulate_color = Color(0.270588, 0.34902, 0.45098, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g4f4j"]
+load_path = "res://.godot/imported/bubble.png-356f268647b494bf04e00f11470750d0.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_78cyc"]
+texture = SubResource("CompressedTexture2D_g4f4j")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+modulate_color = Color(1, 0.498039, 0.0666667, 1)
+
+[node name="SceneManager" type="Node"]
+process_mode = 3
+script = ExtResource("1_bpfy6")
+scenes_to_cache = Array[String](["res://world/world.tscn"])
+load_cached_scenes_on_start = true
+start_scene = "res://world/world.tscn"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yscu8")
+}
+
+[node name="Visuals" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Visuals"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1152.0
+offset_right = -1152.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Visuals/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Visuals/ColorRect/CenterContainer"]
+visible = false
+custom_minimum_size = Vector2(500, 64)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14902, 0.14902, 0.14902, 1)
+theme_override_fonts/font = ExtResource("2_t3tm8")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/background = SubResource("StyleBoxTexture_3psqd")
+theme_override_styles/fill = SubResource("StyleBoxTexture_78cyc")
+value = 25.24
+
+[node name="Scenes" type="Node" parent="."]

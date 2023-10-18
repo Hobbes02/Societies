@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Societies"
 config/tags=PackedStringArray("major_project")
+run/main_scene="res://global/blank.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 boot_splash/bg_color=Color(0.0784314, 0.0784314, 0.0784314, 1)
 boot_splash/show_image=false
@@ -23,6 +24,7 @@ DialogueGlobals="*res://dialogue/dialogue_globals.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Utils="*res://global/utils.gd"
 Pathfinder="*res://world/pathfinding/pathfinder.tscn"
+SceneManager="*res://global/scene_manager.tscn"
 
 [dialogic]
 
