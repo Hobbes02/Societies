@@ -1,12 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7xlyihcx6ub8"]
+[gd_scene load_steps=5 format=3 uid="uid://b7xlyihcx6ub8"]
 
 [ext_resource type="Theme" uid="uid://busbw3eda0iob" path="res://ui/control.tres" id="1_qj5c8"]
 [ext_resource type="Script" path="res://ui/menus/settings.gd" id="2_oxvq7"]
-[ext_resource type="Theme" uid="uid://b2kccvfeeesw" path="res://ui/medium_buttons.tres" id="3_8os8q"]
 [ext_resource type="LabelSettings" uid="uid://bubk1uj0khyc1" path="res://ui/subtitle_2_label_settings.tres" id="3_prwmt"]
-[ext_resource type="Theme" uid="uid://7qsrjda850wd" path="res://ui/small_buttons.tres" id="4_mwgpd"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tbwib"]
+[ext_resource type="PackedScene" uid="uid://qcw4qnau8qtr" path="res://ui/elements/keybind_changer.tscn" id="4_5jcdi"]
 
 [node name="Settings" type="Control"]
 texture_filter = 1
@@ -65,56 +62,12 @@ layout_mode = 2
 [node name="Label" type="Label" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Primary Keybind"
+text = "Keybind"
 label_settings = ExtResource("3_prwmt")
 
-[node name="Label2" type="Label" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="KeybindChanger" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("4_5jcdi")]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Secondary Keybind"
-label_settings = ExtResource("3_prwmt")
-
-[node name="WalkLeft" type="HBoxContainer" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/WalkLeft"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="KeyName" type="Label" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/WalkLeft/HBoxContainer"]
-layout_mode = 2
-text = "Walk Left : "
-
-[node name="WalkLeftChangeP" type="Button" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/WalkLeft/HBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-theme = ExtResource("4_mwgpd")
-text = "A"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/WalkLeft"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="KeyName" type="Label" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/WalkLeft/HBoxContainer2"]
-layout_mode = 2
-text = "Walk Left : "
-
-[node name="BoundKey" type="Label" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/WalkLeft/HBoxContainer2"]
-layout_mode = 2
-text = "<-"
-label_settings = ExtResource("3_prwmt")
-
-[node name="HSeparator2" type="HSeparator" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/WalkLeft/HBoxContainer2"]
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_tbwib")
-
-[node name="WalkLeftChangeSecondary" type="Button" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/WalkLeft/HBoxContainer2"]
-custom_minimum_size = Vector2(200, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-theme = ExtResource("3_8os8q")
-text = "Change"
+action = "walk_left"
 
 [node name="Sound" type="Control" parent="TabContainer"]
 visible = false
@@ -124,4 +77,4 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[connection signal="pressed" from="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/WalkLeft/HBoxContainer/WalkLeftChangeP" to="." method="_on_walk_left_change_primary_pressed"]
+[connection signal="key_changed" from="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/KeybindChanger" to="." method="_on_keybind_changer_key_changed"]

@@ -1,12 +1,11 @@
 extends Control
 
 @onready var tabs: TabContainer = $TabContainer
-@onready var keybind_popup: Window = $TabContainer/Keybinds/ChangeKeybind
 
 
 func _ready() -> void:
 	tabs.current_tab = Settings.tab
 
 
-func _process(delta: float) -> void:
-	pass
+func _on_keybind_changer_key_changed(action, event) -> void:
+	Settings.keybinds[action] = event
