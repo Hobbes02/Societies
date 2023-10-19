@@ -30,7 +30,10 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-#	Falling
+	if SceneManager.is_paused(self):
+		return
+	
+#	Fallings
 	if not is_on_floor():
 		velocity.y += gravity * delta
 

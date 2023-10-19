@@ -4,6 +4,7 @@ signal _background_load_finished()
 
 signal deactivate(node: Node)
 signal activate(node: Node)
+signal scenes_ready()
 
 @export var scenes_to_cache: Array[String]
 @export var load_cached_scenes_on_start: bool = false
@@ -20,6 +21,9 @@ var currently_loading_scene: String = ""
 var loaded_scene
 
 var active_scene: String = ""
+var active_scene_node: Node
+
+var are_scenes_ready: bool = false
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var progress_bar: ProgressBar = $Visuals/ColorRect/CenterContainer/ProgressBar
@@ -31,16 +35,21 @@ func _ready() -> void:
 	if str(get_tree().current_scene.get_path()) != "/root/blank":
 		return
 	
+	scenes_ready.connect(
+		func():
+			are_scenes_ready = true
+	)
+	
 	$Visuals/ColorRect.global_position.x = 0
 	
 	if load_cached_scenes_on_start:
 		for scene in scenes_to_cache:
 			await _load_scene(scene)
 	
-	await change_scene(start_scene, false)
+	await change_scene(start_scene, false, true, scenes_ready)
 
 
-func change_scene(filename: String, slide_in: bool = true, slide_out: bool = true) -> void:
+func change_scene(filename: String, slide_in: bool = true, slide_out: bool = true, emit_after_loading: Variant = null) -> void:
 	visuals.show()
 	if len(scenes_loaded) > 0 and slide_in:
 		animation_player.play("slide_in")
@@ -54,10 +63,19 @@ func change_scene(filename: String, slide_in: bool = true, slide_out: bool = tru
 	else:
 		_activate_scene(filename)
 	
+	if typeof(emit_after_loading) == TYPE_SIGNAL:
+		emit_after_loading.emit()
+	
 	progress_bar.hide()
 	if slide_out:
 		animation_player.play("slide_out")
 		await animation_player.animation_finished
+
+
+func is_paused(node: Node) -> bool:
+	if are_scenes_ready:
+		return node.owner != active_scene_node
+	return true
 
 
 func _activate_scene(path: String) -> void:
@@ -70,6 +88,7 @@ func _activate_scene(path: String) -> void:
 		_deactivate_scene(str(other_scene))
 	
 	active_scene = path
+	active_scene_node = get_node(path)
 	activate.emit(get_node(path))
 	get_node(path).show()
 
@@ -80,6 +99,8 @@ func _deactivate_scene(path: String) -> void:
 	deactivate.emit(get_node(path))
 	if active_scene == path:
 		active_scene = ""
+	if active_scene_node == get_node(path):
+		active_scene_node = null
 	if path in scenes_loaded.keys() and scenes_loaded[path] not in scenes_to_cache:
 		get_node(path).queue_free()
 	else:
