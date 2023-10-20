@@ -1,8 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://coamdy8krcs0e"]
+[gd_scene load_steps=19 format=3 uid="uid://coamdy8krcs0e"]
 
 [ext_resource type="Texture2D" uid="uid://b06i8ku64lmwk" path="res://visuals/tiles/main_tileset.png" id="1_4exgu"]
 [ext_resource type="Script" path="res://world/world.gd" id="1_ra7vo"]
 [ext_resource type="PackedScene" uid="uid://7oe6ekia4jat" path="res://objects/player/player.tscn" id="2_f3isx"]
+[ext_resource type="PackedScene" uid="uid://ct4y4tiykpvss" path="res://objects/npc/npc.tscn" id="3_swd6u"]
+[ext_resource type="Texture2D" uid="uid://dpex06nqoynck" path="res://visuals/objects/fire_barrel.png" id="4_hq0lg"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_het4r"]
 tile_data = PackedInt32Array(0, 786432, 0, 65536, 786432, 1)
@@ -420,6 +422,10 @@ layer_2/tile_data = PackedInt32Array(4259915, 131073, 0, 4325451, 131073, 0, 439
 
 [node name="NPCs" type="Node2D" parent="."]
 process_mode = 1
+
+[node name="NPC" parent="NPCs" instance=ExtResource("3_swd6u")]
+position = Vector2(562, 480)
+texture = ExtResource("4_hq0lg")
 
 [node name="Player" parent="." instance=ExtResource("2_f3isx")]
 z_index = 16

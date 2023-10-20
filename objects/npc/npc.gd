@@ -60,7 +60,7 @@ func next_point() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if Engine.is_editor_hint():
+	if Engine.is_editor_hint() or SceneManager.is_paused(self):
 		return
 	
 	if not is_on_floor():
