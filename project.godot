@@ -25,6 +25,7 @@ DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Utils="*res://global/utils.gd"
 Pathfinder="*res://world/pathfinding/pathfinder.tscn"
 SceneManager="*res://global/scene_manager.tscn"
+Tasks="*res://tasks.gd"
 
 [dialogic]
 
@@ -56,7 +57,7 @@ save/autosave=false
 
 [dialogue_manager]
 
-general/states=["DialogueGlobals"]
+general/states=["DialogueGlobals", "Tasks"]
 general/custom_test_scene_path="res://objects/dialogue_balloon/test_dialogue_runner.tscn"
 
 [display]

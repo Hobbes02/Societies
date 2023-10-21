@@ -1,25 +1,18 @@
 ~ start
 
-Bob: Hey there!
-Bob: This is some multiline text right here that I'm using [shake rate=20]right now[/shake]
-Bob: Here are some choices:
-- Option 1
-	Bob: You shure do don done done do that ya did sure did choose option 1
-	Bob: That was a good choice
-- Option 2
-	Bob: You chose option 2
-- Restart the conversation
-	=> start
-
-Bob: Here's something a bit longer, so that it takes up multiple lines.
-
-Bob: Do you want me to leave?
-- Yes
-	Bob: Ok, bye!
-	do npc_go("Bob", "TopHill")
-	Bob: I'm leaving now.
-- No
-	Bob: Sure, I'll stay right here.
+if not has_completed_task("help_bob") and not is_doing_task("help_bob")
+	Bob: Can you help me?
+	- Yes
+		Bob: Thank you!
+		do assign_task("help_bob")
+	- No
+		Bob: That's not very nice!
+		Bob: I'm making you anyways.
+		do assign_task("help_bob")
+elif has_completed_task("help_bob")
+	Bob: Thank you!
+elif is_doing_task("help_bob")
+	Bob: Thanks for helping, but you're not done yet.
 
 
 => END!

@@ -72,9 +72,21 @@ func change_scene(filename: String, slide_in: bool = true, slide_out: bool = tru
 		await animation_player.animation_finished
 
 
-func is_paused(node: Node) -> bool:
+func is_paused(node: Node, recursive_checks: int = 0) -> bool:
 	if are_scenes_ready:
-		return node.owner != active_scene_node
+		if node.owner == active_scene_node:
+			return false
+		else:
+			for i in range(recursive_checks):
+				var n: Node = node.get_parent()
+				for j in range(i):
+					n = n.get_parent()
+					if n == null:
+						break
+				if n == null:
+					break
+				if n == active_scene_node:
+					return false
 	return true
 
 

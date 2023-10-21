@@ -1,10 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://coamdy8krcs0e"]
+[gd_scene load_steps=22 format=3 uid="uid://coamdy8krcs0e"]
 
 [ext_resource type="Texture2D" uid="uid://b06i8ku64lmwk" path="res://visuals/tiles/main_tileset.png" id="1_4exgu"]
 [ext_resource type="Script" path="res://world/world.gd" id="1_ra7vo"]
 [ext_resource type="PackedScene" uid="uid://7oe6ekia4jat" path="res://objects/player/player.tscn" id="2_f3isx"]
+[ext_resource type="PackedScene" uid="uid://dga3u0pbhej4u" path="res://objects/interactable/interactable.tscn" id="3_hpsle"]
 [ext_resource type="PackedScene" uid="uid://ct4y4tiykpvss" path="res://objects/npc/npc.tscn" id="3_swd6u"]
 [ext_resource type="Texture2D" uid="uid://dpex06nqoynck" path="res://visuals/objects/fire_barrel.png" id="4_hq0lg"]
+[ext_resource type="Resource" uid="uid://dxqfvqus2g5e8" path="res://dialogue/test.dialogue" id="6_37u0y"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_het4r"]
 tile_data = PackedInt32Array(0, 786432, 0, 65536, 786432, 1)
@@ -379,6 +381,9 @@ sources/2 = SubResource("TileSetAtlasSource_8oxjt")
 pattern_0 = SubResource("TileMapPattern_het4r")
 pattern_1 = SubResource("TileMapPattern_rhd3b")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_yayno"]
+radius = 28.0179
+
 [node name="World" type="Node2D"]
 process_mode = 3
 texture_filter = 1
@@ -420,12 +425,26 @@ layer_2/tile_data = PackedInt32Array(4259915, 131073, 0, 4325451, 131073, 0, 439
 
 [node name="PathfindDestinations" type="Node2D" parent="."]
 
+[node name="Interactable" parent="." instance=ExtResource("3_hpsle")]
+position = Vector2(830, 487)
+interaction_type = 4
+task_name = "help_bob"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+shape = SubResource("CircleShape2D_yayno")
+debug_color = Color(0, 0.415686, 1, 0)
+
 [node name="NPCs" type="Node2D" parent="."]
 process_mode = 1
 
-[node name="NPC" parent="NPCs" instance=ExtResource("3_swd6u")]
+[node name="NPC" parent="NPCs" node_paths=PackedStringArray("character_nodes") instance=ExtResource("3_swd6u")]
 position = Vector2(562, 480)
+npc_name = "Bob"
 texture = ExtResource("4_hq0lg")
+dialogue_resource = ExtResource("6_37u0y")
+character_names = Array[String](["Bob"])
+character_nodes = [NodePath(".")]
 
 [node name="Player" parent="." instance=ExtResource("2_f3isx")]
 z_index = 16
