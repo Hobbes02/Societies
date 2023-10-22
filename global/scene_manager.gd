@@ -167,3 +167,11 @@ func _process(delta: float) -> void:
 		ResourceLoader.THREAD_LOAD_FAILED:
 			progress_bar.hide()
 			set_process(false)
+
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_APPLICATION_FOCUS_OUT:
+			Engine.max_fps = 8
+		NOTIFICATION_APPLICATION_FOCUS_IN:
+			Engine.max_fps = 0
