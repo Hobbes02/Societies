@@ -2,9 +2,11 @@ extends Node2D
 
 var id: int = -1
 
+var focus_after_unpause: Node2D
+
 @onready var player: CharacterBody2D = $Player
 @onready var camera: Camera2D = $Camera
-@onready var camera_following_node: Node2D = player
+@onready var camera_following_node: Variant = player
 @onready var tilemap: TileMap = $TileMap
 
 @onready var pathfind_destinations: Node2D = $PathfindDestinations
@@ -24,15 +26,22 @@ func _ready() -> void:
 	
 	SceneManager.activate.connect(_on_scene_activated)
 	SceneManager.deactivate.connect(_on_scene_deactivated)
+	SceneManager.unpaused.connect(_on_unpaused)
 	
 	#                                                              jump height   jump distance   height
 	id = Pathfinder.initialize(tilemap, 1, PathfindEntityStats.new(4,            8,              2))
+
+
+func _on_unpaused(layer: String) -> void:
+	if layer == "game" and focus_after_unpause != null:
+		_on_focus_camera(focus_after_unpause)
 
 
 func _on_scene_activated(node: Node) -> void:
 	if node != self:
 		return
 	camera.enabled = true
+
 
 func _on_scene_deactivated(node: Node) -> void:
 	if node != self:
@@ -61,15 +70,23 @@ func npc_go(npc_name: String, destination: String) -> void:
 
 
 func _on_focus_camera(node: Node2D) -> void:
+	if SceneManager.is_paused("game"):
+		focus_after_unpause = node
+		return
+	
 	camera_following_node = node
 
 
 func _on_unfocus_camera() -> void:
+	if SceneManager.is_paused("game"):
+		focus_after_unpause = player
+		return
 	camera_following_node = player
 
 
 func _process(delta: float) -> void:
-	camera.global_position = camera_following_node.global_position
+	if camera_following_node != null:
+		camera.global_position = camera_following_node.global_position
 
 
 func _input(event: InputEvent) -> void:

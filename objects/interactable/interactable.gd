@@ -5,8 +5,6 @@ signal interacted()
 signal focus_camera(node: Node2D)
 signal ended()
 
-const DialogueBalloon = preload("res://objects/dialogue_balloon/balloon.tscn")
-
 enum INTERACTIONS {
 	DIALOGUE = 0, 
 	ANIMATION = 1, 
@@ -42,7 +40,6 @@ enum INTERACTIONS {
 @export var character_nodes: Array[Node2D] = []
 
 var can_interact: bool = false
-var balloon: CanvasLayer
 var context: Dictionary
 
 # Animation
@@ -82,6 +79,9 @@ var context: Dictionary
 @export_enum("Complete:0", "Assign:1", "Remove:2") var modify_type: int = 0
 
 
+@onready var balloon: CanvasLayer = $Balloon
+
+
 func _ready() -> void:
 	if interaction_type == INTERACTIONS.DIALOGUE:
 		DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
@@ -90,17 +90,12 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact") and can_interact and not SceneManager.is_paused(self, 3):
-		if pauses_game and interaction_type != INTERACTIONS.CHANGE_SCENE:
-			get_tree().paused = true
+	if event.is_action_pressed("interact") and can_interact and not SceneManager.is_paused("interaction", ["game"]):
 		match interaction_type:
 			INTERACTIONS.DIALOGUE:
 				can_interact = false
 				DialogueGlobals.context = context
 				context.times_interacted += 1
-				balloon = DialogueBalloon.instantiate()
-				add_child(balloon)
-				balloon.center_node.connect(_on_balloon_center_node)
 				balloon.start(dialogue_file, title, Utils.assemble_linked_lists(character_names, character_nodes))
 			INTERACTIONS.ANIMATION:
 				if animation_player.has_animation(animation):
@@ -124,14 +119,14 @@ func _input(event: InputEvent) -> void:
 						Tasks.assign_task(task_name)
 					2:  # Remove
 						Tasks.remove_task(task_name)
+		if pauses_game and interaction_type != INTERACTIONS.CHANGE_SCENE:
+			SceneManager.pause("player", true)
 
 
 func _on_dialogue_ended(resource: DialogueResource) -> void:
 	if pauses_game:
-		get_tree().paused = false
+		SceneManager.pause("player", false)
 	ended.emit()
-	balloon.queue_free()
-	balloon = null
 	await get_tree().create_timer(0.5).timeout
 	if has_overlapping_bodies():
 		can_interact = true

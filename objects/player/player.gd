@@ -27,15 +27,23 @@ var current_move_state: MoveStates = MoveStates.Walk
 
 func _ready() -> void:
 	anim_player.play("RESET")
+	SceneManager.paused.connect(_on_pause)
+
+
+func _on_pause(layer: String) -> void:
+	if layer in ["player", "game", "all"]:
+		anim_player.play("idle")
+		velocity.x = 0
 
 
 func _physics_process(delta: float) -> void:
-	if SceneManager.is_paused(self):
-		return
-	
 #	Falling
 	if not is_on_floor():
 		velocity.y += gravity * delta
+
+	if SceneManager.is_paused("player", ["game"]):
+		move_and_slide()
+		return
 
 #	Jumping
 	if Input.is_action_just_pressed("jump") and not headspace_detector.is_colliding() and not jump_detector.is_colliding():

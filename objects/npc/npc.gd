@@ -60,15 +60,14 @@ func next_point() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if Engine.is_editor_hint() or SceneManager.is_paused(self):
+	if Engine.is_editor_hint() or SceneManager.is_paused("entities", ["game"]):
 		return
 	
-	if not is_on_floor():
-		velocity.y += gravity * delta
-	if is_on_floor() and is_jumping:
-		is_jumping = false
-	
 	if current_point != -1:
+		if not is_on_floor():
+			velocity.y += gravity * delta
+		if is_on_floor() and is_jumping:
+			is_jumping = false
 		var pos = tile_center_marker.global_position
 		var target_pos = path[current_point].position
 		

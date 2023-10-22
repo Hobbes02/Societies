@@ -32,7 +32,7 @@ var dialogue_line: DialogueLine:
 		is_waiting_for_input = false
 
 		if not next_dialogue_line:
-			queue_free()
+			hide()
 			return
 
 		# Remove any previous responses
@@ -105,6 +105,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 
 ## Start some dialogue
 func start(dialogue_resource: DialogueResource, title: String, character_nodes: Dictionary = {}, extra_game_states: Array = []) -> void:
+	show()
 	characters = character_nodes
 	temporary_game_states = extra_game_states
 	is_waiting_for_input = false

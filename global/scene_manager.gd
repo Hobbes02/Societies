@@ -5,10 +5,17 @@ signal _background_load_finished()
 signal deactivate(node: Node)
 signal activate(node: Node)
 signal scenes_ready()
+signal paused(layer: String)
+signal unpaused(layer: String)
 
 @export var scenes_to_cache: Array[String]
 @export var load_cached_scenes_on_start: bool = false
 @export_file("*.tscn") var start_scene: String = ""
+@export var pause_layers: Dictionary = {
+	"entities": false, 
+	"interaction": false, 
+	"all": false
+}
 
 var scenes_loaded: Dictionary = {}  # keys are scene paths, values are filesystem paths
 
@@ -59,6 +66,7 @@ func change_scene(filename: String, slide_in: bool = true, slide_out: bool = tru
 	progress_bar.show()
 	
 	if filename not in scenes_loaded.values():
+		pause_layers[filename] = false
 		await _load_scene(filename)
 	else:
 		_activate_scene(filename)
@@ -72,22 +80,26 @@ func change_scene(filename: String, slide_in: bool = true, slide_out: bool = tru
 		await animation_player.animation_finished
 
 
-func is_paused(node: Node, recursive_checks: int = 0) -> bool:
-	if are_scenes_ready:
-		if node.owner == active_scene_node:
-			return false
-		else:
-			for i in range(recursive_checks):
-				var n: Node = node.get_parent()
-				for j in range(i):
-					n = n.get_parent()
-					if n == null:
-						break
-				if n == null:
-					break
-				if n == active_scene_node:
-					return false
-	return true
+func is_paused(layer: String, others: Array = []) -> bool:
+	if others != []:
+		for l in others:
+			if pause_layers.has(l) and pause_layers[l]:
+				return true
+	return (pause_layers.has(layer) and pause_layers[layer]) or pause_layers["all"]
+
+
+func pause(layer: String, is_paused: bool) -> void:
+	if pause_layers.has(layer):
+		pause_layers[layer] = is_paused
+	
+	if is_paused:
+		paused.emit(layer)
+	else:
+		unpaused.emit(layer)
+
+
+func add_pause_layer(layer_name: String, default: bool = false) -> void:
+	pause_layers[layer_name] = default
 
 
 func _activate_scene(path: String) -> void:
