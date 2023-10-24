@@ -1,10 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7xlyihcx6ub8"]
+[gd_scene load_steps=3 format=3 uid="uid://b7xlyihcx6ub8"]
 
 [ext_resource type="Theme" uid="uid://busbw3eda0iob" path="res://ui/control.tres" id="1_qj5c8"]
 [ext_resource type="Script" path="res://ui/menus/settings.gd" id="2_oxvq7"]
-[ext_resource type="LabelSettings" uid="uid://bubk1uj0khyc1" path="res://ui/subtitle_2_label_settings.tres" id="3_prwmt"]
-[ext_resource type="PackedScene" uid="uid://qcw4qnau8qtr" path="res://ui/elements/keybind_changer.tscn" id="4_5jcdi"]
-[ext_resource type="Script" path="res://global/settings.gd" id="5_fa7uq"]
 
 [node name="Settings" type="Control"]
 texture_filter = 1
@@ -37,76 +34,6 @@ grow_vertical = 2
 [node name="Keybinds" type="Control" parent="TabContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Keybinds"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Keybinds/MarginContainer"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Keybind" type="Label" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(310, 0)
-layout_mode = 2
-text = "Keybind"
-label_settings = ExtResource("3_prwmt")
-
-[node name="Key" type="Label" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Key"
-label_settings = ExtResource("3_prwmt")
-
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_right = 600
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="KeybindChanger" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_5jcdi")]
-layout_mode = 2
-action = "walk_left"
-
-[node name="KeybindChanger2" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_5jcdi")]
-layout_mode = 2
-action = "walk_right"
-
-[node name="KeybindChanger3" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_5jcdi")]
-layout_mode = 2
-action = "jump"
-
-[node name="KeybindChanger4" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_5jcdi")]
-layout_mode = 2
-action = "crawl"
-
-[node name="KeybindChanger5" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_5jcdi")]
-layout_mode = 2
-action = "sprint"
-
-[node name="KeybindChanger6" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_5jcdi")]
-layout_mode = 2
-action = "continue_dialogue"
-
-[node name="KeybindChanger7" parent="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_5jcdi")]
-layout_mode = 2
-action = "interact"
-
 [node name="Sound" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
@@ -114,18 +41,3 @@ layout_mode = 2
 [node name="Accessibility" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
-
-[node name="Back to Main Menu" type="Control" parent="TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="SettingsGD(Signals)" type="Node" parent="."]
-script = ExtResource("5_fa7uq")
-
-[connection signal="key_changed" from="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/KeybindChanger" to="SettingsGD(Signals)" method="_on_keybind_changer_key_changed"]
-[connection signal="key_changed" from="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/KeybindChanger2" to="SettingsGD(Signals)" method="_on_keybind_changer_key_changed"]
-[connection signal="key_changed" from="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/KeybindChanger3" to="SettingsGD(Signals)" method="_on_keybind_changer_key_changed"]
-[connection signal="key_changed" from="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/KeybindChanger4" to="SettingsGD(Signals)" method="_on_keybind_changer_key_changed"]
-[connection signal="key_changed" from="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/KeybindChanger5" to="SettingsGD(Signals)" method="_on_keybind_changer_key_changed"]
-[connection signal="key_changed" from="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/KeybindChanger6" to="SettingsGD(Signals)" method="_on_keybind_changer_key_changed"]
-[connection signal="key_changed" from="TabContainer/Keybinds/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/KeybindChanger7" to="SettingsGD(Signals)" method="_on_keybind_changer_key_changed"]
