@@ -20,7 +20,7 @@ func _on_change_key_pressed() -> void:
 	chng_key_bttn.set_process_unhandled_input(true)
 
 
-func _on_key_pressed(keycode: int, event: String) -> void:
+func _on_key_pressed(keycode: int, event: InputEvent) -> void:
 	chng_key_bttn.set_process_unhandled_input(false)
 	chng_key_bttn.set_pressed_no_signal(false)
 	emit_signal("key_changed", action, event)
