@@ -10,10 +10,12 @@ func _on_credits_button_pressed() -> void:
 
 
 func _on_settings_button_pressed() -> void:
+	SceneManager.set_persistent_information("settings_tab", 0)
 	SceneManager.change_scene("res://ui/menus/settings.tscn")
 
 
 func _on_accessibility_settings_button_pressed() -> void:
+	SceneManager.set_persistent_information("settings_tab", 2)
 	SceneManager.change_scene("res://ui/menus/settings.tscn")
 
 

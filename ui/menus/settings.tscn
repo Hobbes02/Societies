@@ -114,14 +114,14 @@ layout_mode = 2
 
 [node name="BackButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 932.0
+offset_left = 1072.0
 offset_top = 3.0
 offset_right = 1150.0
-offset_bottom = 43.0
+offset_bottom = 33.0
 theme_override_colors/font_color = Color(0.984314, 0.960784, 0.952941, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.188235, 0.192157, 1)
 theme_override_colors/font_hover_color = Color(1, 0.498039, 0.0666667, 1)
-text = "Back to Main Menu"
+text = "Back"
 flat = true
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

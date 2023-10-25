@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy2yaj2225spb"]
+
+[ext_resource type="Script" path="res://ui/hud/hud.gd" id="1_583iq"]
+[ext_resource type="Theme" uid="uid://busbw3eda0iob" path="res://ui/control.tres" id="2_fp4cq"]
+[ext_resource type="Shader" path="res://visuals/shaders/blur.gdshader" id="2_n8pft"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltfcm"]
+shader = ExtResource("2_n8pft")
+shader_parameter/blur_amount = 2.0
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_583iq")
+
+[node name="Control" type="Control" parent="."]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_fp4cq")
+
+[node name="Blur" type="ColorRect" parent="Control"]
+visible = false
+texture_filter = 2
+material = SubResource("ShaderMaterial_ltfcm")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PauseMenu" type="CenterContainer" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PauseMenu"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ResumeButton" type="Button" parent="Control/PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(300, 36)
+layout_mode = 2
+text = "Resume"
+
+[node name="SettingsButton" type="Button" parent="Control/PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(300, 36)
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="Control/PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(300, 36)
+layout_mode = 2
+text = "Quit to Main Menu"
+
+[connection signal="pressed" from="Control/PauseMenu/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Control/PauseMenu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Control/PauseMenu/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

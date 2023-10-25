@@ -32,6 +32,10 @@ var active_scene_node: Node
 
 var are_scenes_ready: bool = false
 
+var scene_history: Array = []
+
+var persistent_information: Dictionary = {}
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var progress_bar: ProgressBar = $Visuals/ColorRect/CenterContainer/ProgressBar
 @onready var visuals: CanvasLayer = $Visuals
@@ -76,6 +80,8 @@ func change_scene(filename: String, slide_in: bool = true, slide_out: bool = tru
 	if typeof(emit_after_loading) == TYPE_SIGNAL:
 		emit_after_loading.emit()
 	
+	scene_history.append(filename)
+	
 	progress_bar.hide()
 	if slide_out:
 		animation_player.play("slide_out")
@@ -102,6 +108,14 @@ func pause(layer: String, is_paused: bool) -> void:
 
 func add_pause_layer(layer_name: String, default: bool = false) -> void:
 	pause_layers[layer_name] = default
+
+
+func get_persistent_information(key: String) -> Variant:
+	return persistent_information.get(key, null)
+
+
+func set_persistent_information(key: String, value: Variant) -> void:
+	persistent_information[key] = value
 
 
 func _activate_scene(path: String) -> void:

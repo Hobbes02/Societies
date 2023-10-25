@@ -2,9 +2,10 @@ extends Control
 
 # when one action is changed, it will change the other one it's linked to as well
 var linked_actions: Dictionary = {
-	"jump": "ui_up", 
-	"crawl": "ui_down"
+	
 }
+
+var hidden_keybinds: Array = ["debug"]
 
 var currently_rebinding: StringName = ""
 var currently_rebinding_button: Button
@@ -67,7 +68,7 @@ func load_keybind_visuals() -> void:
 	for action_name in keybinds:
 		var event = InputMap.action_get_events(action_name)[0]
 		
-		if (not event is InputEventKey) or str(action_name).begins_with("ui"):
+		if (not event is InputEventKey) or str(action_name).begins_with("ui") or str(action_name) in hidden_keybinds:
 			continue
 		
 		var keycode = event.keycode if event.keycode != 0 else event.physical_keycode
