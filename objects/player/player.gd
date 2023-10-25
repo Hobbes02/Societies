@@ -70,7 +70,7 @@ func handle_movement(delta: float) -> void:
 		else:
 			current_move_state = MoveStates.Walk
 	
-	var direction: int = Input.get_axis("walk_l", "walk_r")
+	var direction: int = Input.get_axis("walk_left", "walk_right")
 	if direction:
 		if current_move_state == MoveStates.Sprint:
 			velocity.x = direction * sprint_speed

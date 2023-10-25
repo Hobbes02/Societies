@@ -9,7 +9,7 @@ signal finished_typing()
 
 
 ## The action to press to skip typing
-@export var skip_action: String = "continue_dialogue"
+@export var skip_action: String = "interact"
 
 ## The speed with which the text types out
 @export var seconds_per_step: float = 0.02
