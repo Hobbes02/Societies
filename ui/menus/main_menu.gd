@@ -2,19 +2,19 @@ extends Control
 
 
 func _on_play_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://world/world_area.tscn")
+	SceneManager.change_scene("res://world/world.tscn")
 
 
 func _on_credits_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://ui/menus/credits.tscn")
+	SceneManager.change_scene("res://ui/menus/credits.tscn")
 
 
 func _on_settings_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://ui/menus/settings.tscn")
+	SceneManager.change_scene("res://ui/menus/settings.tscn")
 
 
 func _on_accessibility_settings_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://ui/menus/settings.tscn")
+	SceneManager.change_scene("res://ui/menus/settings.tscn")
 
 
 func _on_language_button_pressed() -> void:

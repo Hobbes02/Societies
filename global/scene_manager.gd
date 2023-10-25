@@ -63,13 +63,15 @@ func change_scene(filename: String, slide_in: bool = true, slide_out: bool = tru
 		await animation_player.animation_finished
 	else:
 		await get_tree().create_timer(0.2).timeout
-	progress_bar.show()
+	
+	if filename in scenes_to_cache:
+		progress_bar.show()
 	
 	if filename not in scenes_loaded.values():
 		pause_layers[filename] = false
 		await _load_scene(filename)
 	else:
-		_activate_scene(filename)
+		_activate_scene(scenes_loaded.keys()[scenes_loaded.values().find(filename)])
 	
 	if typeof(emit_after_loading) == TYPE_SIGNAL:
 		emit_after_loading.emit()
@@ -126,6 +128,7 @@ func _deactivate_scene(path: String) -> void:
 	if active_scene_node == get_node(path):
 		active_scene_node = null
 	if path in scenes_loaded.keys() and scenes_loaded[path] not in scenes_to_cache:
+		scenes_loaded.erase(path)
 		get_node(path).queue_free()
 	else:
 		get_node(path).hide()
