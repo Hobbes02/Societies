@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7xlyihcx6ub8"]
+[gd_scene load_steps=7 format=3 uid="uid://b7xlyihcx6ub8"]
 
 [ext_resource type="Theme" uid="uid://busbw3eda0iob" path="res://ui/control.tres" id="1_qj5c8"]
 [ext_resource type="Script" path="res://ui/menus/settings.gd" id="2_oxvq7"]
+[ext_resource type="LabelSettings" uid="uid://dqlqxqnq8co50" path="res://ui/subtitle_1_label_settings.tres" id="3_bnxat"]
+[ext_resource type="LabelSettings" uid="uid://bubk1uj0khyc1" path="res://ui/subtitle_2_label_settings.tres" id="3_prwmt"]
+[ext_resource type="Script" path="res://ui/elements/keybinds.gd" id="3_yuhpn"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_hlbdw"]
+color = Color(0.984314, 0.960784, 0.952941, 1)
 
 [node name="Settings" type="Control"]
 texture_filter = 1
@@ -33,6 +39,70 @@ grow_vertical = 2
 
 [node name="Keybinds" type="Control" parent="TabContainer"]
 layout_mode = 2
+theme = ExtResource("1_qj5c8")
+script = ExtResource("3_yuhpn")
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Keybinds"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Keybinds/MarginContainer"]
+layout_mode = 2
+
+[node name="ColumnTitles" type="HBoxContainer" parent="TabContainer/Keybinds/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ActionColumnLabel" type="Label" parent="TabContainer/Keybinds/MarginContainer/VBoxContainer/ColumnTitles"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Action"
+label_settings = ExtResource("3_bnxat")
+
+[node name="KeyColumnLabel" type="Label" parent="TabContainer/Keybinds/MarginContainer/VBoxContainer/ColumnTitles"]
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+text = "Key
+"
+label_settings = ExtResource("3_bnxat")
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Keybinds/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_hlbdw")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Keybinds/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Columns" type="HBoxContainer" parent="TabContainer/Keybinds/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="ActionNames" type="VBoxContainer" parent="TabContainer/Keybinds/MarginContainer/VBoxContainer/ScrollContainer/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActionNameTemplate" type="Label" parent="TabContainer/Keybinds/MarginContainer/VBoxContainer/ScrollContainer/Columns/ActionNames"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+text = "Action Name Template"
+label_settings = ExtResource("3_prwmt")
+vertical_alignment = 1
+
+[node name="RebindButtons" type="VBoxContainer" parent="TabContainer/Keybinds/MarginContainer/VBoxContainer/ScrollContainer/Columns"]
+layout_mode = 2
+
+[node name="RebindButtonTemplate" type="Button" parent="TabContainer/Keybinds/MarginContainer/VBoxContainer/ScrollContainer/Columns/RebindButtons"]
+custom_minimum_size = Vector2(300, 36)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 0.498039, 0.0666667, 1)
+text = "E"
+clip_text = true
 
 [node name="Sound" type="Control" parent="TabContainer"]
 visible = false
@@ -41,3 +111,17 @@ layout_mode = 2
 [node name="Accessibility" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 932.0
+offset_top = 3.0
+offset_right = 1150.0
+offset_bottom = 43.0
+theme_override_colors/font_color = Color(0.984314, 0.960784, 0.952941, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.188235, 0.192157, 1)
+theme_override_colors/font_hover_color = Color(1, 0.498039, 0.0666667, 1)
+text = "Back to Main Menu"
+flat = true
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

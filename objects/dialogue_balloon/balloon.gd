@@ -9,7 +9,7 @@ signal center_node(node: Node2D)
 @onready var responses_menu: VBoxContainer = $Balloon/Margin/VBox/Responses
 @onready var response_template: RichTextLabel = %ResponseTemplate
 
-@export var dialogue_continue_action: String = "continue_dialogue"
+@export var dialogue_continue_action: String = "interact"
 
 ## The dialogue resource
 var resource: DialogueResource
