@@ -27,6 +27,7 @@ Pathfinder="*res://world/pathfinding/pathfinder.tscn"
 SceneManager="*res://global/scene_manager.tscn"
 Tasks="*res://global/tasks.gd"
 HUD="*res://ui/hud/hud.tscn"
+SaveManager="*res://global/save_manager.gd"
 
 [dialogue_manager]
 

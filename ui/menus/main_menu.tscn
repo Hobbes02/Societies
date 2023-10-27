@@ -54,7 +54,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_arplr")
 
 [node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer"]
 modulate = Color(0.996078, 0.501961, 0.0666667, 1)
-custom_minimum_size = Vector2(0, 54)
+custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -66,7 +66,7 @@ theme_override_font_sizes/font_size = 32
 text = "Play"
 
 [node name="SettingsButton" type="Button" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 54)
+custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -79,7 +79,7 @@ theme_override_font_sizes/font_size = 32
 text = "Settings"
 
 [node name="AccessibilitySettingsButton" type="Button" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 54)
+custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -95,7 +95,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="LanguageButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 54)
+custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_t642x")
@@ -110,7 +110,7 @@ disabled = true
 text = "Language"
 
 [node name="CreditsButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 54)
+custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_t642x")
