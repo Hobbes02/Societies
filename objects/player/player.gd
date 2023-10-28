@@ -28,6 +28,18 @@ var current_move_state: MoveStates = MoveStates.Walk
 func _ready() -> void:
 	anim_player.play("RESET")
 	SceneManager.paused.connect(_on_pause)
+	
+	SaveManager.about_to_save.connect(_about_to_save)
+	SaveManager.just_loaded.connect(_just_loaded)
+
+
+func _about_to_save() -> void:
+	SaveManager.save_data.player_data.position = global_position
+
+
+func _just_loaded() -> void:
+	print("UPDAING")
+	global_position = SaveManager.get_value("player_data/position", global_position)
 
 
 func _on_pause(layer: String) -> void:

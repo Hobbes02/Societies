@@ -20,10 +20,6 @@ func _ready() -> void:
 		if node.has_signal("unfocus_camera"):
 			node.unfocus_camera.connect(_on_unfocus_camera)
 	
-	camera.position_smoothing_enabled = false
-	camera.global_position = camera_following_node.global_position
-	camera.position_smoothing_enabled = true
-	
 	SceneManager.activate.connect(_on_scene_activated)
 	SceneManager.deactivate.connect(_on_scene_deactivated)
 	SceneManager.unpaused.connect(_on_unpaused)
@@ -40,7 +36,10 @@ func _on_unpaused(layer: String) -> void:
 func _on_scene_activated(node: Node) -> void:
 	if node != self:
 		return
+	camera.position_smoothing_enabled = false
+	camera.global_position = camera_following_node.global_position
 	camera.enabled = true
+	camera.position_smoothing_enabled = true
 
 
 func _on_scene_deactivated(node: Node) -> void:

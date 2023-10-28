@@ -27,6 +27,7 @@ func _input(event: InputEvent) -> void:
 		pause_menu.visible = blur.visible
 		
 		SceneManager.pause("game", blur.visible)
+		SaveManager.save()
 
 
 func _on_resume_button_pressed() -> void:

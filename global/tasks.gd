@@ -6,6 +6,21 @@ var completed_tasks: Array = []
 var task_history: Array[Array] = []
 
 
+func _ready() -> void:
+	SaveManager.about_to_save.connect(_about_to_save)
+	SaveManager.just_loaded.connect(_just_loaded)
+
+
+func _about_to_save() -> void:
+	SaveManager.save_data.tasks.active_tasks = active_tasks
+	SaveManager.save_data.tasks.completed_tasks = completed_tasks
+
+
+func _just_loaded() -> void:
+	active_tasks = SaveManager.get_value("tasks/active_tasks", active_tasks)
+	completed_tasks = SaveManager.get_value("tasks/completed_tasks", completed_tasks)
+
+
 func assign_task(task_name: String) -> void:
 	active_tasks.append(task_name)
 	task_history.append(["add", task_name])

@@ -22,6 +22,19 @@ func _ready() -> void:
 	rebind_button_template.hide()
 	
 	load_keybind_visuals()
+	
+	SaveManager.about_to_save.connect(_about_to_save)
+	SaveManager.just_loaded.connect(_just_loaded)
+
+
+func _about_to_save() -> void:
+	SaveManager.settings.keybinds = get_keybinds()
+
+
+func _just_loaded() -> void:
+	var loaded_keybinds = SaveManager.get_value("settings/keybinds", {})
+	if loaded_keybinds != {}:
+		load_keybinds(loaded_keybinds)
 
 
 func get_keybinds() -> Dictionary:
