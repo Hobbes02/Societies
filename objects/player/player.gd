@@ -38,13 +38,16 @@ func _about_to_save() -> void:
 
 
 func _just_loaded() -> void:
-	print("UPDAING")
 	global_position = SaveManager.get_value("player_data/position", global_position)
+	await get_tree().process_frame
+	if headspace_detector.is_colliding():
+		current_move_state = MoveStates.Crawl
+		anim_player.play("crawl idle")
 
 
 func _on_pause(layer: String) -> void:
 	if layer in ["player", "game", "all"]:
-		anim_player.play("idle")
+		anim_player.play("crawl idle" if headspace_detector.is_colliding() else "idle")
 		velocity.x = 0
 
 
@@ -54,7 +57,6 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 
 	if SceneManager.is_paused("player", ["game"]):
-		move_and_slide()
 		return
 
 #	Jumping

@@ -21,15 +21,24 @@ func _just_loaded() -> void:
 	completed_tasks = SaveManager.get_value("tasks/completed_tasks", completed_tasks)
 
 
-func assign_task(task_name: String) -> void:
+func assign_task(task_name: String, show_notification: bool = true) -> void:
 	active_tasks.append(task_name)
 	task_history.append(["add", task_name])
+	
+	if show_notification:
+		HUD.show_notification("New Task", task_name.replace("_", " ").capitalize())
 
 
-func complete_task(task_name: String) -> void:
+func complete_task(task_name: String, show_notification: bool = true) -> void:
+	if task_name not in active_tasks:
+		return
+	
 	active_tasks.erase(task_name)
 	task_history.append(["complete", task_name])
 	completed_tasks.append(task_name)
+	
+	if show_notification:
+		HUD.show_notification("Completed Task", task_name.replace("_", " ").capitalize())
 
 
 func remove_task(task_name: String) -> void:

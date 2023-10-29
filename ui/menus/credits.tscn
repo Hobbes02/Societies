@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://cby4opep4pisu"]
 
 [ext_resource type="Theme" uid="uid://busbw3eda0iob" path="res://ui/control.tres" id="1_npmuq"]
-[ext_resource type="LabelSettings" path="res://ui/title_label_settings.tres" id="2_grweq"]
+[ext_resource type="LabelSettings" uid="uid://bxfyl7nswsqx6" path="res://ui/title_label_settings.tres" id="2_grweq"]
 [ext_resource type="Script" path="res://ui/menus/credits.gd" id="2_usykb"]
 [ext_resource type="Theme" uid="uid://7qsrjda850wd" path="res://ui/small_buttons.tres" id="3_bgnyb"]
-[ext_resource type="LabelSettings" path="res://ui/subtitle_1_label_settings.tres" id="3_s6aiy"]
+[ext_resource type="LabelSettings" uid="uid://dqlqxqnq8co50" path="res://ui/subtitle_1_label_settings.tres" id="3_s6aiy"]
 [ext_resource type="LabelSettings" uid="uid://517dh3ia3hkl" path="res://ui/body_label_settings.tres" id="4_616sj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_arntj"]

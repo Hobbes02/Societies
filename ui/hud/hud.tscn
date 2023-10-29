@@ -13,6 +13,21 @@ shader_parameter/blur_amount = 2.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_43ams"]
 bg_color = Color(0.14902, 0.14902, 0.14902, 1)
 
+[sub_resource type="Animation" id="Animation_iw0mw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(251, -85)]
+}
+
 [sub_resource type="Animation" id="Animation_qkkql"]
 resource_name = "pop_in"
 length = 0.5
@@ -27,21 +42,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(0.378929, 1.51572),
 "update": 0,
 "values": [Vector2(251, -85), Vector2(251, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_iw0mw"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(251, -85)]
 }
 
 [sub_resource type="Animation" id="Animation_c1352"]
@@ -123,14 +123,13 @@ layout_mode = 2
 text = "Quit to Main Menu"
 
 [node name="Notification" type="PanelContainer" parent="Control"]
-visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -325.0
+offset_left = 251.0
 offset_top = -85.0
-offset_right = 325.0
+offset_right = 901.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_43ams")
 
