@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2um4vlswi3yr"]
+
+[ext_resource type="Script" path="res://ui/elements/custom_button.gd" id="1_4toec"]
+
+[node name="CustomButton" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_4toec")
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
