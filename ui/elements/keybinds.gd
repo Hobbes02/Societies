@@ -127,6 +127,5 @@ func _input(event: InputEvent) -> void:
 			if button.text == keycode_name and button != currently_rebinding_button:
 				button.text = "[INVALID]"
 				InputMap.action_erase_events(StringName(button.name))
-				HUD.show_notification("Key Invalid", "There's another action with the same key.")
 		
 		currently_rebinding = ""
