@@ -60,7 +60,7 @@ func _ready() -> void:
 		for scene in scenes_to_cache:
 			await _load_scene(scene)
 	
-	await change_scene(start_scene, false, true, scenes_ready)
+	await change_scene(start_scene, false, false, scenes_ready)
 
 
 func change_scene(filename: String, slide_in: bool = true, slide_out: bool = true, emit_after_loading: Variant = null) -> void:
@@ -89,6 +89,7 @@ func change_scene(filename: String, slide_in: bool = true, slide_out: bool = tru
 	if slide_out:
 		animation_player.play("slide_out")
 		await animation_player.animation_finished
+	$Visuals/ColorRect.global_position.x = -$Visuals/ColorRect.size.x
 
 
 func is_paused(layer: String, others: Array = []) -> bool:

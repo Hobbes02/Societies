@@ -40,7 +40,7 @@ func _about_to_save() -> void:
 
 func _just_loaded() -> void:
 	global_position = SaveManager.get_value("player_data/position", global_position)
-	await get_tree().process_frame
+	await get_tree().create_timer(0.2).timeout
 	if headspace_detector.is_colliding():
 		current_move_state = MoveStates.Crawl
 		anim_player.play("crawl idle")

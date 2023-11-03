@@ -15,7 +15,7 @@ config/tags=PackedStringArray("major_project")
 run/main_scene="res://global/blank.tscn"
 config/auto_accept_quit=false
 config/features=PackedStringArray("4.1", "Mobile")
-boot_splash/bg_color=Color(0.0784314, 0.0784314, 0.0784314, 1)
+boot_splash/bg_color=Color(0.14902, 0.14902, 0.14902, 1)
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 

@@ -70,18 +70,16 @@ stretch_mode = 4
 
 [node name="TitleScreen" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TitleScreen"]
 layout_mode = 2
 offset_left = 76.0
 offset_top = 155.0
-offset_right = 424.0
-offset_bottom = 493.0
+offset_right = 444.0
+offset_bottom = 513.0
+rotation = -6.28319
+pivot_offset = Vector2(-1.772, -0.0371246)
 theme_override_constants/separation = 30
 
 [node name="TitleLabel" type="Label" parent="TitleScreen/VBoxContainer"]
@@ -177,9 +175,9 @@ alignment = 0
 
 [node name="SlotEditor" type="PanelContainer" parent="SaveSelect"]
 layout_mode = 0
-offset_left = 373.0
+offset_left = 418.0
 offset_top = 153.0
-offset_right = 661.0
+offset_right = 706.0
 offset_bottom = 574.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_en7u4")
 
@@ -193,19 +191,29 @@ theme_override_constants/separation = 10
 [node name="SlotName" parent="SaveSelect/SlotEditor/MarginContainer/VBoxContainer" instance=ExtResource("5_2ns1y")]
 layout_mode = 2
 focus_neighbor_top = NodePath(".")
-focus_neighbor_bottom = NodePath("../PlayButton")
-focus_next = NodePath("../PlayButton")
+focus_neighbor_bottom = NodePath("../ClearButton")
+focus_next = NodePath("../ClearButton")
 focus_previous = NodePath(".")
 text = "Slot Name"
 alignment = 0
 text_overrun_behavior = 3
 
-[node name="PlayButton" parent="SaveSelect/SlotEditor/MarginContainer/VBoxContainer" instance=ExtResource("5_2ns1y")]
+[node name="ClearButton" parent="SaveSelect/SlotEditor/MarginContainer/VBoxContainer" instance=ExtResource("5_2ns1y")]
 layout_mode = 2
 focus_neighbor_top = NodePath("../SlotName")
+focus_neighbor_bottom = NodePath("../PlayButton")
+focus_next = NodePath("../PlayButton")
+focus_previous = NodePath("../SlotName")
+text = "Clear"
+alignment = 0
+text_overrun_behavior = 3
+
+[node name="PlayButton" parent="SaveSelect/SlotEditor/MarginContainer/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ClearButton")
 focus_neighbor_bottom = NodePath(".")
 focus_next = NodePath(".")
-focus_previous = NodePath("../SlotName")
+focus_previous = NodePath("../ClearButton")
 text = "Play"
 alignment = 0
 text_overrun_behavior = 3
@@ -271,6 +279,40 @@ layout_mode = 2
 text = "ESC to cancel"
 horizontal_alignment = 1
 
+[node name="ClearConfirm" type="ColorRect" parent="SaveSelect"]
+visible = false
+material = SubResource("ShaderMaterial_si54h")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="SaveSelect/ClearConfirm"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37066
+anchor_top = 0.423611
+anchor_right = 0.62934
+anchor_bottom = 0.576389
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ch5b4")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="SaveSelect/ClearConfirm/PanelContainer"]
+layout_mode = 2
+
+[node name="ConfirmLabel" type="Label" parent="SaveSelect/ClearConfirm/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = 12
+text = "Are you sure you want to clear your savegame?
+
+(Enter to confirm)"
+horizontal_alignment = 1
+autowrap_mode = 3
+
 [connection signal="visibility_changed" from="TitleScreen" to="." method="_on_title_screen_visibility_changed"]
 [connection signal="pressed" from="TitleScreen/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="TitleScreen/VBoxContainer/SavesButton" to="." method="_on_saves_button_pressed"]
@@ -281,5 +323,6 @@ horizontal_alignment = 1
 [connection signal="pressed" from="SaveSelect/VBoxContainer/BackButton" to="SaveSelect" method="_on_back_button_pressed"]
 [connection signal="focused" from="SaveSelect/SlotEditor/MarginContainer/VBoxContainer/SlotName" to="SaveSelect" method="_on_slot_name_focused"]
 [connection signal="pressed" from="SaveSelect/SlotEditor/MarginContainer/VBoxContainer/SlotName" to="SaveSelect" method="_on_slot_name_pressed"]
+[connection signal="pressed" from="SaveSelect/SlotEditor/MarginContainer/VBoxContainer/ClearButton" to="SaveSelect" method="_on_clear_button_pressed"]
 [connection signal="pressed" from="SaveSelect/SlotEditor/MarginContainer/VBoxContainer/PlayButton" to="SaveSelect" method="_on_play_button_pressed"]
 [connection signal="text_submitted" from="SaveSelect/NameEditor/PanelContainer/MarginContainer/VBoxContainer/NameEnter" to="SaveSelect" method="_on_name_enter_text_submitted"]
