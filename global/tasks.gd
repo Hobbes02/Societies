@@ -12,6 +12,7 @@ func _ready() -> void:
 
 
 func _about_to_save() -> void:
+	SaveManager.save_data.tasks = SaveManager.save_data.get("tasks", SaveManager.DEFAULT_SAVE_DATA.tasks)
 	SaveManager.save_data.tasks.active_tasks = active_tasks
 	SaveManager.save_data.tasks.completed_tasks = completed_tasks
 

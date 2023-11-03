@@ -113,7 +113,7 @@ process_mode = 3
 script = ExtResource("1_bpfy6")
 scenes_to_cache = Array[String](["res://world/world.tscn"])
 load_cached_scenes_on_start = true
-start_scene = "res://ui/menus/title_screen.tscn"
+start_scene = "res://ui/menus/menus.tscn"
 pause_layers = {
 "all": false,
 "entities": false,

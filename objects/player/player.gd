@@ -34,6 +34,7 @@ func _ready() -> void:
 
 
 func _about_to_save() -> void:
+	SaveManager.save_data.player_data = SaveManager.save_data.get("player_data", SaveManager.DEFAULT_SAVE_DATA.player_data)
 	SaveManager.save_data.player_data.position = global_position
 
 

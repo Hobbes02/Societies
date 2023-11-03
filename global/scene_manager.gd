@@ -43,7 +43,10 @@ var persistent_information: Dictionary = {}
 
 
 func _ready() -> void:
+	
 	if str(get_tree().current_scene.get_path()) != "/root/blank":
+		$Visuals/ColorRect.hide()
+		$Visuals/ColorRect.mouse_filter = $Visuals/ColorRect.MOUSE_FILTER_IGNORE
 		return
 	
 	scenes_ready.connect(

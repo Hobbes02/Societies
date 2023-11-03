@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=19 format=3 uid="uid://6to07mql6l34"]
+[gd_resource type="Theme" load_steps=21 format=3 uid="uid://6to07mql6l34"]
 
 [ext_resource type="FontFile" uid="uid://bpbdu8d1oxeeo" path="res://visuals/fonts/dogicapixel.ttf" id="1_vjj20"]
 
@@ -65,6 +65,14 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxwdb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.8, 0.8, 0.8, 0)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5rp8x"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 10
@@ -88,6 +96,18 @@ border_width_top = 10
 border_width_right = 10
 border_width_bottom = 10
 border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_en7u4"]
+bg_color = Color(0.984314, 0.960784, 0.952941, 0.396078)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.984314, 0.960784, 0.952941, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sd8h"]
 bg_color = Color(0.14902, 0.14902, 0.14902, 1)
@@ -137,12 +157,18 @@ HScrollBar/icons/increment_highlight = SubResource("ImageTexture_d3gf0")
 HScrollBar/styles/grabber = SubResource("StyleBoxFlat_gsx36")
 HScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_6mpdc")
 HScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_nabp0")
+Label/styles/normal = SubResource("StyleBoxFlat_oxwdb")
 LineEdit/colors/font_color = Color(0.984314, 0.960784, 0.952941, 1)
 LineEdit/colors/font_uneditable_color = Color(0.984314, 0.960784, 0.952941, 0.501961)
 LineEdit/colors/selection_color = Color(1, 0.498039, 0.0666667, 1)
 LineEdit/styles/focus = SubResource("StyleBoxFlat_5rp8x")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_ypy0b")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_bmm6l")
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_en7u4")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_6sd8h")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_btgis")
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_g41ck")
