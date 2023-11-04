@@ -17,6 +17,9 @@ const DEFAULT_GLOBAL_DATA: Dictionary = {
 	"slots": {
 		"0": {"id": "0"}, 
 		"1": {"id": "1"}
+	}, 
+	"settings": {
+		"keybinds": {}
 	}
 }
 

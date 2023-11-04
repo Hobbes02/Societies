@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c8sfuxpy3f4x"]
+[gd_scene load_steps=14 format=3 uid="uid://c8sfuxpy3f4x"]
 
 [ext_resource type="Theme" uid="uid://6to07mql6l34" path="res://visuals/ui/theming/theme.tres" id="1_8qijw"]
 [ext_resource type="Script" path="res://ui/menus/menus.gd" id="2_kxxbt"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d2um4vlswi3yr" path="res://ui/elements/custom_button.tscn" id="5_2ns1y"]
 [ext_resource type="Script" path="res://ui/menus/save_select.gd" id="6_78t83"]
 [ext_resource type="Shader" path="res://visuals/shaders/blur.gdshader" id="7_xkqtt"]
+[ext_resource type="Script" path="res://ui/menus/settings.gd" id="8_7tw6h"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_msrdx"]
 
@@ -175,9 +176,9 @@ alignment = 0
 
 [node name="SlotEditor" type="PanelContainer" parent="SaveSelect"]
 layout_mode = 0
-offset_left = 418.0
+offset_left = 430.0
 offset_top = 153.0
-offset_right = 706.0
+offset_right = 718.0
 offset_bottom = 574.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_en7u4")
 
@@ -313,6 +314,160 @@ text = "Are you sure you want to clear your savegame?
 horizontal_alignment = 1
 autowrap_mode = 3
 
+[node name="Settings" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_7tw6h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
+layout_mode = 2
+offset_left = 76.0
+offset_top = 155.0
+offset_right = 424.0
+offset_bottom = 493.0
+theme_override_constants/separation = 30
+
+[node name="TitleLabel" type="Label" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+label_settings = ExtResource("4_y1ymd")
+
+[node name="HSeparator" type="HSeparator" parent="Settings/VBoxContainer"]
+custom_minimum_size = Vector2(348, 0)
+layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_msrdx")
+
+[node name="SoundSettingsButton" parent="Settings/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../../KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer/KeybindTemplate")
+focus_neighbor_bottom = NodePath("../KeybindSettingsButton")
+focus_next = NodePath("../KeybindSettingsButton")
+focus_previous = NodePath(".")
+theme_override_font_sizes/font_size = 24
+text = "Sound"
+alignment = 0
+
+[node name="KeybindSettingsButton" parent="Settings/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../SoundSettingsButton")
+focus_neighbor_right = NodePath("../../KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer/KeybindTemplate")
+focus_neighbor_bottom = NodePath("../AccessibilitySettingsButton")
+focus_next = NodePath("../AccessibilitySettingsButton")
+focus_previous = NodePath("../SoundSettingsButton")
+theme_override_font_sizes/font_size = 24
+text = "Keybinds"
+alignment = 0
+
+[node name="AccessibilitySettingsButton" parent="Settings/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../KeybindSettingsButton")
+focus_neighbor_right = NodePath("../../KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer/KeybindTemplate")
+focus_neighbor_bottom = NodePath("../BackButton")
+focus_next = NodePath("../BackButton")
+focus_previous = NodePath("../KeybindSettingsButton")
+theme_override_font_sizes/font_size = 24
+text = "Accessibility"
+alignment = 0
+
+[node name="BackButton" parent="Settings/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../AccessibilitySettingsButton")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath("../AccessibilitySettingsButton")
+theme_override_font_sizes/font_size = 24
+text = "Back"
+alignment = 0
+
+[node name="KeybindSettings" type="PanelContainer" parent="Settings"]
+layout_mode = 0
+offset_left = 430.0
+offset_top = 153.0
+offset_right = 718.0
+offset_bottom = 574.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_en7u4")
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/KeybindSettings"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Settings/KeybindSettings/MarginContainer"]
+layout_mode = 2
+follow_focus = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/KeybindSettings/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Settings/KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Keybinds"
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="Settings/KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="KeybindTemplate" parent="Settings/KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath(".")
+focus_previous = NodePath(".")
+text = "Action Name: Key"
+alignment = 0
+text_overrun_behavior = 3
+
+[node name="KeyListener" type="ColorRect" parent="Settings"]
+visible = false
+material = SubResource("ShaderMaterial_si54h")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+
+[node name="PanelContainer" type="PanelContainer" parent="Settings/KeyListener"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -61.0
+offset_right = 165.0
+offset_bottom = 61.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ch5b4")
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/KeyListener/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/KeyListener/PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "Listening for key press
+
+
+Shift+Escape to cancel"
+horizontal_alignment = 1
+
+[node name="StartListeningWaitTimer" type="Timer" parent="Settings"]
+wait_time = 0.5
+
 [connection signal="visibility_changed" from="TitleScreen" to="." method="_on_title_screen_visibility_changed"]
 [connection signal="pressed" from="TitleScreen/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="TitleScreen/VBoxContainer/SavesButton" to="." method="_on_saves_button_pressed"]
@@ -326,3 +481,4 @@ autowrap_mode = 3
 [connection signal="pressed" from="SaveSelect/SlotEditor/MarginContainer/VBoxContainer/ClearButton" to="SaveSelect" method="_on_clear_button_pressed"]
 [connection signal="pressed" from="SaveSelect/SlotEditor/MarginContainer/VBoxContainer/PlayButton" to="SaveSelect" method="_on_play_button_pressed"]
 [connection signal="text_submitted" from="SaveSelect/NameEditor/PanelContainer/MarginContainer/VBoxContainer/NameEnter" to="SaveSelect" method="_on_name_enter_text_submitted"]
+[connection signal="pressed" from="Settings/VBoxContainer/BackButton" to="Settings" method="_on_back_button_pressed"]

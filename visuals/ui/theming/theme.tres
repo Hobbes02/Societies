@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=21 format=3 uid="uid://6to07mql6l34"]
+[gd_resource type="Theme" load_steps=23 format=3 uid="uid://6to07mql6l34"]
 
 [ext_resource type="FontFile" uid="uid://bpbdu8d1oxeeo" path="res://visuals/fonts/dogicapixel.ttf" id="1_vjj20"]
 
@@ -64,6 +64,10 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_avm17"]
+color = Color(0.984314, 0.960784, 0.952941, 1)
+thickness = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxwdb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -144,6 +148,11 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_a1vxd"]
+color = Color(0.984314, 0.960784, 0.952941, 1)
+thickness = 2
+vertical = true
+
 [resource]
 default_font = ExtResource("1_vjj20")
 Button/colors/font_color = Color(0.984314, 0.960784, 0.952941, 1)
@@ -157,6 +166,7 @@ HScrollBar/icons/increment_highlight = SubResource("ImageTexture_d3gf0")
 HScrollBar/styles/grabber = SubResource("StyleBoxFlat_gsx36")
 HScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_6mpdc")
 HScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_nabp0")
+HSeparator/styles/separator = SubResource("StyleBoxLine_avm17")
 Label/styles/normal = SubResource("StyleBoxFlat_oxwdb")
 LineEdit/colors/font_color = Color(0.984314, 0.960784, 0.952941, 1)
 LineEdit/colors/font_uneditable_color = Color(0.984314, 0.960784, 0.952941, 0.501961)
@@ -174,3 +184,4 @@ TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_btgis")
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_g41ck")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_nwi2q")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_6lf4y")
+VSeparator/styles/separator = SubResource("StyleBoxLine_a1vxd")

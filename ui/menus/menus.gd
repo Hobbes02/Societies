@@ -3,6 +3,7 @@ extends Control
 @onready var title_screen: Control = $TitleScreen
 @onready var save_select: Control = $SaveSelect
 @onready var play_button: Button = $TitleScreen/VBoxContainer/PlayButton
+@onready var settings: Control = $Settings
 
 
 func _ready() -> void:
@@ -41,7 +42,30 @@ func _on_saves_button_pressed() -> void:
 
 
 func _on_settings_button_pressed() -> void:
-	pass # Replace with function body.
+	await fade(
+		[
+			$TitleScreen/VBoxContainer/TitleLabel, 
+			$TitleScreen/VBoxContainer/PlayButton, 
+			$TitleScreen/VBoxContainer/SavesButton, 
+			$TitleScreen/VBoxContainer/SettingsButton
+		], 
+		1.0, 
+		0.0
+	)
+	title_screen.hide()
+	settings.show()
+	settings.start()
+	await fade(
+		[
+			$Settings/VBoxContainer/TitleLabel, 
+			$Settings/VBoxContainer/SoundSettingsButton, 
+			$Settings/VBoxContainer/KeybindSettingsButton, 
+			$Settings/VBoxContainer/AccessibilitySettingsButton, 
+			$Settings/VBoxContainer/BackButton
+		],
+		0.0, 
+		1.0
+	)
 
 
 func _on_title_screen_visibility_changed() -> void:
