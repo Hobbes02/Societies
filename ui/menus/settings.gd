@@ -1,7 +1,7 @@
 extends Control
 
 enum VOLUME_TYPES {
-	MASTER = 0, 
+	MAIN = 0, 
 	SFX = 1, 
 	MUSIC = 2, 
 	NONE = 3
@@ -39,6 +39,7 @@ var currently_changing_volume: VOLUME_TYPES = VOLUME_TYPES.NONE
 @onready var sound_settings: PanelContainer = $SoundSettings
 @onready var volume_change_listener: ColorRect = $VolumeChangeListener
 @onready var volume_display_label: Label = $VolumeChangeListener/PanelContainer/MarginContainer/Label
+@onready var accessibility_settings: PanelContainer = $AccessibilitySettings
 
 
 func _ready() -> void:
@@ -67,7 +68,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("ui_left") and volume_change_listener.visible:
 		# TODO: decrease volume in that type
 		match currently_changing_volume:
-			VOLUME_TYPES.MASTER:
+			VOLUME_TYPES.MAIN:
 				pass
 			VOLUME_TYPES.SFX:
 				pass
@@ -78,7 +79,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("ui_right") and volume_change_listener.visible:
 		# TODO: increase volume in that type
 		match currently_changing_volume:
-			VOLUME_TYPES.MASTER:
+			VOLUME_TYPES.MAIN:
 				pass
 			VOLUME_TYPES.SFX:
 				pass
@@ -102,8 +103,8 @@ func _about_to_save() -> void:
 # SOUND
 
 func _on_master_volume_button_pressed() -> void:
-	volume_display_label.text = "Changing Master Volume\n\n" + "[volume]" + "%"
-	currently_changing_volume = VOLUME_TYPES.MASTER
+	volume_display_label.text = "Changing Main Volume\n\n" + "[volume]" + "%"
+	currently_changing_volume = VOLUME_TYPES.MAIN
 	volume_change_listener.show()
 	get_viewport().gui_release_focus()
 
@@ -142,7 +143,8 @@ func _on_back_button_pressed() -> void:
 			$VBoxContainer/AccessibilitySettingsButton, 
 			$VBoxContainer/BackButton, 
 			$SoundSettings, 
-			$KeybindSettings
+			$KeybindSettings, 
+			$AccessibilitySettings
 		], 
 		1.0, 
 		0.0
@@ -244,19 +246,23 @@ func get_action_keycode(action_name: String) -> int:
 func _on_sound_settings_button_focused() -> void:
 	keybind_settings.hide()
 	sound_settings.show()
+	accessibility_settings.hide()
 
 
 func _on_keybind_settings_button_focused() -> void:
 	keybind_settings.show()
 	sound_settings.hide()
+	accessibility_settings.hide()
 
 
 func _on_accessibility_settings_button_focused() -> void:
 	keybind_settings.hide()
 	sound_settings.hide()
+	accessibility_settings.show()
 
 
 func _on_back_button_focused() -> void:
 	keybind_settings.hide()
 	sound_settings.hide()
+	accessibility_settings.hide()
 

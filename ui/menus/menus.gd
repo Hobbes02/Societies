@@ -73,7 +73,10 @@ func _on_settings_button_pressed() -> void:
 			$Settings/VBoxContainer/SoundSettingsButton, 
 			$Settings/VBoxContainer/KeybindSettingsButton, 
 			$Settings/VBoxContainer/AccessibilitySettingsButton, 
-			$Settings/VBoxContainer/BackButton
+			$Settings/VBoxContainer/BackButton, 
+			$Settings/SoundSettings, 
+			$Settings/KeybindSettings, 
+			$Settings/AccessibilitySettings
 		],
 		0.0, 
 		1.0
@@ -82,6 +85,11 @@ func _on_settings_button_pressed() -> void:
 
 func _on_title_screen_visibility_changed() -> void:
 	if title_screen and title_screen.visible:
+		var last_played_slot = SaveManager.global_data.get("slots", {}).get("last_played_slot", "none")
+		if last_played_slot != "none":
+			play_button.change_text("Play (" + SaveManager.global_data.get("slots", {}).get(last_played_slot, {}).get("name", "") + ")")
+		else:
+			play_button.change_text("Play")
 		play_button.grab_focus()
 		await fade(
 			[
