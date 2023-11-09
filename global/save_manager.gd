@@ -16,7 +16,8 @@ const DEFAULT_SAVE_DATA: Dictionary = {
 const DEFAULT_GLOBAL_DATA: Dictionary = {
 	"slots": {
 		"0": {"id": "0"}, 
-		"1": {"id": "1"}
+		"1": {"id": "1"}, 
+		"last_played_slot": "none"
 	}, 
 	"settings": {
 		"keybinds": {}

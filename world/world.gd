@@ -40,6 +40,7 @@ func _on_scene_activated(node: Node) -> void:
 	camera.global_position = camera_following_node.global_position
 	camera.enabled = true
 	camera.position_smoothing_enabled = true
+	SceneManager.pause("game", false)
 
 
 func _on_scene_deactivated(node: Node) -> void:

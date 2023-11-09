@@ -1,5 +1,12 @@
 extends Control
 
+enum VOLUME_TYPES {
+	MASTER = 0, 
+	SFX = 1, 
+	MUSIC = 2, 
+	NONE = 3
+}
+
 var keybinds: Dictionary = {}
 var editable_keybinds: Array[String] = [
 	"interact", 
@@ -19,6 +26,8 @@ var editable_keybinds: Array[String] = [
 
 var currently_rebinding: Array = []
 
+var currently_changing_volume: VOLUME_TYPES = VOLUME_TYPES.NONE
+
 @onready var keybind_settings: PanelContainer = $KeybindSettings
 @onready var keybind_template: CustomButton = $KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer/KeybindTemplate
 @onready var keybinds_container: VBoxContainer = $KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer
@@ -27,12 +36,13 @@ var currently_rebinding: Array = []
 @onready var sound_settings_button: Button = $VBoxContainer/SoundSettingsButton
 @onready var menus: Control = $".."
 @onready var start_listening_wait_timer: Timer = $StartListeningWaitTimer
+@onready var sound_settings: PanelContainer = $SoundSettings
+@onready var volume_change_listener: ColorRect = $VolumeChangeListener
+@onready var volume_display_label: Label = $VolumeChangeListener/PanelContainer/MarginContainer/Label
 
 
 func _ready() -> void:
 	first_time_load_keybinds()
-	
-	print("LOADED ", keybinds)
 	
 	SaveManager.about_to_save.connect(_about_to_save)
 
@@ -54,15 +64,65 @@ func _unhandled_input(event: InputEvent) -> void:
 		key_listener.hide()
 		keybind_settings_button.grab_focus()
 		load_keybinds()
+	elif event.is_action_pressed("ui_left") and volume_change_listener.visible:
+		# TODO: decrease volume in that type
+		match currently_changing_volume:
+			VOLUME_TYPES.MASTER:
+				pass
+			VOLUME_TYPES.SFX:
+				pass
+			VOLUME_TYPES.MUSIC:
+				pass
+			VOLUME_TYPES.NONE:
+				return
+	elif event.is_action_pressed("ui_right") and volume_change_listener.visible:
+		# TODO: increase volume in that type
+		match currently_changing_volume:
+			VOLUME_TYPES.MASTER:
+				pass
+			VOLUME_TYPES.SFX:
+				pass
+			VOLUME_TYPES.MUSIC:
+				pass
+			VOLUME_TYPES.NONE:
+				return
+	elif event.is_action_pressed("ui_cancel") and volume_change_listener.visible:
+		volume_change_listener.hide()
+		currently_changing_volume = VOLUME_TYPES.NONE
+		sound_settings_button.grab_focus()
 
 
 func _about_to_save() -> void:
 	if keybinds == {}:
 		return
-	print("saving data")
 	SaveManager.global_data.settings = SaveManager.global_data.get("settings", SaveManager.DEFAULT_GLOBAL_DATA.settings)
 	SaveManager.global_data.settings.keybinds = keybinds
 
+
+# SOUND
+
+func _on_master_volume_button_pressed() -> void:
+	volume_display_label.text = "Changing Master Volume\n\n" + "[volume]" + "%"
+	currently_changing_volume = VOLUME_TYPES.MASTER
+	volume_change_listener.show()
+	get_viewport().gui_release_focus()
+
+
+func _on_sfx_volume_button_pressed() -> void:
+	volume_display_label.text = "Changing SFX Volume\n\n" + "[volume]" + "%"
+	currently_changing_volume = VOLUME_TYPES.SFX
+	volume_change_listener.show()
+	get_viewport().gui_release_focus()
+
+
+func _on_music_volume_button_pressed() -> void:
+	volume_display_label.text = "Changing Music Volume\n\n" + "[volume]" + "%"
+	currently_changing_volume = VOLUME_TYPES.MUSIC
+	volume_change_listener.show()
+	get_viewport().gui_release_focus()
+
+
+# KEYBINDS
 
 func _on_keybind_button_pressed(action_name: String, keycode: int, button: CustomButton) -> void:
 	key_listener.show()
@@ -80,7 +140,9 @@ func _on_back_button_pressed() -> void:
 			$VBoxContainer/SoundSettingsButton, 
 			$VBoxContainer/KeybindSettingsButton, 
 			$VBoxContainer/AccessibilitySettingsButton, 
-			$VBoxContainer/BackButton
+			$VBoxContainer/BackButton, 
+			$SoundSettings, 
+			$KeybindSettings
 		], 
 		1.0, 
 		0.0
@@ -175,3 +237,26 @@ func get_action_keycode(action_name: String) -> int:
 		return -1
 	
 	return event.keycode if event.keycode != 0 else event.physical_keycode
+
+
+# GLOBAL
+
+func _on_sound_settings_button_focused() -> void:
+	keybind_settings.hide()
+	sound_settings.show()
+
+
+func _on_keybind_settings_button_focused() -> void:
+	keybind_settings.show()
+	sound_settings.hide()
+
+
+func _on_accessibility_settings_button_focused() -> void:
+	keybind_settings.hide()
+	sound_settings.hide()
+
+
+func _on_back_button_focused() -> void:
+	keybind_settings.hide()
+	sound_settings.hide()
+

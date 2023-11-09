@@ -29,3 +29,4 @@ func _on_focus_exited():
 
 func change_text(to: String) -> void:
 	text = ("> " if is_focused else "") + to
+

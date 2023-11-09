@@ -135,12 +135,19 @@ func _on_name_enter_text_submitted(new_text: String) -> void:
 
 
 func _on_play_button_pressed() -> void:
+	SaveManager.global_data.slots = SaveManager.global_data.get("slots", SaveManager.DEFAULT_GLOBAL_DATA.slots)
+	SaveManager.global_data.slots.last_played_slot = slot.get("id", "0")
 	SaveManager.current_slot = int(slot.get("id", 0))
 	SaveManager.save_data = await SaveManager.load_data(SaveManager.save_dir + SaveManager.file_name)
 	SaveManager.just_loaded.emit()
+	
 	SceneManager.change_scene("res://world/world.tscn")
 
 
 func _on_clear_button_pressed() -> void:
 	clear_confirm.show()
 	clear_confirm.grab_focus()
+	
+	SaveManager.global_data.slots = SaveManager.global_data.get("slots", SaveManager.DEFAULT_GLOBAL_DATA.slots)
+	if SaveManager.global_data.slots.last_played_slot == slot.get("id", "0"):
+		SaveManager.global_data.slots.last_played_slot = "none"

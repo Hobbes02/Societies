@@ -57,8 +57,11 @@ func _ready() -> void:
 	$Visuals/ColorRect.global_position.x = 0
 	
 	if load_cached_scenes_on_start:
+		pause("all", true)
 		for scene in scenes_to_cache:
 			await _load_scene(scene)
+			_deactivate_scene(scene)
+	pause("all", false)
 	
 	await change_scene(start_scene, false, false, scenes_ready)
 

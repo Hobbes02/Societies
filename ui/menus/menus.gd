@@ -7,10 +7,22 @@ extends Control
 
 
 func _ready() -> void:
+	SceneManager.pause("game", true)
+	
+	var last_played_slot = SaveManager.global_data.get("slots", {}).get("last_played_slot", "none")
+	if last_played_slot != "none":
+		play_button.change_text("Play (" + SaveManager.global_data.get("slots", {}).get(last_played_slot, {}).get("name", "") + ")")
+	else:
+		play_button.change_text("Play")
 	play_button.grab_focus()
 
 
 func _on_play_button_pressed() -> void:
+	var slot_to_play: String = SaveManager.global_data.get("slots", {}).get("last_played_slot", "none")
+	SaveManager.current_slot = int(slot_to_play)
+	SaveManager.save_data = await SaveManager.load_data(SaveManager.save_dir + SaveManager.file_name)
+	SaveManager.just_loaded.emit()
+	
 	SceneManager.change_scene("res://world/world.tscn")
 
 
