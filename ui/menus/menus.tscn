@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c8sfuxpy3f4x"]
+[gd_scene load_steps=15 format=3 uid="uid://c8sfuxpy3f4x"]
 
 [ext_resource type="Theme" uid="uid://6to07mql6l34" path="res://visuals/ui/theming/theme.tres" id="1_8qijw"]
 [ext_resource type="Script" path="res://ui/menus/menus.gd" id="2_kxxbt"]
@@ -6,7 +6,6 @@
 [ext_resource type="LabelSettings" uid="uid://buogeklsgutqp" path="res://visuals/ui/theming/label_settings/title.tres" id="4_y1ymd"]
 [ext_resource type="PackedScene" uid="uid://d2um4vlswi3yr" path="res://ui/elements/custom_button.tscn" id="5_2ns1y"]
 [ext_resource type="Script" path="res://ui/menus/save_select.gd" id="6_78t83"]
-[ext_resource type="Shader" path="res://visuals/shaders/blur.gdshader" id="7_xkqtt"]
 [ext_resource type="Script" path="res://ui/menus/settings.gd" id="8_7tw6h"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_msrdx"]
@@ -27,10 +26,6 @@ corner_radius_bottom_left = 1
 color = Color(0.984314, 0.960784, 0.952941, 1)
 thickness = 2
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_si54h"]
-shader = ExtResource("7_xkqtt")
-shader_parameter/blur_amount = 2.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ch5b4"]
 bg_color = Color(0.427451, 0.411765, 0.403922, 0.87451)
 border_width_left = 2
@@ -42,6 +37,43 @@ corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
+
+[sub_resource type="Animation" id="Animation_n4nve"]
+resource_name = "slide"
+length = 80.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundImage:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 80),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-140, -856), Vector2(-3000, -856)]
+}
+
+[sub_resource type="Animation" id="Animation_2vafu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundImage:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-140, -856)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q80pj"]
+_data = {
+"RESET": SubResource("Animation_2vafu"),
+"slide": SubResource("Animation_n4nve")
+}
 
 [node name="Menus" type="Control"]
 texture_filter = 1
@@ -59,10 +91,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -916.0
-offset_top = -891.0
-offset_right = 2209.45
-offset_bottom = 883.0
+offset_left = -140.0
+offset_top = -856.0
+offset_right = 2985.45
+offset_bottom = 918.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_dpuqp")
@@ -244,13 +276,13 @@ step = 1.0
 
 [node name="NameEditor" type="ColorRect" parent="SaveSelect"]
 visible = false
-material = SubResource("ShaderMaterial_si54h")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0, 0, 0.521569)
 
 [node name="PanelContainer" type="PanelContainer" parent="SaveSelect/NameEditor"]
 layout_mode = 1
@@ -282,13 +314,13 @@ horizontal_alignment = 1
 
 [node name="ClearConfirm" type="ColorRect" parent="SaveSelect"]
 visible = false
-material = SubResource("ShaderMaterial_si54h")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0, 0, 0.521569)
 
 [node name="PanelContainer" type="PanelContainer" parent="SaveSelect/ClearConfirm"]
 layout_mode = 1
@@ -450,7 +482,6 @@ text_overrun_behavior = 3
 
 [node name="VolumeChangeListener" type="ColorRect" parent="Settings"]
 visible = false
-material = SubResource("ShaderMaterial_si54h")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -463,6 +494,7 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath(".")
 focus_next = NodePath(".")
 focus_previous = NodePath(".")
+color = Color(0, 0, 0, 0.521569)
 
 [node name="PanelContainer" type="PanelContainer" parent="Settings/VolumeChangeListener"]
 layout_mode = 1
@@ -529,7 +561,6 @@ text_overrun_behavior = 3
 
 [node name="KeyListener" type="ColorRect" parent="Settings"]
 visible = false
-material = SubResource("ShaderMaterial_si54h")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -542,6 +573,7 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath(".")
 focus_next = NodePath(".")
 focus_previous = NodePath(".")
+color = Color(0, 0, 0, 0.521569)
 
 [node name="PanelContainer" type="PanelContainer" parent="Settings/KeyListener"]
 layout_mode = 1
@@ -595,14 +627,18 @@ theme_override_constants/separation = 10
 layout_mode = 2
 text = "Accessibility"
 autowrap_mode = 3
-visible_characters = -2
-visible_ratio = -0.2
 
 [node name="HSeparator" type="HSeparator" parent="Settings/AccessibilitySettings/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="StartListeningWaitTimer" type="Timer" parent="Settings"]
 wait_time = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "slide"
+libraries = {
+"": SubResource("AnimationLibrary_q80pj")
+}
 
 [connection signal="visibility_changed" from="TitleScreen" to="." method="_on_title_screen_visibility_changed"]
 [connection signal="pressed" from="TitleScreen/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

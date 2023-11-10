@@ -51,7 +51,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		SaveManager.global_data.slots = SaveManager.global_data.get("slots", SaveManager.DEFAULT_GLOBAL_DATA.slots)
 		if SaveManager.global_data.slots.last_played_slot == slot.get("id", "0"):
 			SaveManager.global_data.slots.last_played_slot = "none"
-			print("CLEAR CURRENT")
 		last_focused_slot_button.grab_focus()
 
 
