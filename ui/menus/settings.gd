@@ -58,7 +58,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		currently_rebinding = []
 		key_listener.hide()
 		keybind_settings_button.grab_focus()
-	elif event is InputEventKey and currently_rebinding != []:
+	elif event is InputEventKey and currently_rebinding != [] and event.is_released():
 		change_action_event(currently_rebinding[0], event.keycode if event.keycode != 0 else event.physical_keycode)
 		keybinds[currently_rebinding[0]] = event.keycode
 		currently_rebinding = []
