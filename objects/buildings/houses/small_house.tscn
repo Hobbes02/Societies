@@ -1,48 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4ms48h0jqsrt"]
+[gd_scene load_steps=2 format=3 uid="uid://d4ms48h0jqsrt"]
 
 [ext_resource type="PackedScene" uid="uid://k3fm7ocdph3w" path="res://objects/buildings/building.tscn" id="1_tc27i"]
 
-[sub_resource type="Animation" id="Animation_a2ps7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasGroup/Door:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 15)]
-}
-
-[sub_resource type="Animation" id="Animation_rvi2c"]
-resource_name = "open_door"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasGroup/Door:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 15), Vector2(-8, 15)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_a7v46"]
-_data = {
-"RESET": SubResource("Animation_a2ps7"),
-"open_door": SubResource("Animation_rvi2c")
-}
-
-[node name="SmallHouse" node_paths=PackedStringArray("animation_player") instance=ExtResource("1_tc27i")]
-animation_player = NodePath("AnimationPlayer")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
-libraries = {
-"": SubResource("AnimationLibrary_a7v46")
-}
+[node name="SmallHouse" instance=ExtResource("1_tc27i")]

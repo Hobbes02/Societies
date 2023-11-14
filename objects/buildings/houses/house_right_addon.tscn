@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d00jquri4qsvj"]
+[gd_scene load_steps=4 format=3 uid="uid://d00jquri4qsvj"]
 
 [ext_resource type="PackedScene" uid="uid://k3fm7ocdph3w" path="res://objects/buildings/building.tscn" id="1_kuaxi"]
 [ext_resource type="Texture2D" uid="uid://b5i4dh45q5qsc" path="res://visuals/buildings/houses/house_right_addon.png" id="2_5npsy"]
@@ -6,45 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mofs1"]
 size = Vector2(12, 15)
 
-[sub_resource type="Animation" id="Animation_0yj8k"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasGroup/Door:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-16, 15)]
-}
-
-[sub_resource type="Animation" id="Animation_sbind"]
-resource_name = "open_door"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasGroup/Door:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-16, 15), Vector2(-24, 15)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0fnes"]
-_data = {
-"RESET": SubResource("Animation_0yj8k"),
-"open_door": SubResource("Animation_sbind")
-}
-
-[node name="HouseRightAddon" node_paths=PackedStringArray("animation_player") instance=ExtResource("1_kuaxi")]
-animation_player = NodePath("AnimationPlayer")
+[node name="HouseRightAddon" instance=ExtResource("1_kuaxi")]
 
 [node name="MainHouse" parent="." index="0"]
 texture = ExtResource("2_5npsy")
@@ -58,8 +20,3 @@ position = Vector2(-24, 15)
 [node name="CollisionShape2D" parent="Doorway" index="0"]
 position = Vector2(-16, 15.5)
 shape = SubResource("RectangleShape2D_mofs1")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
-libraries = {
-"": SubResource("AnimationLibrary_0fnes")
-}

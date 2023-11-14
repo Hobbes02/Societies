@@ -1,0 +1,663 @@
+[gd_scene load_steps=15 format=3 uid="uid://c8sfuxpy3f4x"]
+
+[ext_resource type="Theme" uid="uid://6to07mql6l34" path="res://visuals/ui/theming/theme.tres" id="1_8qijw"]
+[ext_resource type="Script" path="res://ui/menus/menus.gd" id="2_kxxbt"]
+[ext_resource type="Texture2D" uid="uid://buw06dpnxe7uc" path="res://branding/screenshots/baisc_level_night.png" id="3_dpuqp"]
+[ext_resource type="LabelSettings" uid="uid://buogeklsgutqp" path="res://visuals/ui/theming/label_settings/title.tres" id="4_y1ymd"]
+[ext_resource type="PackedScene" uid="uid://d2um4vlswi3yr" path="res://ui/elements/custom_button.tscn" id="5_2ns1y"]
+[ext_resource type="Script" path="res://ui/menus/save_select.gd" id="6_78t83"]
+[ext_resource type="Script" path="res://ui/menus/settings.gd" id="8_7tw6h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_msrdx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_en7u4"]
+bg_color = Color(0.550781, 0.534645, 0.529266, 0.313726)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.984314, 0.960784, 0.952941, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_gnxc0"]
+color = Color(0.984314, 0.960784, 0.952941, 1)
+thickness = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ch5b4"]
+bg_color = Color(0.427451, 0.411765, 0.403922, 0.87451)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.984314, 0.960784, 0.952941, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="Animation" id="Animation_2vafu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundImage:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-140, -856)]
+}
+
+[sub_resource type="Animation" id="Animation_n4nve"]
+resource_name = "slide"
+length = 80.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundImage:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 80),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-140, -856), Vector2(-3000, -856)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q80pj"]
+_data = {
+"RESET": SubResource("Animation_2vafu"),
+"slide": SubResource("Animation_n4nve")
+}
+
+[node name="Menus" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8qijw")
+script = ExtResource("2_kxxbt")
+
+[node name="BackgroundImage" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -856.0
+offset_right = 2516.0
+offset_bottom = 652.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dpuqp")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TitleScreen" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleScreen"]
+layout_mode = 2
+offset_left = 76.0
+offset_top = 155.0
+offset_right = 444.0
+offset_bottom = 513.0
+rotation = -6.28319
+pivot_offset = Vector2(-1.772, -0.0371246)
+theme_override_constants/separation = 30
+
+[node name="TitleLabel" type="Label" parent="TitleScreen/VBoxContainer"]
+layout_mode = 2
+text = "Logo Here"
+label_settings = ExtResource("4_y1ymd")
+
+[node name="HSeparator" type="HSeparator" parent="TitleScreen/VBoxContainer"]
+custom_minimum_size = Vector2(348, 0)
+layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_msrdx")
+
+[node name="PlayButton" parent="TitleScreen/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Play
+"
+alignment = 0
+
+[node name="SavesButton" parent="TitleScreen/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Saves"
+alignment = 0
+
+[node name="SettingsButton" parent="TitleScreen/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Settings"
+alignment = 0
+
+[node name="SaveSelect" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_78t83")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SaveSelect"]
+layout_mode = 2
+offset_left = 76.0
+offset_top = 155.0
+offset_right = 424.0
+offset_bottom = 493.0
+theme_override_constants/separation = 30
+
+[node name="TitleLabel" type="Label" parent="SaveSelect/VBoxContainer"]
+layout_mode = 2
+text = "Saves"
+label_settings = ExtResource("4_y1ymd")
+
+[node name="HSeparator" type="HSeparator" parent="SaveSelect/VBoxContainer"]
+custom_minimum_size = Vector2(348, 0)
+layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_msrdx")
+
+[node name="Slot1Button" parent="SaveSelect/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../../SlotEditor/MarginContainer/VBoxContainer/SlotName")
+focus_neighbor_bottom = NodePath("../Slot2Button")
+focus_next = NodePath("../Slot2Button")
+focus_previous = NodePath(".")
+theme_override_font_sizes/font_size = 24
+text = "Empty Slot"
+alignment = 0
+
+[node name="Slot2Button" parent="SaveSelect/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Slot1Button")
+focus_neighbor_right = NodePath("../../SlotEditor/MarginContainer/VBoxContainer/SlotName")
+focus_neighbor_bottom = NodePath("../BackButton")
+focus_next = NodePath("../BackButton")
+focus_previous = NodePath("../Slot1Button")
+theme_override_font_sizes/font_size = 24
+text = "Empty Slot"
+alignment = 0
+
+[node name="BackButton" parent="SaveSelect/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Slot2Button")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath("../Slot2Button")
+theme_override_font_sizes/font_size = 24
+text = "Back"
+alignment = 0
+
+[node name="SlotEditor" type="PanelContainer" parent="SaveSelect"]
+layout_mode = 0
+offset_left = 430.0
+offset_top = 153.0
+offset_right = 718.0
+offset_bottom = 574.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_en7u4")
+
+[node name="MarginContainer" type="MarginContainer" parent="SaveSelect/SlotEditor"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SaveSelect/SlotEditor/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SlotName" parent="SaveSelect/SlotEditor/MarginContainer/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath(".")
+focus_neighbor_bottom = NodePath("../ClearButton")
+focus_next = NodePath("../ClearButton")
+focus_previous = NodePath(".")
+text = "Slot Name"
+alignment = 0
+text_overrun_behavior = 3
+
+[node name="ClearButton" parent="SaveSelect/SlotEditor/MarginContainer/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../SlotName")
+focus_neighbor_bottom = NodePath("../PlayButton")
+focus_next = NodePath("../PlayButton")
+focus_previous = NodePath("../SlotName")
+text = "Clear"
+alignment = 0
+text_overrun_behavior = 3
+
+[node name="PlayButton" parent="SaveSelect/SlotEditor/MarginContainer/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ClearButton")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath("../ClearButton")
+text = "Play"
+alignment = 0
+text_overrun_behavior = 3
+
+[node name="HSeparator" type="HSeparator" parent="SaveSelect/SlotEditor/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxLine_gnxc0")
+
+[node name="AreaIndicator" type="Label" parent="SaveSelect/SlotEditor/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Area: Example City"
+autowrap_mode = 3
+
+[node name="Progress" type="HBoxContainer" parent="SaveSelect/SlotEditor/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ProgressLabel" type="Label" parent="SaveSelect/SlotEditor/MarginContainer/VBoxContainer/Progress"]
+layout_mode = 2
+text = "Progress:"
+
+[node name="ProgressIndicator" type="ProgressBar" parent="SaveSelect/SlotEditor/MarginContainer/VBoxContainer/Progress"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 1.0
+
+[node name="NameEditor" type="ColorRect" parent="SaveSelect"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.521569)
+
+[node name="PanelContainer" type="PanelContainer" parent="SaveSelect/NameEditor"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37066
+anchor_top = 0.423611
+anchor_right = 0.62934
+anchor_bottom = 0.576389
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ch5b4")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="SaveSelect/NameEditor/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SaveSelect/NameEditor/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="NameEnter" type="LineEdit" parent="SaveSelect/NameEditor/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Old Slot Name"
+alignment = 1
+
+[node name="CancelLabel" type="Label" parent="SaveSelect/NameEditor/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "ESC to cancel"
+horizontal_alignment = 1
+
+[node name="ClearConfirm" type="ColorRect" parent="SaveSelect"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.521569)
+
+[node name="PanelContainer" type="PanelContainer" parent="SaveSelect/ClearConfirm"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37066
+anchor_top = 0.423611
+anchor_right = 0.62934
+anchor_bottom = 0.576389
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ch5b4")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="SaveSelect/ClearConfirm/PanelContainer"]
+layout_mode = 2
+
+[node name="ConfirmLabel" type="Label" parent="SaveSelect/ClearConfirm/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = 12
+text = "Are you sure you want to clear your savegame?
+
+(Enter to confirm)"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Settings" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_7tw6h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
+layout_mode = 2
+offset_left = 76.0
+offset_top = 155.0
+offset_right = 424.0
+offset_bottom = 493.0
+theme_override_constants/separation = 30
+
+[node name="TitleLabel" type="Label" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+label_settings = ExtResource("4_y1ymd")
+
+[node name="HSeparator" type="HSeparator" parent="Settings/VBoxContainer"]
+custom_minimum_size = Vector2(348, 0)
+layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_msrdx")
+
+[node name="SoundSettingsButton" parent="Settings/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../../SoundSettings/MarginContainer/ScrollContainer/VBoxContainer/MainVolumeButton")
+focus_neighbor_bottom = NodePath("../KeybindSettingsButton")
+focus_next = NodePath("../KeybindSettingsButton")
+focus_previous = NodePath(".")
+theme_override_font_sizes/font_size = 24
+text = "Sound"
+alignment = 0
+
+[node name="KeybindSettingsButton" parent="Settings/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../SoundSettingsButton")
+focus_neighbor_bottom = NodePath("../AccessibilitySettingsButton")
+focus_next = NodePath("../AccessibilitySettingsButton")
+focus_previous = NodePath("../SoundSettingsButton")
+theme_override_font_sizes/font_size = 24
+text = "Keybinds"
+alignment = 0
+
+[node name="AccessibilitySettingsButton" parent="Settings/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../KeybindSettingsButton")
+focus_neighbor_right = NodePath("../../KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer/KeybindTemplate")
+focus_neighbor_bottom = NodePath("../BackButton")
+focus_next = NodePath("../BackButton")
+focus_previous = NodePath("../KeybindSettingsButton")
+theme_override_font_sizes/font_size = 24
+text = "Accessibility"
+alignment = 0
+
+[node name="BackButton" parent="Settings/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../AccessibilitySettingsButton")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath("../AccessibilitySettingsButton")
+theme_override_font_sizes/font_size = 24
+text = "Back"
+alignment = 0
+
+[node name="SoundSettings" type="PanelContainer" parent="Settings"]
+visible = false
+layout_mode = 0
+offset_left = 430.0
+offset_top = 153.0
+offset_right = 718.0
+offset_bottom = 574.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_en7u4")
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/SoundSettings"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Settings/SoundSettings/MarginContainer"]
+layout_mode = 2
+follow_focus = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/SoundSettings/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Settings/SoundSettings/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sound"
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="Settings/SoundSettings/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MainVolumeButton" parent="Settings/SoundSettings/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../../../../VBoxContainer/SoundSettingsButton")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_bottom = NodePath("../SFXVolumeButton")
+focus_next = NodePath("../SFXVolumeButton")
+focus_previous = NodePath(".")
+text = "Main Volume: 60%"
+alignment = 0
+text_overrun_behavior = 3
+
+[node name="SFXVolumeButton" parent="Settings/SoundSettings/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../../../../VBoxContainer/SoundSettingsButton")
+focus_neighbor_top = NodePath("../MainVolumeButton")
+focus_neighbor_bottom = NodePath("../MusicVolumeButton")
+focus_next = NodePath("../MusicVolumeButton")
+focus_previous = NodePath("../MainVolumeButton")
+text = "SFX Volume: 60%"
+alignment = 0
+text_overrun_behavior = 3
+
+[node name="MusicVolumeButton" parent="Settings/SoundSettings/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../../../../VBoxContainer/SoundSettingsButton")
+focus_neighbor_top = NodePath("../SFXVolumeButton")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath("../SFXVolumeButton")
+text = "Music Volume: 60%"
+alignment = 0
+text_overrun_behavior = 3
+
+[node name="VolumeChangeListener" type="ColorRect" parent="Settings"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+color = Color(0, 0, 0, 0.521569)
+
+[node name="PanelContainer" type="PanelContainer" parent="Settings/VolumeChangeListener"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -167.0
+offset_top = -47.5
+offset_right = 167.0
+offset_bottom = 47.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ch5b4")
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/VolumeChangeListener/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/VolumeChangeListener/PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "Changing Master Volume
+
+60%"
+horizontal_alignment = 1
+
+[node name="KeybindSettings" type="PanelContainer" parent="Settings"]
+visible = false
+layout_mode = 0
+offset_left = 430.0
+offset_top = 153.0
+offset_right = 718.0
+offset_bottom = 574.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_en7u4")
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/KeybindSettings"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Settings/KeybindSettings/MarginContainer"]
+layout_mode = 2
+follow_focus = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/KeybindSettings/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Settings/KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Keybinds"
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="Settings/KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="KeybindTemplate" parent="Settings/KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("5_2ns1y")]
+layout_mode = 2
+focus_neighbor_top = NodePath(".")
+focus_previous = NodePath(".")
+text = "Action Name: Key"
+alignment = 0
+text_overrun_behavior = 3
+
+[node name="KeyListener" type="ColorRect" parent="Settings"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+color = Color(0, 0, 0, 0.521569)
+
+[node name="PanelContainer" type="PanelContainer" parent="Settings/KeyListener"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -61.0
+offset_right = 165.0
+offset_bottom = 61.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ch5b4")
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/KeyListener/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/KeyListener/PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "Listening for key press
+
+
+Shift+Escape to cancel"
+horizontal_alignment = 1
+
+[node name="AccessibilitySettings" type="PanelContainer" parent="Settings"]
+visible = false
+layout_mode = 0
+offset_left = 430.0
+offset_top = 153.0
+offset_right = 718.0
+offset_bottom = 574.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_en7u4")
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/AccessibilitySettings"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Settings/AccessibilitySettings/MarginContainer"]
+layout_mode = 2
+follow_focus = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/AccessibilitySettings/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Settings/AccessibilitySettings/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Accessibility"
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="Settings/AccessibilitySettings/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="StartListeningWaitTimer" type="Timer" parent="Settings"]
+wait_time = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "slide"
+libraries = {
+"": SubResource("AnimationLibrary_q80pj")
+}
+
+[connection signal="visibility_changed" from="TitleScreen" to="." method="_on_title_screen_visibility_changed"]
+[connection signal="pressed" from="TitleScreen/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="TitleScreen/VBoxContainer/SavesButton" to="." method="_on_saves_button_pressed"]
+[connection signal="pressed" from="TitleScreen/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="focused" from="SaveSelect/VBoxContainer/Slot1Button" to="SaveSelect" method="_on_slot_1_button_focused"]
+[connection signal="focused" from="SaveSelect/VBoxContainer/Slot2Button" to="SaveSelect" method="_on_slot_2_button_focused"]
+[connection signal="focused" from="SaveSelect/VBoxContainer/BackButton" to="SaveSelect" method="_on_back_button_focused"]
+[connection signal="pressed" from="SaveSelect/VBoxContainer/BackButton" to="SaveSelect" method="_on_back_button_pressed"]
+[connection signal="focused" from="SaveSelect/SlotEditor/MarginContainer/VBoxContainer/SlotName" to="SaveSelect" method="_on_slot_name_focused"]
+[connection signal="pressed" from="SaveSelect/SlotEditor/MarginContainer/VBoxContainer/SlotName" to="SaveSelect" method="_on_slot_name_pressed"]
+[connection signal="pressed" from="SaveSelect/SlotEditor/MarginContainer/VBoxContainer/ClearButton" to="SaveSelect" method="_on_clear_button_pressed"]
+[connection signal="pressed" from="SaveSelect/SlotEditor/MarginContainer/VBoxContainer/PlayButton" to="SaveSelect" method="_on_play_button_pressed"]
+[connection signal="text_submitted" from="SaveSelect/NameEditor/PanelContainer/MarginContainer/VBoxContainer/NameEnter" to="SaveSelect" method="_on_name_enter_text_submitted"]
+[connection signal="focused" from="Settings/VBoxContainer/SoundSettingsButton" to="Settings" method="_on_sound_settings_button_focused"]
+[connection signal="focused" from="Settings/VBoxContainer/KeybindSettingsButton" to="Settings" method="_on_keybind_settings_button_focused"]
+[connection signal="focused" from="Settings/VBoxContainer/AccessibilitySettingsButton" to="Settings" method="_on_accessibility_settings_button_focused"]
+[connection signal="focused" from="Settings/VBoxContainer/BackButton" to="Settings" method="_on_back_button_focused"]
+[connection signal="pressed" from="Settings/VBoxContainer/BackButton" to="Settings" method="_on_back_button_pressed"]
+[connection signal="pressed" from="Settings/SoundSettings/MarginContainer/ScrollContainer/VBoxContainer/MainVolumeButton" to="Settings" method="_on_master_volume_button_pressed"]
+[connection signal="pressed" from="Settings/SoundSettings/MarginContainer/ScrollContainer/VBoxContainer/SFXVolumeButton" to="Settings" method="_on_sfx_volume_button_pressed"]
+[connection signal="pressed" from="Settings/SoundSettings/MarginContainer/ScrollContainer/VBoxContainer/MusicVolumeButton" to="Settings" method="_on_music_volume_button_pressed"]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://cy2yaj2225spb"]
 
 [ext_resource type="Script" path="res://ui/hud/hud.gd" id="1_583iq"]
-[ext_resource type="Theme" uid="uid://busbw3eda0iob" path="res://ui/control.tres" id="2_fp4cq"]
+[ext_resource type="Theme" path="res://ui/control.tres" id="2_fp4cq"]
 [ext_resource type="Shader" path="res://visuals/shaders/blur.gdshader" id="2_n8pft"]
-[ext_resource type="LabelSettings" uid="uid://dqlqxqnq8co50" path="res://ui/subtitle_1_label_settings.tres" id="4_msys0"]
-[ext_resource type="LabelSettings" uid="uid://bubk1uj0khyc1" path="res://ui/subtitle_2_label_settings.tres" id="5_qfssp"]
+[ext_resource type="LabelSettings" path="res://ui/subtitle_1_label_settings.tres" id="4_msys0"]
+[ext_resource type="LabelSettings" path="res://ui/subtitle_2_label_settings.tres" id="5_qfssp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ltfcm"]
 shader = ExtResource("2_n8pft")
@@ -127,9 +127,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 251.0
+offset_left = -325.0
 offset_top = -85.0
-offset_right = 901.0
+offset_right = 325.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_43ams")
 

@@ -1,52 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://divrdvo8kkgtb"]
+[gd_scene load_steps=3 format=3 uid="uid://divrdvo8kkgtb"]
 
 [ext_resource type="PackedScene" uid="uid://k3fm7ocdph3w" path="res://objects/buildings/building.tscn" id="1_ijmq5"]
 [ext_resource type="Texture2D" uid="uid://dwhfpemh3waak" path="res://visuals/buildings/post_office.png" id="2_ivmhk"]
 
-[sub_resource type="Animation" id="Animation_tebib"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasGroup/Door:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 15)]
-}
-
-[sub_resource type="Animation" id="Animation_6cw3l"]
-resource_name = "open_door"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasGroup/Door:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 15), Vector2(-8, 15)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_c3ghv"]
-_data = {
-"RESET": SubResource("Animation_tebib"),
-"open_door": SubResource("Animation_6cw3l")
-}
-
-[node name="PostOffice" node_paths=PackedStringArray("animation_player") instance=ExtResource("1_ijmq5")]
-animation_player = NodePath("AnimationPlayer")
+[node name="PostOffice" instance=ExtResource("1_ijmq5")]
 
 [node name="MainHouse" parent="." index="0"]
 texture = ExtResource("2_ivmhk")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
-libraries = {
-"": SubResource("AnimationLibrary_c3ghv")
-}
