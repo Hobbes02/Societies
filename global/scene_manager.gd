@@ -118,6 +118,18 @@ func set_persistent_information(key: String, value: Variant) -> void:
 	persistent_information[key] = value
 
 
+func process_mode_children(parent: Node, mode: Variant) -> void:
+	if not parent.is_node_ready():
+		return
+	parent.process_mode = mode
+	for child in parent.get_children():
+		if child.process_mode != mode:
+			child.process_mode = mode
+			await get_tree().process_frame
+		if child.get_child_count() > 0:
+			process_mode_children(child, mode)
+
+
 func _activate_scene(path: String) -> void:
 	if not has_node(path):
 		return
@@ -127,25 +139,35 @@ func _activate_scene(path: String) -> void:
 			continue
 		_deactivate_scene(str(other_scene))
 	
+	var node: Node = get_node(path)
+	
+	await get_tree().process_frame
+	
+	process_mode_children(node, PROCESS_MODE_ALWAYS)
+	
 	active_scene = path
-	active_scene_node = get_node(path)
-	activate.emit(get_node(path))
-	get_node(path).show()
+	active_scene_node = node
+	activate.emit(node)
+	node.show()
 
 
 func _deactivate_scene(path: String) -> void:
 	if not has_node(path):
 		return
-	deactivate.emit(get_node(path))
+	
+	var node: Node = get_node(path)
+	
+	deactivate.emit(node)
 	if active_scene == path:
 		active_scene = ""
-	if active_scene_node == get_node(path):
+	if active_scene_node == node:
 		active_scene_node = null
 	if path in scenes_loaded.keys() and scenes_loaded[path] not in scenes_to_cache:
 		scenes_loaded.erase(path)
-		get_node(path).queue_free()
+		node.queue_free()
 	else:
-		get_node(path).hide()
+		node.hide()
+		process_mode_children(node, PROCESS_MODE_DISABLED)
 
 
 func _load_scene(scene_path: String) -> void:
@@ -158,12 +180,13 @@ func _load_scene(scene_path: String) -> void:
 	currently_loading_scene = ""
 	
 	var scene = loaded_scene.instantiate()
-	
 	scenes.add_child(scene)
 	
-	_activate_scene(get_path_to(scene))
-	
 	scenes_loaded[str(get_path_to(scene))] = scene_path
+	
+	await get_tree().process_frame
+	
+	_activate_scene(get_path_to(scene))
 
 
 func _process(delta: float) -> void:

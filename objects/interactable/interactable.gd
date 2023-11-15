@@ -110,7 +110,7 @@ func _input(event: InputEvent) -> void:
 			INTERACTIONS.SHOW_NODE:
 				node.show()
 			INTERACTIONS.CHANGE_SCENE:
-				get_tree().change_scene_to_file(scene_path)
+				SceneManager.change_scene(scene_path)
 			INTERACTIONS.TASK:
 				match modify_type:
 					0:  # Complete

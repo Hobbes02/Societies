@@ -80,6 +80,7 @@ func _on_unfocus_camera() -> void:
 	if SceneManager.is_paused("game"):
 		focus_after_unpause = player
 		return
+	
 	camera_following_node = player
 
 

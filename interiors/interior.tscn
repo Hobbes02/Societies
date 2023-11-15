@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlmfs52ceu7si"]
+
+[ext_resource type="TileSet" uid="uid://dp8wwkpn4tdp3" path="res://world/tileset.tres" id="1_6xcqc"]
+[ext_resource type="PackedScene" uid="uid://7oe6ekia4jat" path="res://objects/player/player.tscn" id="2_8fku2"]
+[ext_resource type="PackedScene" uid="uid://dga3u0pbhej4u" path="res://objects/interactable/interactable.tscn" id="3_5caj2"]
+[ext_resource type="Texture2D" uid="uid://d0pw4ialcm0v8" path="res://visuals/buildings/doors/wooden_door.png" id="4_oyvoh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dpsj"]
+size = Vector2(8, 13)
+
+[node name="Interior" type="Node2D"]
+texture_filter = 1
+
+[node name="Player" parent="." instance=ExtResource("2_8fku2")]
+position = Vector2(11, 16)
+
+[node name="Camera" type="Camera2D" parent="Player"]
+process_mode = 3
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.5
+
+[node name="TileMap" type="TileMap" parent="."]
+process_mode = 3
+tile_set = ExtResource("1_6xcqc")
+format = 2
+layer_0/name = "background"
+layer_0/modulate = Color(0.65098, 0.65098, 0.65098, 1)
+layer_1/name = "collision"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array(262139, 196608, 2, 262140, 196608, 0, 262141, 196608, 0, 262142, 196608, 0, 262143, 196608, 0, 196608, 196608, 0, 196609, 196608, 0, 196610, 196608, 0, 196611, 196608, 0, 196612, 196608, 0, 196613, 196608, 0, 196614, 196608, 0, 262150, 196608, 2, 262149, 196608, 2, 262148, 196608, 2, 262147, 196608, 2, 262146, 196608, 1, 262145, 196608, 1, 262144, 196608, 1, 327679, 196608, 1, 327678, 196608, 2, 327677, 196608, 1, 327676, 196608, 1, 327675, 196608, 1, 262138, 196608, 2, 262137, 196608, 1, 196602, 196608, 2, 196615, 196608, 0, 196616, 196608, 1, 131080, 196608, 1, 131081, 196608, 1, 131082, 196608, 2, 65546, 196608, 1, 65547, 196608, 2, 131083, 196608, 1, 196618, 196608, 1, 196617, 196608, 1, 262152, 196608, 2, 262151, 196608, 2, 327674, 196608, 1, 327673, 196608, 1, 262153, 196608, 2, 262154, 196608, 1, 196619, 196608, 1, 196620, 196608, 1, 131084, 196608, 2)
+layer_2/name = "foreground"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 64
+layer_2/tile_data = PackedInt32Array()
+
+[node name="Interactable" parent="." instance=ExtResource("3_5caj2")]
+interaction_type = 3
+scene_path = "res://world/world.tscn"
+
+[node name="Sprite2D" type="Sprite2D" parent="Interactable"]
+position = Vector2(38, 16)
+texture = ExtResource("4_oyvoh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(38, 17.5)
+shape = SubResource("RectangleShape2D_6dpsj")

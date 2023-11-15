@@ -74,10 +74,10 @@ func _physics_process(delta: float) -> void:
 
 
 func handle_movement(delta: float) -> void:
-	if Input.is_action_pressed("sprint"):
-		current_move_state = MoveStates.Sprint
-	elif Input.is_action_pressed("crawl"):
+	if Input.is_action_pressed("crawl"):
 		current_move_state = MoveStates.Crawl
+	elif Input.is_action_pressed("sprint"):
+		current_move_state = MoveStates.Sprint
 	else:
 		if headspace_detector.is_colliding() and current_move_state == MoveStates.Crawl:
 			current_move_state = MoveStates.Crawl
