@@ -2,6 +2,8 @@ class_name Interactable
 extends Area2D
 
 signal interacted()
+signal entered()
+signal exited()
 signal focus_camera(node: Node2D)
 signal ended()
 
@@ -137,9 +139,11 @@ func _on_balloon_center_node(node: Node2D) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	entered.emit()
 	can_interact = true
 
 
 func _on_body_exited(body: Node2D) -> void:
+	exited.emit()
 	can_interact = false
 

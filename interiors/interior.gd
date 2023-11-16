@@ -1,30 +1,21 @@
 extends Node2D
 
-@export_file("*.tscn") var interior: String = ""
-
-@export_group("New Building Settings")
 @export var door_width: int = 8
 @export var door_open_frame_length: float = 0.1
 
-var can_enter: bool = false
 var door_opening: bool = false
 var door_closing: bool = false
 
-@onready var door: Sprite2D = $CanvasGroup/Door
+@onready var door: Sprite2D = $Door/CanvasGroup/Door
 @onready var default_door_position: Vector2 = door.global_position
-@onready var interactable: Area2D = $Doorway
 
 
-func _ready() -> void:
-	interactable.scene_path = interior
+func _on_door_interactable_entered() -> void:
+	open_door()
 
 
-func _on_doorway_entered() -> void:
-	await open_door()
-
-
-func _on_doorway_exited() -> void:
-	await close_door()
+func _on_door_interactable_exited() -> void:
+	close_door()
 
 
 func open_door() -> void:
@@ -47,3 +38,4 @@ func close_door() -> void:
 		door.global_position.x += 1
 		await get_tree().create_timer(door_open_frame_length).timeout
 	door_closing = false
+

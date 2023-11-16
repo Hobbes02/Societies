@@ -1,15 +1,72 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlmfs52ceu7si"]
+[gd_scene load_steps=9 format=3 uid="uid://dlmfs52ceu7si"]
 
-[ext_resource type="TileSet" uid="uid://dp8wwkpn4tdp3" path="res://world/tileset.tres" id="1_6xcqc"]
+[ext_resource type="Script" path="res://interiors/interior.gd" id="1_4ktrd"]
+[ext_resource type="TileSet" uid="uid://v8ns84hr50ra" path="res://interiors/house_tileset.tres" id="2_5ro1t"]
 [ext_resource type="PackedScene" uid="uid://7oe6ekia4jat" path="res://objects/player/player.tscn" id="2_8fku2"]
 [ext_resource type="PackedScene" uid="uid://dga3u0pbhej4u" path="res://objects/interactable/interactable.tscn" id="3_5caj2"]
+[ext_resource type="Texture2D" uid="uid://b8livptug2mjs" path="res://visuals/buildings/doors/doorway.png" id="3_ha4hj"]
 [ext_resource type="Texture2D" uid="uid://d0pw4ialcm0v8" path="res://visuals/buildings/doors/wooden_door.png" id="4_oyvoh"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2mgsv"]
+blend_mode = 2
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6dpsj"]
-size = Vector2(8, 13)
+size = Vector2(12, 15)
 
 [node name="Interior" type="Node2D"]
 texture_filter = 1
+script = ExtResource("1_4ktrd")
+
+[node name="TileMap" type="TileMap" parent="."]
+process_mode = 3
+tile_set = ExtResource("2_5ro1t")
+format = 2
+layer_0/name = "background"
+layer_0/modulate = Color(0.65098, 0.65098, 0.65098, 1)
+layer_0/tile_data = PackedInt32Array(196603, 2, 3, 196604, 2, 3, 196605, 2, 3, 196606, 2, 3, 196607, 2, 3, 131072, 2, 3, 131073, 2, 3, 131074, 2, 3, 131075, 2, 3, 131076, 2, 3, 131077, 2, 3, 131078, 2, 3, 131079, 2, 3, 65545, 2, 3, 65544, 2, 3, 65543, 2, 3, 65542, 2, 3, 65541, 2, 3, 65540, 2, 3, 65539, 2, 3, 65538, 2, 3, 65537, 2, 3, 65536, 2, 3, 131071, 2, 3, 131070, 2, 3, 131069, 2, 3, 131068, 2, 3, 7, 2, 3, 6, 2, 3, 5, 2, 3, 4, 2, 3, 3, 2, 3, 2, 2, 3, 1, 2, 3, 0, 2, 3, 65535, 2, 3, 65534, 2, 3, 65533, 2, 3, 65532, 2, 3, -2, 2, 3, -1, 2, 3, -65536, 2, 3, -65535, 2, 3, -65534, 2, 3, -65533, 2, 3, -65532, 2, 3, -65531, 2, 3)
+layer_1/name = "collision"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array(262139, 65536, 3, 262140, 65536, 3, 262141, 65536, 3, 262142, 65536, 3, 262143, 65536, 3, 196608, 65536, 3, 196609, 65536, 3, 196610, 65536, 3, 196611, 65536, 3, 196612, 65536, 3, 196613, 65536, 3, 196614, 65536, 3, 262150, 65536, 3, 262149, 65536, 3, 262148, 65536, 3, 262147, 65536, 3, 262146, 65536, 3, 262145, 65536, 3, 262144, 65536, 3, 327679, 65536, 3, 327678, 65536, 3, 327677, 65536, 3, 327676, 65536, 3, 327675, 65536, 3, 262138, 65536, 3, 262137, 65536, 3, 196602, 65536, 3, 196615, 65536, 3, 196616, 65536, 3, 131080, 65536, 3, 131081, 65536, 3, 131082, 65536, 3, 65546, 65536, 3, 65547, 65536, 3, 131083, 65536, 3, 196618, 65536, 3, 196617, 65536, 3, 262152, 65536, 3, 262151, 65536, 3, 327674, 65536, 3, 327673, 65536, 3, 262153, 65536, 3, 262154, 65536, 3, 196619, 65536, 3, 196620, 65536, 3, 131084, 65536, 3)
+layer_2/name = "foreground"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 64
+layer_2/tile_data = PackedInt32Array()
+
+[node name="Door" type="Node2D" parent="."]
+position = Vector2(0, -2)
+
+[node name="Doorway" type="Sprite2D" parent="Door"]
+position = Vector2(38, 16)
+texture = ExtResource("3_ha4hj")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="Door"]
+
+[node name="Door" type="Sprite2D" parent="Door/CanvasGroup"]
+clip_children = 2
+position = Vector2(38, 13)
+texture = ExtResource("4_oyvoh")
+
+[node name="Mask" type="Sprite2D" parent="Door/CanvasGroup"]
+clip_children = 2
+material = SubResource("CanvasItemMaterial_2mgsv")
+position = Vector2(30, 13)
+texture = ExtResource("4_oyvoh")
+
+[node name="DoorInteractable" parent="Door" instance=ExtResource("3_5caj2")]
+collision_layer = 2
+interaction_type = 3
+scene_path = "res://world/world.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door/DoorInteractable"]
+position = Vector2(38, 13.5)
+shape = SubResource("RectangleShape2D_6dpsj")
 
 [node name="Player" parent="." instance=ExtResource("2_8fku2")]
 position = Vector2(11, 16)
@@ -20,35 +77,5 @@ zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 position_smoothing_speed = 2.5
 
-[node name="TileMap" type="TileMap" parent="."]
-process_mode = 3
-tile_set = ExtResource("1_6xcqc")
-format = 2
-layer_0/name = "background"
-layer_0/modulate = Color(0.65098, 0.65098, 0.65098, 1)
-layer_1/name = "collision"
-layer_1/enabled = true
-layer_1/modulate = Color(1, 1, 1, 1)
-layer_1/y_sort_enabled = false
-layer_1/y_sort_origin = 0
-layer_1/z_index = 0
-layer_1/tile_data = PackedInt32Array(262139, 196608, 2, 262140, 196608, 0, 262141, 196608, 0, 262142, 196608, 0, 262143, 196608, 0, 196608, 196608, 0, 196609, 196608, 0, 196610, 196608, 0, 196611, 196608, 0, 196612, 196608, 0, 196613, 196608, 0, 196614, 196608, 0, 262150, 196608, 2, 262149, 196608, 2, 262148, 196608, 2, 262147, 196608, 2, 262146, 196608, 1, 262145, 196608, 1, 262144, 196608, 1, 327679, 196608, 1, 327678, 196608, 2, 327677, 196608, 1, 327676, 196608, 1, 327675, 196608, 1, 262138, 196608, 2, 262137, 196608, 1, 196602, 196608, 2, 196615, 196608, 0, 196616, 196608, 1, 131080, 196608, 1, 131081, 196608, 1, 131082, 196608, 2, 65546, 196608, 1, 65547, 196608, 2, 131083, 196608, 1, 196618, 196608, 1, 196617, 196608, 1, 262152, 196608, 2, 262151, 196608, 2, 327674, 196608, 1, 327673, 196608, 1, 262153, 196608, 2, 262154, 196608, 1, 196619, 196608, 1, 196620, 196608, 1, 131084, 196608, 2)
-layer_2/name = "foreground"
-layer_2/enabled = true
-layer_2/modulate = Color(1, 1, 1, 1)
-layer_2/y_sort_enabled = false
-layer_2/y_sort_origin = 0
-layer_2/z_index = 64
-layer_2/tile_data = PackedInt32Array()
-
-[node name="Interactable" parent="." instance=ExtResource("3_5caj2")]
-interaction_type = 3
-scene_path = "res://world/world.tscn"
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable"]
-position = Vector2(38, 16)
-texture = ExtResource("4_oyvoh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
-position = Vector2(38, 17.5)
-shape = SubResource("RectangleShape2D_6dpsj")
+[connection signal="entered" from="Door/DoorInteractable" to="." method="_on_door_interactable_entered"]
+[connection signal="exited" from="Door/DoorInteractable" to="." method="_on_door_interactable_exited"]
