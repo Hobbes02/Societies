@@ -40,7 +40,8 @@ var currently_changing_volume: VOLUME_TYPES = VOLUME_TYPES.NONE
 @onready var volume_change_listener: ColorRect = $VolumeChangeListener
 @onready var volume_display_label: Label = $VolumeChangeListener/PanelContainer/MarginContainer/Label
 @onready var accessibility_settings: PanelContainer = $AccessibilitySettings
-
+@onready var volume_slider: HSlider = $VolumeChangeListener/PanelContainer/MarginContainer/HBoxContainer/VolumeSlider
+@onready var volume_display: Label = $VolumeChangeListener/PanelContainer/MarginContainer/HBoxContainer/VolumeDisplay
 
 func _ready() -> void:
 	first_time_load_keybinds()
@@ -65,19 +66,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		key_listener.hide()
 		keybind_settings_button.grab_focus()
 		load_keybinds()
-	elif event.is_action_pressed("ui_left") and volume_change_listener.visible:
+	elif volume_slider.value_changed and volume_change_listener.visible:
 		# TODO: decrease volume in that type
-		match currently_changing_volume:
-			VOLUME_TYPES.MAIN:
-				pass
-			VOLUME_TYPES.SFX:
-				pass
-			VOLUME_TYPES.MUSIC:
-				pass
-			VOLUME_TYPES.NONE:
-				return
-	elif event.is_action_pressed("ui_right") and volume_change_listener.visible:
-		# TODO: increase volume in that type
 		match currently_changing_volume:
 			VOLUME_TYPES.MAIN:
 				pass
@@ -103,21 +93,21 @@ func _about_to_save() -> void:
 # SOUND
 
 func _on_master_volume_button_pressed() -> void:
-	volume_display_label.text = "Changing Main Volume\n\n" + "[volume]" + "%"
+	volume_display_label.text = "Changing Main Volume"
 	currently_changing_volume = VOLUME_TYPES.MAIN
 	volume_change_listener.show()
 	get_viewport().gui_release_focus()
 
 
 func _on_sfx_volume_button_pressed() -> void:
-	volume_display_label.text = "Changing SFX Volume\n\n" + "[volume]" + "%"
+	volume_display_label.text = "Changing SFX Volume"
 	currently_changing_volume = VOLUME_TYPES.SFX
 	volume_change_listener.show()
 	get_viewport().gui_release_focus()
 
 
 func _on_music_volume_button_pressed() -> void:
-	volume_display_label.text = "Changing Music Volume\n\n" + "[volume]" + "%"
+	volume_display_label.text = "Changing Music Volume"
 	currently_changing_volume = VOLUME_TYPES.MUSIC
 	volume_change_listener.show()
 	get_viewport().gui_release_focus()
