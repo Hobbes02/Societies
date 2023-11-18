@@ -59,7 +59,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		currently_rebinding = []
 		key_listener.hide()
 		keybind_settings_button.grab_focus()
-	elif event is InputEventKey and currently_rebinding != []:
+	elif event is InputEventKey and currently_rebinding != [] and event.is_released():
 		change_action_event(currently_rebinding[0], event.keycode if event.keycode != 0 else event.physical_keycode)
 		keybinds[currently_rebinding[0]] = event.keycode
 		currently_rebinding = []
@@ -144,20 +144,21 @@ func _on_back_button_pressed() -> void:
 
 
 func first_time_load_keybinds() -> void:
+	keybinds = SaveManager.global_data.get("settings", {"keybinds": {}}).get("keybinds", keybinds)
 	if keybinds == {}:
-		return
+		for bind in editable_keybinds:
+			if not InputMap.has_action(bind):
+				continue
+			
+			keybinds[bind] = get_action_keycode(bind)
+		_about_to_save()
 	
-	for bind in editable_keybinds:
-		if not InputMap.has_action(bind):
-			continue
-		
-		keybinds[bind] = get_action_keycode(bind)
-	_about_to_save()
+	for bind in keybinds.keys():
+		change_action_event(bind, keybinds[bind])
 
 
 func load_keybinds() -> void:
 	keybind_template.show()
-	keybinds = SaveManager.global_data.get("settings", {"keybinds": {}}).get("keybinds", keybinds)
 	var keybind_nodes: Array[CustomButton] = []
 	
 	

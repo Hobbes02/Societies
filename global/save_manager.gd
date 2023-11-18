@@ -42,7 +42,7 @@ var current_slot: int = 0 :
 
 
 func _ready() -> void:
-	global_data = await load_data(global_data_save_path)
+	global_data = await load_data(global_data_save_path, DEFAULT_GLOBAL_DATA)
 	just_loaded.emit()
 
 
@@ -61,17 +61,15 @@ func save(path: String, data: Dictionary) -> void:
 	file.close()
 
 
-func load_data(path: String) -> Dictionary:
+func load_data(path: String, default: Dictionary = {}) -> Dictionary:
 	if not FileAccess.file_exists(path):
-		return {}
+		var file = FileAccess.open(path, FileAccess.WRITE)
+		file.store_string(var_to_str(default))
+		file.close()
 	
 	var file = FileAccess.open(path, FileAccess.READ)
 	var raw_data = file.get_as_text()
 	file.close()
-	
-	if "func " in raw_data:
-		print("POSSIBLY MALICIOUS FILE!")
-		return {}
 	
 	for i in WAIT_BETWEEN_SIGNAL_AND_SAVE:
 		await get_tree().process_frame
