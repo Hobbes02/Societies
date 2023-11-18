@@ -20,7 +20,12 @@ const DEFAULT_GLOBAL_DATA: Dictionary = {
 		"last_played_slot": "none"
 	}, 
 	"settings": {
-		"keybinds": {}
+		"keybinds": {}, 
+		"volume": {
+			"Master": 0, 
+			"SFX": 0, 
+			"Music": 0
+		}
 	}
 }
 
@@ -47,6 +52,9 @@ func _ready() -> void:
 
 
 func save(path: String, data: Dictionary) -> void:
+	if not global_data.slots[str(current_slot)].has("name"):
+		global_data.slots[str(current_slot)].name = "Played Slot"
+		global_data.slots.last_played_slot = "Played Slot"
 	verify_directory()
 	
 	about_to_save.emit()

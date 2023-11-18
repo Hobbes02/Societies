@@ -454,7 +454,7 @@ focus_neighbor_top = NodePath(".")
 focus_neighbor_bottom = NodePath("../SFXVolumeButton")
 focus_next = NodePath("../SFXVolumeButton")
 focus_previous = NodePath(".")
-text = "Main Volume: 60%"
+text = "Main Volume"
 alignment = 0
 text_overrun_behavior = 3
 
@@ -465,7 +465,7 @@ focus_neighbor_top = NodePath("../MainVolumeButton")
 focus_neighbor_bottom = NodePath("../MusicVolumeButton")
 focus_next = NodePath("../MusicVolumeButton")
 focus_previous = NodePath("../MainVolumeButton")
-text = "SFX Volume: 60%"
+text = "SFX Volume"
 alignment = 0
 text_overrun_behavior = 3
 
@@ -476,7 +476,7 @@ focus_neighbor_top = NodePath("../SFXVolumeButton")
 focus_neighbor_bottom = NodePath(".")
 focus_next = NodePath(".")
 focus_previous = NodePath("../SFXVolumeButton")
-text = "Music Volume: 60%"
+text = "Music Volume"
 alignment = 0
 text_overrun_behavior = 3
 
@@ -532,6 +532,7 @@ max_value = 1.0
 step = 0.01
 
 [node name="VolumeValueDisplay" type="Label" parent="Settings/VolumeChangeListener/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(68, 0)
 layout_mode = 2
 text = "###"
 

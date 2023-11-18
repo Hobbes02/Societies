@@ -32,10 +32,6 @@ var master_bus: int = AudioServer.get_bus_index("Master")
 var sfx_bus: int = AudioServer.get_bus_index("SFX")
 var music_bus: int = AudioServer.get_bus_index("Music")
 
-var is_volume_changing: bool = false
-
-var volume_slider_value: float = 0.00
-
 @onready var keybind_settings: PanelContainer = $KeybindSettings
 @onready var keybind_template: CustomButton = $KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer/KeybindTemplate
 @onready var keybinds_container: VBoxContainer = $KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer
@@ -52,7 +48,15 @@ var volume_slider_value: float = 0.00
 @onready var volume_value_display: Label = $VolumeChangeListener/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VolumeValueDisplay
 
 func _ready() -> void:
+	await get_tree().create_timer(0.2).timeout
 	first_time_load_keybinds()
+	
+	SaveManager.global_data.settings = SaveManager.global_data.get("settings", SaveManager.DEFAULT_GLOBAL_DATA.settings)
+	SaveManager.global_data.settings.volume = SaveManager.global_data.settings.get("volume", SaveManager.DEFAULT_GLOBAL_DATA.settings.volume)
+	
+	AudioServer.set_bus_volume_db(master_bus, SaveManager.global_data.settings.volume.get("Master", 0))
+	AudioServer.set_bus_volume_db(music_bus, SaveManager.global_data.settings.volume.get("Music", 0))
+	AudioServer.set_bus_volume_db(sfx_bus, SaveManager.global_data.settings.volume.get("SFX", 0))
 	
 	SaveManager.about_to_save.connect(_about_to_save)
 
@@ -74,60 +78,68 @@ func _unhandled_input(event: InputEvent) -> void:
 		key_listener.hide()
 		keybind_settings_button.grab_focus()
 		load_keybinds()
-	elif is_volume_changing and volume_change_listener.visible:
-		if Input.is_action_pressed("debug"):
-			print("Master (dB) : " + str(AudioServer.get_bus_volume_db(master_bus)))
-			print("SFX (dB) : " + str(AudioServer.get_bus_volume_db(sfx_bus)))
-			print("Music (dB) : " + str(AudioServer.get_bus_volume_db(music_bus)))
-			print("Master (linear) : " + str(db_to_linear(AudioServer.get_bus_volume_db(master_bus))))
-			print("SFX (linear) : " + str(db_to_linear(AudioServer.get_bus_volume_db(sfx_bus))))
-			print("Music (linear) : " + str(db_to_linear(AudioServer.get_bus_volume_db(music_bus))))
+	elif volume_change_listener.visible:
 		match currently_changing_volume:
 			VOLUME_TYPES.MAIN:
-				AudioServer.set_bus_volume_db(master_bus, linear_to_db(volume_slider_value))
-				volume_value_display.text = str(volume_slider_value*100)
+				AudioServer.set_bus_volume_db(master_bus, linear_to_db(volume_slider.value))
+				volume_value_display.text = str(volume_slider.value * 100)
 			VOLUME_TYPES.SFX:
-				AudioServer.set_bus_volume_db(sfx_bus, linear_to_db(volume_slider_value))
-				volume_value_display.text = str(volume_slider_value*100)
+				AudioServer.set_bus_volume_db(sfx_bus, linear_to_db(volume_slider.value))
+				volume_value_display.text = str(volume_slider.value * 100)
 			VOLUME_TYPES.MUSIC:
-				AudioServer.set_bus_volume_db(music_bus, linear_to_db(volume_slider_value))
-				volume_value_display.text = str(volume_slider_value*100)
+				AudioServer.set_bus_volume_db(music_bus, linear_to_db(volume_slider.value))
+				volume_value_display.text = str(volume_slider.value * 100)
 			VOLUME_TYPES.NONE:
 				return
-	elif event.is_action_pressed("ui_cancel") and volume_change_listener.visible:
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and volume_change_listener.visible:
 		volume_change_listener.hide()
 		currently_changing_volume = VOLUME_TYPES.NONE
 		sound_settings_button.grab_focus()
 
 
 func _about_to_save() -> void:
-	if keybinds == {}:
-		return
 	SaveManager.global_data.settings = SaveManager.global_data.get("settings", SaveManager.DEFAULT_GLOBAL_DATA.settings)
-	SaveManager.global_data.settings.keybinds = keybinds
+	if keybinds != {}:
+		SaveManager.global_data.settings.keybinds = keybinds
+	
+	SaveManager.global_data.settings.volume = SaveManager.global_data.settings.get("volume", SaveManager.DEFAULT_GLOBAL_DATA.settings.volume)
+	
+	SaveManager.global_data.settings.volume.Master = AudioServer.get_bus_volume_db(master_bus)
+	SaveManager.global_data.settings.volume.SFX = AudioServer.get_bus_volume_db(sfx_bus)
+	SaveManager.global_data.settings.volume.Music = AudioServer.get_bus_volume_db(music_bus)
+	print(SaveManager.global_data)
 
 
 # SOUND
 
 func _on_master_volume_button_pressed() -> void:
+	await get_tree().process_frame
 	volume_display_label.text = "Changing Main Volume"
-	volume_value_display.text = str(db_to_linear(AudioServer.get_bus_volume_db(master_bus)))
+	volume_slider.set_value_no_signal(db_to_linear(AudioServer.get_bus_volume_db(master_bus)))
+	volume_value_display.text = str(volume_slider.value * 100)
 	currently_changing_volume = VOLUME_TYPES.MAIN
 	volume_change_listener.show()
 	volume_slider.grab_focus()
 
 
 func _on_sfx_volume_button_pressed() -> void:
+	await get_tree().process_frame
 	volume_display_label.text = "Changing SFX Volume"
-	volume_value_display.text = str(db_to_linear(AudioServer.get_bus_volume_db(sfx_bus)))
+	volume_slider.set_value_no_signal(db_to_linear(AudioServer.get_bus_volume_db(sfx_bus)))
+	volume_value_display.text = str(volume_slider.value * 100)
 	currently_changing_volume = VOLUME_TYPES.SFX
 	volume_change_listener.show()
 	volume_slider.grab_focus()
 
 
 func _on_music_volume_button_pressed() -> void:
+	await get_tree().process_frame
 	volume_display_label.text = "Changing Music Volume"
-	volume_value_display.text = str(db_to_linear(AudioServer.get_bus_volume_db(music_bus)))
+	volume_slider.set_value_no_signal(db_to_linear(AudioServer.get_bus_volume_db(music_bus)))
+	volume_value_display.text = str(volume_slider.value * 100)
 	currently_changing_volume = VOLUME_TYPES.MUSIC
 	volume_change_listener.show()
 	volume_slider.grab_focus()
@@ -278,7 +290,9 @@ func _on_back_button_focused() -> void:
 	accessibility_settings.hide()
 
 
-
 func _on_volume_slider_value_changed(value: float) -> void:
-	is_volume_changing = true
-	volume_slider_value = value
+	volume_value_display.text = str(value * 100)
+	var bus_idx: int = currently_changing_volume
+	
+	if bus_idx != VOLUME_TYPES.NONE:
+		AudioServer.set_bus_volume_db(bus_idx, linear_to_db(value))
