@@ -28,6 +28,14 @@ var currently_rebinding: Array = []
 
 var currently_changing_volume: VOLUME_TYPES = VOLUME_TYPES.NONE
 
+var master_bus: int = AudioServer.get_bus_index("Master")
+var sfx_bus: int = AudioServer.get_bus_index("SFX")
+var music_bus: int = AudioServer.get_bus_index("Music")
+
+var is_volume_changing: bool = false
+
+var volume_slider_value: float = 0.00
+
 @onready var keybind_settings: PanelContainer = $KeybindSettings
 @onready var keybind_template: CustomButton = $KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer/KeybindTemplate
 @onready var keybinds_container: VBoxContainer = $KeybindSettings/MarginContainer/ScrollContainer/VBoxContainer
@@ -38,10 +46,10 @@ var currently_changing_volume: VOLUME_TYPES = VOLUME_TYPES.NONE
 @onready var start_listening_wait_timer: Timer = $StartListeningWaitTimer
 @onready var sound_settings: PanelContainer = $SoundSettings
 @onready var volume_change_listener: ColorRect = $VolumeChangeListener
-@onready var volume_display_label: Label = $VolumeChangeListener/PanelContainer/MarginContainer/Label
+@onready var volume_display_label: Label = $VolumeChangeListener/PanelContainer/MarginContainer/VBoxContainer/Label
 @onready var accessibility_settings: PanelContainer = $AccessibilitySettings
-@onready var volume_slider: HSlider = $VolumeChangeListener/PanelContainer/MarginContainer/HBoxContainer/VolumeSlider
-@onready var volume_display: Label = $VolumeChangeListener/PanelContainer/MarginContainer/HBoxContainer/VolumeDisplay
+@onready var volume_slider: HSlider = $VolumeChangeListener/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VolumeSlider
+@onready var volume_value_display: Label = $VolumeChangeListener/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VolumeValueDisplay
 
 func _ready() -> void:
 	first_time_load_keybinds()
@@ -66,15 +74,24 @@ func _unhandled_input(event: InputEvent) -> void:
 		key_listener.hide()
 		keybind_settings_button.grab_focus()
 		load_keybinds()
-	elif volume_slider.value_changed and volume_change_listener.visible:
-		# TODO: decrease volume in that type
+	elif is_volume_changing and volume_change_listener.visible:
+		if Input.is_action_pressed("debug"):
+			print("Master (dB) : " + str(AudioServer.get_bus_volume_db(master_bus)))
+			print("SFX (dB) : " + str(AudioServer.get_bus_volume_db(sfx_bus)))
+			print("Music (dB) : " + str(AudioServer.get_bus_volume_db(music_bus)))
+			print("Master (linear) : " + str(db_to_linear(AudioServer.get_bus_volume_db(master_bus))))
+			print("SFX (linear) : " + str(db_to_linear(AudioServer.get_bus_volume_db(sfx_bus))))
+			print("Music (linear) : " + str(db_to_linear(AudioServer.get_bus_volume_db(music_bus))))
 		match currently_changing_volume:
 			VOLUME_TYPES.MAIN:
-				pass
+				AudioServer.set_bus_volume_db(master_bus, linear_to_db(volume_slider_value))
+				volume_value_display.text = str(volume_slider_value*100)
 			VOLUME_TYPES.SFX:
-				pass
+				AudioServer.set_bus_volume_db(sfx_bus, linear_to_db(volume_slider_value))
+				volume_value_display.text = str(volume_slider_value*100)
 			VOLUME_TYPES.MUSIC:
-				pass
+				AudioServer.set_bus_volume_db(music_bus, linear_to_db(volume_slider_value))
+				volume_value_display.text = str(volume_slider_value*100)
 			VOLUME_TYPES.NONE:
 				return
 	elif event.is_action_pressed("ui_cancel") and volume_change_listener.visible:
@@ -94,23 +111,26 @@ func _about_to_save() -> void:
 
 func _on_master_volume_button_pressed() -> void:
 	volume_display_label.text = "Changing Main Volume"
+	volume_value_display.text = str(db_to_linear(AudioServer.get_bus_volume_db(master_bus)))
 	currently_changing_volume = VOLUME_TYPES.MAIN
 	volume_change_listener.show()
-	get_viewport().gui_release_focus()
+	volume_slider.grab_focus()
 
 
 func _on_sfx_volume_button_pressed() -> void:
 	volume_display_label.text = "Changing SFX Volume"
+	volume_value_display.text = str(db_to_linear(AudioServer.get_bus_volume_db(sfx_bus)))
 	currently_changing_volume = VOLUME_TYPES.SFX
 	volume_change_listener.show()
-	get_viewport().gui_release_focus()
+	volume_slider.grab_focus()
 
 
 func _on_music_volume_button_pressed() -> void:
 	volume_display_label.text = "Changing Music Volume"
+	volume_value_display.text = str(db_to_linear(AudioServer.get_bus_volume_db(music_bus)))
 	currently_changing_volume = VOLUME_TYPES.MUSIC
 	volume_change_listener.show()
-	get_viewport().gui_release_focus()
+	volume_slider.grab_focus()
 
 
 # KEYBINDS
@@ -257,3 +277,8 @@ func _on_back_button_focused() -> void:
 	sound_settings.hide()
 	accessibility_settings.hide()
 
+
+
+func _on_volume_slider_value_changed(value: float) -> void:
+	is_volume_changing = true
+	volume_slider_value = value
