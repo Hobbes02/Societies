@@ -46,11 +46,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		SaveManager.global_data.slots[slot.id] = slot
 		last_focused_slot_button.change_text("Empty Slot")
 		slot_name.change_text("Empty Slot")
-		SaveManager.save(SaveManager.save_dir + SaveManager.file_name, SaveManager.DEFAULT_SAVE_DATA)
+		
+		var dir = DirAccess.open(SaveManager.save_dir)
+		dir.remove(SaveManager.save_dir + SaveManager.file_name)
+		
+		play_button.hide()
+		clear_button.hide()
+		slot_name.text = "Empty Slot"
+		
 		clear_confirm.hide()
 		SaveManager.global_data.slots = SaveManager.global_data.get("slots", SaveManager.DEFAULT_GLOBAL_DATA.slots)
 		if SaveManager.global_data.slots.last_played_slot == slot.get("id", "0"):
 			SaveManager.global_data.slots.last_played_slot = "none"
+		
 		last_focused_slot_button.grab_focus()
 
 

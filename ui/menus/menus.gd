@@ -10,7 +10,7 @@ func _ready() -> void:
 	SceneManager.pause("game", true)
 	
 	var last_played_slot = SaveManager.global_data.get("slots", {}).get("last_played_slot", "none")
-	if last_played_slot != "none":
+	if last_played_slot != "none" and SaveManager.global_data.get("slots", {}).get(last_played_slot, {}).get("name", "") != "":
 		play_button.change_text("Play (" + SaveManager.global_data.get("slots", {}).get(last_played_slot, {}).get("name", "") + ")")
 	else:
 		play_button.change_text("Play")

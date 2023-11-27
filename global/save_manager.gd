@@ -53,7 +53,7 @@ func _ready() -> void:
 
 func save(path: String, data: Dictionary) -> void:
 	if (path == save_dir + file_name) and ((not global_data.slots[str(current_slot)].has("name")) or (global_data.slots[str(current_slot)].name == "")):
-		global_data.slots[str(current_slot)].name = "Played Slot"
+		global_data.slots[str(current_slot)].name = "Played Slot " + str(current_slot + 1)
 		global_data.slots.last_played_slot = str(current_slot)
 	verify_directory()
 	
