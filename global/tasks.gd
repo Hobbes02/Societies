@@ -12,6 +12,7 @@ func _ready() -> void:
 
 
 func _about_to_save() -> void:
+	SaveManager.save_data.tasks = SaveManager.save_data.get("tasks", SaveManager.DEFAULT_SAVE_DATA.tasks)
 	SaveManager.save_data.tasks.active_tasks = active_tasks
 	SaveManager.save_data.tasks.completed_tasks = completed_tasks
 
@@ -24,9 +25,6 @@ func _just_loaded() -> void:
 func assign_task(task_name: String, show_notification: bool = true) -> void:
 	active_tasks.append(task_name)
 	task_history.append(["add", task_name])
-	
-	if show_notification:
-		HUD.show_notification("New Task", task_name.replace("_", " ").capitalize())
 
 
 func complete_task(task_name: String, show_notification: bool = true) -> void:
@@ -36,9 +34,6 @@ func complete_task(task_name: String, show_notification: bool = true) -> void:
 	active_tasks.erase(task_name)
 	task_history.append(["complete", task_name])
 	completed_tasks.append(task_name)
-	
-	if show_notification:
-		HUD.show_notification("Completed Task", task_name.replace("_", " ").capitalize())
 
 
 func remove_task(task_name: String) -> void:
