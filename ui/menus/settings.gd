@@ -110,7 +110,6 @@ func _about_to_save() -> void:
 	SaveManager.global_data.settings.volume.Master = AudioServer.get_bus_volume_db(master_bus)
 	SaveManager.global_data.settings.volume.SFX = AudioServer.get_bus_volume_db(sfx_bus)
 	SaveManager.global_data.settings.volume.Music = AudioServer.get_bus_volume_db(music_bus)
-	print(SaveManager.global_data)
 
 
 # SOUND
