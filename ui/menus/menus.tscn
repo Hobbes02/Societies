@@ -93,13 +93,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -140.0
 offset_top = -856.0
-<<<<<<< HEAD
-offset_right = 2516.0
-offset_bottom = 652.0
-=======
-offset_right = 2985.45
-offset_bottom = 918.0
->>>>>>> ui
+offset_right = 4137.45
+offset_bottom = 1566.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_dpuqp")
@@ -459,11 +454,7 @@ focus_neighbor_top = NodePath(".")
 focus_neighbor_bottom = NodePath("../SFXVolumeButton")
 focus_next = NodePath("../SFXVolumeButton")
 focus_previous = NodePath(".")
-<<<<<<< HEAD
-text = "Main Volume: 60%"
-=======
 text = "Main Volume"
->>>>>>> ui
 alignment = 0
 text_overrun_behavior = 3
 
@@ -474,11 +465,7 @@ focus_neighbor_top = NodePath("../MainVolumeButton")
 focus_neighbor_bottom = NodePath("../MusicVolumeButton")
 focus_next = NodePath("../MusicVolumeButton")
 focus_previous = NodePath("../MainVolumeButton")
-<<<<<<< HEAD
-text = "SFX Volume: 60%"
-=======
 text = "SFX Volume"
->>>>>>> ui
 alignment = 0
 text_overrun_behavior = 3
 
@@ -489,11 +476,7 @@ focus_neighbor_top = NodePath("../SFXVolumeButton")
 focus_neighbor_bottom = NodePath(".")
 focus_next = NodePath(".")
 focus_previous = NodePath("../SFXVolumeButton")
-<<<<<<< HEAD
-text = "Music Volume: 60%"
-=======
 text = "Music Volume"
->>>>>>> ui
 alignment = 0
 text_overrun_behavior = 3
 
@@ -531,15 +514,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ch5b4")
 [node name="MarginContainer" type="MarginContainer" parent="Settings/VolumeChangeListener/PanelContainer"]
 layout_mode = 2
 
-<<<<<<< HEAD
-[node name="Label" type="Label" parent="Settings/VolumeChangeListener/PanelContainer/MarginContainer"]
-layout_mode = 2
-text = "Changing Master Volume
-
-60%"
-horizontal_alignment = 1
-
-=======
 [node name="VBoxContainer" type="VBoxContainer" parent="Settings/VolumeChangeListener/PanelContainer/MarginContainer"]
 layout_mode = 2
 
@@ -562,7 +536,6 @@ custom_minimum_size = Vector2(68, 0)
 layout_mode = 2
 text = "###"
 
->>>>>>> ui
 [node name="KeybindSettings" type="PanelContainer" parent="Settings"]
 visible = false
 layout_mode = 0
@@ -703,7 +676,4 @@ libraries = {
 [connection signal="pressed" from="Settings/SoundSettings/MarginContainer/ScrollContainer/VBoxContainer/MainVolumeButton" to="Settings" method="_on_master_volume_button_pressed"]
 [connection signal="pressed" from="Settings/SoundSettings/MarginContainer/ScrollContainer/VBoxContainer/SFXVolumeButton" to="Settings" method="_on_sfx_volume_button_pressed"]
 [connection signal="pressed" from="Settings/SoundSettings/MarginContainer/ScrollContainer/VBoxContainer/MusicVolumeButton" to="Settings" method="_on_music_volume_button_pressed"]
-<<<<<<< HEAD
-=======
 [connection signal="value_changed" from="Settings/VolumeChangeListener/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VolumeSlider" to="Settings" method="_on_volume_slider_value_changed"]
->>>>>>> ui
