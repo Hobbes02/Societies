@@ -11,13 +11,17 @@ func _ready() -> void:
 	SaveManager.just_loaded.connect(_just_loaded)
 
 
-func _about_to_save() -> void:
+func _about_to_save(layer: String) -> void:
+	if layer == "global":
+		return
 	SaveManager.save_data.tasks = SaveManager.save_data.get("tasks", SaveManager.DEFAULT_SAVE_DATA.tasks)
 	SaveManager.save_data.tasks.active_tasks = active_tasks
 	SaveManager.save_data.tasks.completed_tasks = completed_tasks
 
 
-func _just_loaded() -> void:
+func _just_loaded(layer: String) -> void:
+	if layer == "global":
+		return
 	active_tasks = SaveManager.get_value("tasks/active_tasks", active_tasks)
 	completed_tasks = SaveManager.get_value("tasks/completed_tasks", completed_tasks)
 

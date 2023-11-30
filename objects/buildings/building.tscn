@@ -41,3 +41,4 @@ shape = SubResource("RectangleShape2D_7dhdl")
 
 [connection signal="entered" from="Doorway" to="." method="_on_doorway_entered"]
 [connection signal="exited" from="Doorway" to="." method="_on_doorway_exited"]
+[connection signal="interacted" from="Doorway" to="." method="_on_doorway_interacted"]

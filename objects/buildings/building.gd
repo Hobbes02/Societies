@@ -10,6 +10,7 @@ var can_enter: bool = false
 var door_opening: bool = false
 var door_closing: bool = false
 
+
 @onready var door: Sprite2D = $CanvasGroup/Door
 @onready var default_door_position: Vector2 = door.global_position
 @onready var interactable: Area2D = $Doorway
@@ -17,6 +18,10 @@ var door_closing: bool = false
 
 func _ready() -> void:
 	interactable.scene_path = interior
+
+
+func _on_doorway_interacted() -> void:
+	SaveManager.about_to_save.emit("world")
 
 
 func _on_doorway_entered() -> void:
@@ -47,3 +52,4 @@ func close_door() -> void:
 		door.global_position.x += 1
 		await get_tree().create_timer(door_open_frame_length).timeout
 	door_closing = false
+

@@ -1,17 +1,19 @@
 extends Node
 
-signal about_to_save()
-signal just_loaded()
+signal about_to_save(layer: String)
+signal just_loaded(layer: String)
 
 const WAIT_BETWEEN_SIGNAL_AND_SAVE: int = 8
 
 const DEFAULT_SAVE_DATA: Dictionary = {
 	"player_data": {
-		"position": Vector2(735, 504)
+		"world_position": Vector2(690, 504), 
+		"scene_position": Vector2(690, 504)
 	}, 
 	"tasks": {
 		
-	}
+	}, 
+	"current_scene": "world/world"
 }
 const DEFAULT_GLOBAL_DATA: Dictionary = {
 	"slots": {
@@ -48,16 +50,20 @@ var current_slot: int = 0 :
 
 func _ready() -> void:
 	global_data = await load_data(global_data_save_path, DEFAULT_GLOBAL_DATA)
-	just_loaded.emit()
+	just_loaded.emit("global")
 
 
 func save(path: String, data: Dictionary) -> void:
 	if (path == save_dir + file_name) and ((not global_data.slots[str(current_slot)].has("name")) or (global_data.slots[str(current_slot)].name == "")):
 		global_data.slots[str(current_slot)].name = "Played Slot " + str(current_slot + 1)
 		global_data.slots.last_played_slot = str(current_slot)
+	
+	if data.has("current_scene"):
+		data.current_scene = SceneManager.active_scene_path.lstrip("res://").rstrip(".tscn")
+	
 	verify_directory()
 	
-	about_to_save.emit()
+	about_to_save.emit(path)
 	
 	for frame in WAIT_BETWEEN_SIGNAL_AND_SAVE:
 		await get_tree().process_frame
@@ -84,7 +90,9 @@ func load_data(path: String, default: Dictionary = {}) -> Dictionary:
 	
 	var compiled_data = str_to_var(raw_data)
 	
-	return compiled_data if compiled_data else {}
+	print("LOADED DATA")
+	
+	return compiled_data if compiled_data else default
 
 
 func get_value(path: String, default: Variant, from: Dictionary = save_data) -> Variant:

@@ -100,7 +100,7 @@ func _input(event: InputEvent) -> void:
 		sound_settings_button.grab_focus()
 
 
-func _about_to_save() -> void:
+func _about_to_save(layer: String) -> void:
 	SaveManager.global_data.settings = SaveManager.global_data.get("settings", SaveManager.DEFAULT_GLOBAL_DATA.settings)
 	if keybinds != {}:
 		SaveManager.global_data.settings.keybinds = keybinds
@@ -182,7 +182,7 @@ func first_time_load_keybinds() -> void:
 				continue
 			
 			keybinds[bind] = get_action_keycode(bind)
-		_about_to_save()
+		_about_to_save("")
 	
 	for bind in keybinds.keys():
 		change_action_event(bind, keybinds[bind])

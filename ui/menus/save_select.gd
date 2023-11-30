@@ -149,10 +149,12 @@ func _on_play_button_pressed() -> void:
 	SaveManager.global_data.slots = SaveManager.global_data.get("slots", SaveManager.DEFAULT_GLOBAL_DATA.slots)
 	SaveManager.global_data.slots.last_played_slot = slot.get("id", "0")
 	SaveManager.current_slot = int(slot.get("id", 0))
-	SaveManager.save_data = await SaveManager.load_data(SaveManager.save_dir + SaveManager.file_name)
-	SaveManager.just_loaded.emit()
+	SaveManager.save_data = await SaveManager.load_data(SaveManager.save_dir + SaveManager.file_name, SaveManager.DEFAULT_SAVE_DATA)
+	SaveManager.just_loaded.emit("world")
 	
-	SceneManager.change_scene("res://world/world.tscn")
+	var scene: String = "res://" + SaveManager.save_data.get("current_scene", "world/world") + ".tscn"
+	
+	SceneManager.change_scene(scene)
 
 
 func _on_clear_button_pressed() -> void:

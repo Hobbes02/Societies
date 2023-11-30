@@ -52,8 +52,8 @@ process_mode = 1
 [node name="Buildings" type="Node2D" parent="."]
 
 [node name="SmallHouse" parent="Buildings" instance=ExtResource("3_s3q7d")]
-position = Vector2(555, 460)
+position = Vector2(563, 460)
 interior = "res://interiors/interior.tscn"
 
-[node name="Player" parent="." instance=ExtResource("2_f3isx")]
+[node name="PlayerW" parent="." instance=ExtResource("2_f3isx")]
 position = Vector2(735, 504)

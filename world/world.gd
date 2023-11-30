@@ -1,10 +1,10 @@
 extends Node2D
 
-var id: int = -1
+var graph_id: int = -1
 
 var focus_after_unpause: Node2D
 
-@onready var player: CharacterBody2D = $Player
+@onready var player: CharacterBody2D = $PlayerW
 @onready var camera: Camera2D = $Camera
 @onready var camera_following_node: Variant = player
 @onready var tilemap: TileMap = $TileMap
@@ -24,8 +24,16 @@ func _ready() -> void:
 	SceneManager.deactivate.connect(_on_scene_deactivated)
 	SceneManager.unpaused.connect(_on_unpaused)
 	
+	SaveManager.about_to_save.connect(_save)
+	
 	#                                                              jump height   jump distance   height
-	id = Pathfinder.initialize(tilemap, 1, PathfindEntityStats.new(4,            8,              2))
+	graph_id = Pathfinder.initialize(tilemap, 1, PathfindEntityStats.new(4,            8,              2))
+
+
+func _save(layer: String) -> void:
+	if visible:
+		SaveManager.save_data.player_data.world_position = player.global_position
+		SaveManager.save_data.player_data.scene_position = player.global_position
 
 
 func _on_unpaused(layer: String) -> void:
@@ -36,11 +44,15 @@ func _on_unpaused(layer: String) -> void:
 func _on_scene_activated(node: Node) -> void:
 	if node != self:
 		return
+	print("AAA")
 	camera.position_smoothing_enabled = false
 	camera.global_position = camera_following_node.global_position
 	camera.enabled = true
 	camera.position_smoothing_enabled = true
 	SceneManager.pause("game", false)
+	SaveManager.just_loaded.emit("world")
+	
+	player.global_position = SaveManager.get_value("player_data/world_position", player.global_position)
 
 
 func _on_scene_deactivated(node: Node) -> void:
@@ -63,8 +75,8 @@ func npc_go(npc_name: String, destination: String) -> void:
 			npc = n
 			break
 	
-	if id != -1:
-		var path = Pathfinder.find_path(id, npc.global_position, marker.global_position)
+	if graph_id != -1:
+		var path = Pathfinder.find_path(graph_id, npc.global_position, marker.global_position)
 		if path:
 			npc.pathfind(path)
 
@@ -92,4 +104,4 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug"):
-		pass
+		print(player.anim_player.current_animation)

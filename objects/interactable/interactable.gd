@@ -1,10 +1,15 @@
 class_name Interactable
 extends Area2D
 
+## Emitted when the interact key is pressed and the action is started
 signal interacted()
+## Emmitted when a node enters the interaction area
 signal entered()
+## Emmited when a node exits the interaction area
 signal exited()
+## Emmited when a dialogue balloon requests a node to be focused
 signal focus_camera(node: Node2D)
+## Emitted when the dialogue finishes
 signal ended()
 
 enum INTERACTIONS {
@@ -80,6 +85,7 @@ var context: Dictionary
 ## How to modify the task
 @export_enum("Complete:0", "Assign:1", "Remove:2") var modify_type: int = 0
 
+var trigger_body: Node
 
 @onready var balloon: CanvasLayer = $Balloon
 
@@ -93,6 +99,7 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and can_interact and not SceneManager.is_paused("interaction", ["game"]):
+		interacted.emit()
 		match interaction_type:
 			INTERACTIONS.DIALOGUE:
 				can_interact = false
@@ -139,6 +146,7 @@ func _on_balloon_center_node(node: Node2D) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	trigger_body = body
 	entered.emit()
 	can_interact = true
 

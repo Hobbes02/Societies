@@ -28,22 +28,6 @@ var current_move_state: MoveStates = MoveStates.Walk
 func _ready() -> void:
 	anim_player.play("RESET")
 	SceneManager.paused.connect(_on_pause)
-	
-	SaveManager.about_to_save.connect(_about_to_save)
-	SaveManager.just_loaded.connect(_just_loaded)
-
-
-func _about_to_save() -> void:
-	SaveManager.save_data.player_data = SaveManager.save_data.get("player_data", SaveManager.DEFAULT_SAVE_DATA.player_data)
-	SaveManager.save_data.player_data.position = global_position
-
-
-func _just_loaded() -> void:
-	global_position = SaveManager.get_value("player_data/position", global_position)
-	await get_tree().create_timer(0.2).timeout
-	if headspace_detector.is_colliding():
-		current_move_state = MoveStates.Crawl
-		anim_player.play("crawl idle")
 
 
 func _on_pause(layer: String) -> void:
@@ -54,7 +38,7 @@ func _on_pause(layer: String) -> void:
 
 func _physics_process(delta: float) -> void:
 #	Falling
-	if not is_on_floor():
+	if not is_on_floor() and not headspace_detector.is_colliding():
 		velocity.y += gravity * delta
 
 	if SceneManager.is_paused("player", ["game"]):
@@ -67,8 +51,11 @@ func _physics_process(delta: float) -> void:
 			coyote_timer.stop()
 		else:
 			jump_buffer.start()
+	
+#	Crawl Check
+	if headspace_detector.is_colliding():
+		current_move_state = MoveStates.Crawl
 
-#	Walking
 	handle_movement(delta)
 	
 	handle_animations()

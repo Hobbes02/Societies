@@ -28,6 +28,7 @@ var currently_loading_scene: String = ""
 var loaded_scene
 
 var active_scene: String = ""
+var active_scene_path: String = ""
 var active_scene_node: Node
 
 var are_scenes_ready: bool = false
@@ -80,6 +81,7 @@ func change_scene(filename: String, slide_in: bool = true, slide_out: bool = tru
 	if filename not in scenes_loaded.values():
 		pause_layers[filename] = false
 		await _load_scene(filename)
+		_activate_scene(scenes_loaded.find_key(filename))
 	else:
 		_activate_scene(scenes_loaded.keys()[scenes_loaded.values().find(filename)])
 	
@@ -150,9 +152,14 @@ func _activate_scene(path: String) -> void:
 	
 	await get_tree().process_frame
 	
+	if not weakref(node).get_ref():  # check if the node has been freed
+		return
+	
 	process_mode_children(node, PROCESS_MODE_ALWAYS)
+	await get_tree().process_frame
 	
 	active_scene = path
+	active_scene_path = scenes_loaded[path]
 	active_scene_node = node
 	activate.emit(node)
 	node.show()
@@ -169,6 +176,8 @@ func _deactivate_scene(path: String) -> void:
 		active_scene = ""
 	if active_scene_node == node:
 		active_scene_node = null
+	if active_scene_path == scenes_loaded[path]:
+		active_scene_path = ""
 	if path in scenes_loaded.keys() and scenes_loaded[path] not in scenes_to_cache:
 		scenes_loaded.erase(path)
 		node.queue_free()
@@ -190,10 +199,6 @@ func _load_scene(scene_path: String) -> void:
 	scenes.add_child(scene)
 	
 	scenes_loaded[str(get_path_to(scene))] = scene_path
-	
-	await get_tree().process_frame
-	
-	_activate_scene(get_path_to(scene))
 
 
 func _process(delta: float) -> void:
