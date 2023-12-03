@@ -24,11 +24,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 SaveManager="*res://global/save_manager.gd"
+SceneManager="*res://global/scene_manager.tscn"
 DialogueGlobals="*res://dialogue/dialogue_globals.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Utils="*res://global/utils.gd"
 Pathfinder="*res://world/pathfinding/pathfinder.tscn"
-SceneManager="*res://global/scene_manager.tscn"
 Tasks="*res://global/tasks.gd"
 
 [dialogue_manager]

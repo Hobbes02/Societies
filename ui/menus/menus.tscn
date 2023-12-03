@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://c8sfuxpy3f4x"]
+[gd_scene load_steps=16 format=3 uid="uid://c8sfuxpy3f4x"]
 
 [ext_resource type="Theme" uid="uid://6to07mql6l34" path="res://visuals/ui/theming/theme.tres" id="1_8qijw"]
 [ext_resource type="Script" path="res://ui/menus/menus.gd" id="2_kxxbt"]
 [ext_resource type="Texture2D" uid="uid://buw06dpnxe7uc" path="res://branding/screenshots/basic_level_night.png" id="3_dpuqp"]
+[ext_resource type="Texture2D" uid="uid://bhsge08t1ai8o" path="res://branding/logo.png" id="4_dcyky"]
 [ext_resource type="LabelSettings" uid="uid://buogeklsgutqp" path="res://visuals/ui/theming/label_settings/title.tres" id="4_y1ymd"]
 [ext_resource type="PackedScene" uid="uid://d2um4vlswi3yr" path="res://ui/elements/custom_button.tscn" id="5_2ns1y"]
 [ext_resource type="Script" path="res://ui/menus/save_select.gd" id="6_78t83"]
@@ -50,7 +51,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-140, -856)]
+"values": [Vector2(-216, -1272)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -115,10 +116,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -140.0
-offset_top = -856.0
-offset_right = 5012.91
-offset_bottom = 1418.0
+offset_left = -216.0
+offset_top = -1272.0
+offset_right = 6088.91
+offset_bottom = 1650.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_dpuqp")
@@ -129,26 +130,25 @@ stretch_mode = 4
 layout_mode = 1
 anchors_preset = 0
 
+[node name="Logo" type="TextureRect" parent="TitleScreen"]
+layout_mode = 2
+offset_left = 76.0
+offset_top = 127.0
+offset_right = 800.0
+offset_bottom = 467.0
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 0
+texture = ExtResource("4_dcyky")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="TitleScreen"]
 layout_mode = 2
 offset_left = 76.0
-offset_top = 155.0
+offset_top = 327.0
 offset_right = 444.0
-offset_bottom = 513.0
+offset_bottom = 510.0
 rotation = -6.28319
 pivot_offset = Vector2(-1.772, -0.0371246)
 theme_override_constants/separation = 30
-
-[node name="TitleLabel" type="Label" parent="TitleScreen/VBoxContainer"]
-layout_mode = 2
-text = "Logo Here"
-label_settings = ExtResource("4_y1ymd")
-
-[node name="HSeparator" type="HSeparator" parent="TitleScreen/VBoxContainer"]
-custom_minimum_size = Vector2(348, 0)
-layout_mode = 2
-theme_override_constants/separation = 50
-theme_override_styles/separator = SubResource("StyleBoxEmpty_msrdx")
 
 [node name="PlayButton" parent="TitleScreen/VBoxContainer" instance=ExtResource("5_2ns1y")]
 layout_mode = 2

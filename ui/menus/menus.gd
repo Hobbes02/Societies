@@ -48,7 +48,7 @@ func _on_play_button_pressed() -> void:
 func _on_saves_button_pressed() -> void:
 	await fade(
 		[
-			$TitleScreen/VBoxContainer/TitleLabel, 
+			$TitleScreen/Logo, 
 			$TitleScreen/VBoxContainer/PlayButton, 
 			$TitleScreen/VBoxContainer/SavesButton, 
 			$TitleScreen/VBoxContainer/SettingsButton
@@ -75,7 +75,7 @@ func _on_saves_button_pressed() -> void:
 func _on_settings_button_pressed() -> void:
 	await fade(
 		[
-			$TitleScreen/VBoxContainer/TitleLabel, 
+			$TitleScreen/Logo, 
 			$TitleScreen/VBoxContainer/PlayButton, 
 			$TitleScreen/VBoxContainer/SavesButton, 
 			$TitleScreen/VBoxContainer/SettingsButton
@@ -107,7 +107,7 @@ func _on_title_screen_visibility_changed() -> void:
 		_ready()
 		await fade(
 			[
-				$TitleScreen/VBoxContainer/TitleLabel, 
+				$TitleScreen/Logo, 
 				$TitleScreen/VBoxContainer/PlayButton, 
 				$TitleScreen/VBoxContainer/SavesButton, 
 				$TitleScreen/VBoxContainer/SettingsButton

@@ -48,3 +48,5 @@ interior = "res://interiors/interior.tscn"
 
 [node name="PlayerW" parent="." instance=ExtResource("2_f3isx")]
 position = Vector2(735, 504)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]

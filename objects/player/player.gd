@@ -5,6 +5,7 @@ enum MoveStates {
 	Walk, 
 	Crawl, 
 	Sprint, 
+	Jump, 
 }
 
 const JUMP_VELOCITY: float = -225.0
@@ -47,7 +48,7 @@ func _save_game_data(reason: SaveManager.SaveReason) -> void:
 
 func _physics_process(delta: float) -> void:
 #	Falling
-	if not is_on_floor() and not headspace_detector.is_colliding():
+	if not is_on_floor():
 		velocity.y += gravity * delta
 
 	if SceneManager.is_paused("player", ["game"]):
@@ -57,6 +58,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and not headspace_detector.is_colliding() and not jump_detector.is_colliding():
 		if is_on_floor() or not coyote_timer.is_stopped():
 			velocity.y = JUMP_VELOCITY
+			current_move_state = MoveStates.Jump
 			coyote_timer.stop()
 		else:
 			jump_buffer.start()
@@ -71,11 +73,11 @@ func _physics_process(delta: float) -> void:
 
 
 func handle_movement(delta: float) -> void:
-	if Input.is_action_pressed("crawl"):
+	if Input.is_action_pressed("crawl") and current_move_state != MoveStates.Jump:
 		current_move_state = MoveStates.Crawl
-	elif Input.is_action_pressed("sprint"):
+	elif Input.is_action_pressed("sprint") and current_move_state != MoveStates.Jump:
 		current_move_state = MoveStates.Sprint
-	else:
+	elif current_move_state != MoveStates.Jump:
 		if headspace_detector.is_colliding() and current_move_state == MoveStates.Crawl:
 			current_move_state = MoveStates.Crawl
 		else:
@@ -100,7 +102,9 @@ func handle_animations() -> void:
 		sprite.flip_h = false
 	elif velocity.x < 0:
 		sprite.flip_h = true
-	if velocity.y == 0:
+	if velocity.y == 0 or current_move_state == MoveStates.Crawl:
+		if current_move_state == MoveStates.Jump:
+			current_move_state = MoveStates.Walk
 		match current_move_state:
 			MoveStates.Walk:
 				if velocity.x != 0:

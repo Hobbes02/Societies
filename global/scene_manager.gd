@@ -57,23 +57,27 @@ func _ready() -> void:
 			are_scenes_ready = true
 	)
 	
-	$Visuals/ColorRect.global_position.x = 0
+	$Visuals/ColorRect.global_position = Vector2(
+		0, 
+		-263
+	)
+	$Visuals/ColorRect.set("shader_parameter/circle_size", 0)
 	
 	if load_cached_scenes_on_start:
 		pause("all", true)
 		for scene in scenes_to_cache:
-			await _load_scene(scene)
-			_deactivate_scene(scene)
+			await _load_scene(scene, false, true)
 	pause("all", false)
 	
-	await change_scene(start_scene, false, false, scenes_ready)
+	await change_scene(start_scene, false, true, scenes_ready)
 
 
 func change_scene(filename: String, slide_in: bool = true, slide_out: bool = true, emit_after_loading: Variant = null) -> void:
 	visuals.show()
 	if len(scenes_loaded) > 0 and slide_in:
-		animation_player.play("slide_in")
+		animation_player.play("circle_wipe")
 		await animation_player.animation_finished
+		await get_tree().create_timer(0.2).timeout
 	else:
 		await get_tree().create_timer(0.2).timeout
 	
@@ -97,9 +101,9 @@ func change_scene(filename: String, slide_in: bool = true, slide_out: bool = tru
 	
 	progress_bar.hide()
 	if slide_out:
-		animation_player.play("slide_out")
+		animation_player.play_backwards("circle_wipe")
 		await animation_player.animation_finished
-	$Visuals/ColorRect.global_position.x = -$Visuals/ColorRect.size.x
+	$Visuals/ColorRect.set("shader_parameter/circle_size", 1)
 
 
 func is_paused(layer: String, others: Array = []) -> bool:
@@ -191,7 +195,7 @@ func _deactivate_scene(path: String) -> void:
 		process_mode_children(node, PROCESS_MODE_DISABLED)
 
 
-func _load_scene(scene_path: String) -> void:
+func _load_scene(scene_path: String, activate: bool = false, deactivate: bool = false) -> void:
 	if (not scene_path.begins_with("res://")) or (not scene_path.ends_with(".tscn")):
 		return
 	ResourceLoader.load_threaded_request(scene_path)
@@ -204,6 +208,11 @@ func _load_scene(scene_path: String) -> void:
 	scenes.add_child(scene)
 	
 	scenes_loaded[str(get_path_to(scene))] = scene_path
+	
+	if activate:
+		_activate_scene(get_path_to(scene))
+	elif deactivate:
+		_deactivate_scene(get_path_to(scene))
 
 
 func _process(delta: float) -> void:

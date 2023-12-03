@@ -36,7 +36,7 @@ func open_door() -> void:
 	door_opening = true
 	door_closing = false
 	for frame in abs((default_door_position.x - door_width) - door.global_position.x):
-		if door_closing or not door_opening:
+		if (door_closing or not door_opening) or (door.global_position.x <= default_door_position.x - door_width):
 			break
 		door.global_position.x -= 1
 		await get_tree().create_timer(door_open_frame_length).timeout
@@ -47,7 +47,7 @@ func close_door() -> void:
 	door_closing = true
 	door_opening = false
 	for frame in abs(default_door_position.x - door.global_position.x):
-		if door_opening or not door_closing:
+		if (door_opening or not door_closing) or (door.global_position.x > default_door_position.x):
 			break
 		door.global_position.x += 1
 		await get_tree().create_timer(door_open_frame_length).timeout
