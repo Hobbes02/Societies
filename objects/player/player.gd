@@ -28,12 +28,21 @@ var current_move_state: MoveStates = MoveStates.Walk
 func _ready() -> void:
 	anim_player.play("RESET")
 	SceneManager.paused.connect(_on_pause)
+	SaveManager.about_to_save.connect(_save_game_data)
 
 
 func _on_pause(layer: String) -> void:
 	if layer in ["player", "game", "all"]:
 		anim_player.play("crawl idle" if headspace_detector.is_colliding() else "idle")
 		velocity.x = 0
+
+
+func _save_game_data(reason: SaveManager.SaveReason) -> void:
+	SaveManager.save_data.player_data = SaveManager.save_data.get("player_data", SaveManager.DEFAULT_SAVE_DATA.player_data)
+	SaveManager.save_data.player_data.scene_position = global_position
+	
+	if owner.name == "World":
+		SaveManager.save_data.player_data.world_position = global_position
 
 
 func _physics_process(delta: float) -> void:

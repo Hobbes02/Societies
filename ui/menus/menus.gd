@@ -9,21 +9,38 @@ extends Control
 func _ready() -> void:
 	SceneManager.pause("game", true)
 	
-	var last_played_slot = SaveManager.global_data.get("slots", {}).get("last_played_slot", "none")
-	if last_played_slot != "none" and SaveManager.global_data.get("slots", {}).get(last_played_slot, {}).get("name", "") != "":
-		play_button.change_text("Play: " + SaveManager.global_data.get("slots", {}).get(last_played_slot, {}).get("name", ""))
+	var last_played_slot = SaveManager.settings_data.get("last_played_slot", -1)
+	if last_played_slot != -1 and len(SaveManager.slots) > last_played_slot and SaveManager.slots[last_played_slot].get("name", "Empty Slot") not in ["", "Empty Slot"]:
+		play_button.change_text("Play: " + SaveManager.slots[last_played_slot].get("name", "Empty Slot"))
 	else:
 		play_button.change_text("New Game")
 	play_button.grab_focus()
 
 
 func _on_play_button_pressed() -> void:
-	var slot_to_play: String = SaveManager.global_data.get("slots", {}).get("last_played_slot", "none")
-	SaveManager.current_slot = int(slot_to_play)
-	SaveManager.save_data = await SaveManager.load_data(SaveManager.save_dir + SaveManager.file_name, SaveManager.DEFAULT_SAVE_DATA)
-	SaveManager.just_loaded.emit("world")
+	var slot_to_play: int = SaveManager.settings_data.get("last_played_slot", 0)
+	SaveManager.current_save_slot = slot_to_play
 	
-	var scene: String = "res://" + SaveManager.save_data.get("current_scene", "world/world") + ".tscn"
+	if slot_to_play == -1 or len(SaveManager.slots) <= slot_to_play or SaveManager.slots[slot_to_play].get("name", "Empty Slot") != "Empty Slot":
+		if slot_to_play == -1:
+			if len(SaveManager.slots) > 1:
+				slot_to_play = 1
+			else:
+				slot_to_play = 0
+		SaveManager.current_save_slot = slot_to_play
+		SaveManager.save_slot_data(
+			{
+				"name": "Played Slot " + str(slot_to_play + 1), 
+				"area": "Start", 
+				"progress": 0
+			}, 
+			slot_to_play
+		)
+		SaveManager.settings_data.last_played_slot = slot_to_play
+	
+	SaveManager.load_game_data()
+	
+	var scene: String = "res://" + SaveManager.save_data.get("scene_data", {}).get("current_scene", "world/world") + ".tscn"
 	
 	SceneManager.change_scene(scene)
 
@@ -87,12 +104,7 @@ func _on_settings_button_pressed() -> void:
 
 func _on_title_screen_visibility_changed() -> void:
 	if title_screen and title_screen.visible:
-		var last_played_slot = SaveManager.global_data.get("slots", {}).get("last_played_slot", "none")
-		if last_played_slot != "none":
-			play_button.change_text("Play: " + SaveManager.global_data.get("slots", {}).get(last_played_slot, {}).get("name", ""))
-		else:
-			play_button.change_text("New Game")
-		play_button.grab_focus()
+		_ready()
 		await fade(
 			[
 				$TitleScreen/VBoxContainer/TitleLabel, 

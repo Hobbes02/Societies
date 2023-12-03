@@ -13,21 +13,16 @@ var door_closing: bool = false
 
 func _ready() -> void:
 	SceneManager.activate.connect(_on_scene_activated)
-	SaveManager.about_to_save.connect(_save)
-
-
-func _save(layer: String) -> void:
-	if visible:
-		SaveManager.save_data.player_data.scene_position = player.global_position
+	
+	var player_position: Vector2 = SaveManager.save_data.get("player_data", {}).get("scene_position", Vector2(0, 0))
+	if player_position != Vector2(0, 0) and SaveManager.save_data.get("scene_data", {}).get("current_scene", "world/world") == get_node(".").scene_file_path.lstrip("res://").rstrip(".tscn"):
+		player.global_position = player_position
 
 
 func _on_scene_activated(node: Node) -> void:
 	if node != self:
 		return
 	SceneManager.pause("game", false)
-	var scene_pos: Vector2 = SaveManager.get_value("player_data/scene_position", SaveManager.DEFAULT_SAVE_DATA.player_data.scene_position)
-	if scene_pos != SaveManager.get_value("player_data/world_position", SaveManager.DEFAULT_SAVE_DATA.player_data.world_position):
-		player.global_position = scene_pos
 
 
 func _on_door_interactable_entered() -> void:

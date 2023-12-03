@@ -1,7 +1,7 @@
 extends Control
 
 var last_focused_slot_button: CustomButton
-var slot: Dictionary = {}
+var currently_editing_slot: int = 0
 
 @onready var slot_1_button: Button = $VBoxContainer/Slot1Button
 @onready var slot_2_button: Button = $VBoxContainer/Slot2Button
@@ -18,16 +18,10 @@ var slot: Dictionary = {}
 
 
 func start() -> void:
-	var slots: Dictionary = SaveManager.get_value("slots", {}, SaveManager.global_data)
-	
-	if len(slots.keys()) > 0:
-		var slot_1_data = slots["0"]
-		if slot_1_data != {}:
-			slot_1_button.change_text(slot_1_data.get("name", "Empty Slot"))
-	if len(slots.keys()) > 1:
-		var slot_2_data = slots["1"]
-		if slot_2_data != {}:
-			slot_2_button.change_text(slot_2_data.get("name", "Empty Slot"))
+	if len(SaveManager.slots) >= 1:
+		slot_1_button.change_text(SaveManager.slots[0].get("name"))
+	if len(SaveManager.slots) >= 2:
+		slot_2_button.change_text(SaveManager.slots[1].get("name"))
 	
 	slot_1_button.grab_focus()
 
@@ -41,23 +35,23 @@ func _unhandled_input(event: InputEvent) -> void:
 			clear_confirm.hide()
 			clear_button.grab_focus()
 	elif event.is_action_pressed("ui_accept") and clear_confirm.visible:
-		slot = {"id": slot.id}
-		SaveManager.global_data.slots = SaveManager.global_data.get("slots", SaveManager.DEFAULT_GLOBAL_DATA.slots)
-		SaveManager.global_data.slots[slot.id] = slot
+		SaveManager.save_slot_data({"name": "Empty Slot", "area": "Start", "progress": 0}, currently_editing_slot)
 		last_focused_slot_button.change_text("Empty Slot")
 		slot_name.change_text("Empty Slot")
 		
-		var dir = DirAccess.open(SaveManager.save_dir)
-		dir.remove(SaveManager.save_dir + SaveManager.file_name)
+		var dir = DirAccess.open("user://saves")
+		dir.remove("user://saves/slot_" + str(currently_editing_slot) + ".societies")
 		
 		play_button.hide()
 		clear_button.hide()
 		slot_name.text = "Empty Slot"
 		
 		clear_confirm.hide()
-		SaveManager.global_data.slots = SaveManager.global_data.get("slots", SaveManager.DEFAULT_GLOBAL_DATA.slots)
-		if SaveManager.global_data.slots.last_played_slot == slot.get("id", "0"):
-			SaveManager.global_data.slots.last_played_slot = "none"
+		if SaveManager.settings_data.get("last_played_slot", -1) == currently_editing_slot:
+			SaveManager.settings_data.last_played_slot = -1
+		
+		if SaveManager.current_save_slot == currently_editing_slot:
+			SaveManager.save_data = SaveManager.DEFAULT_SAVE_DATA.duplicate(true)
 		
 		last_focused_slot_button.grab_focus()
 
@@ -84,8 +78,10 @@ func _on_slot_name_focused() -> void:
 
 
 func _on_slot_1_button_focused() -> void:
-	SaveManager.current_slot = 0
-	slot = SaveManager.get_value("slots/0", {"id": "0"}, SaveManager.global_data)
+	currently_editing_slot = 0
+	var slot: Dictionary
+	if len(SaveManager.slots) >= 1:
+		slot = SaveManager.slots[0]
 	last_focused_slot_button = slot_1_button
 	slot_editor.show()
 	slot_name.text = slot.get("name", "Empty Slot")
@@ -101,8 +97,10 @@ func _on_slot_1_button_focused() -> void:
 
 
 func _on_slot_2_button_focused() -> void:
-	SaveManager.current_slot = 1
-	slot = SaveManager.get_value("slots/1", {"id": "1"}, SaveManager.global_data)
+	currently_editing_slot = 1
+	var slot: Dictionary
+	if len(SaveManager.slots) >= 2:
+		slot = SaveManager.slots[1]
 	last_focused_slot_button = slot_2_button
 	slot_editor.show()
 	slot_name.text = slot.get("name", "Empty Slot")
@@ -124,7 +122,6 @@ func _on_back_button_focused() -> void:
 func _on_slot_name_pressed() -> void:
 	slot_name_editor.show()
 	slot_new_name_enter.clear()
-	slot_new_name_enter.placeholder_text = slot.get("name", "")
 	slot_new_name_enter.grab_focus()
 
 
@@ -134,9 +131,12 @@ func _on_name_enter_text_submitted(new_text: String) -> void:
 	
 	slot_name_editor.hide()
 	slot_name.change_text(new_text)
-	slot.name = new_text
-	SaveManager.global_data.slots = SaveManager.global_data.get("slots", SaveManager.DEFAULT_GLOBAL_DATA.slots)
-	SaveManager.global_data.slots[slot.id] = slot
+	
+	var new_slot_data: Dictionary = {"name": new_text, "area": "Start", "progress": 0}
+	if len(SaveManager.slots) >= currently_editing_slot + 1:
+		new_slot_data.area = SaveManager.slots[currently_editing_slot].get("area", "Start")
+		new_slot_data.progress = SaveManager.slots[currently_editing_slot].get("progress", 0)
+	SaveManager.save_slot_data(new_slot_data, currently_editing_slot)
 	
 	last_focused_slot_button.change_text(new_text)
 	
@@ -146,13 +146,12 @@ func _on_name_enter_text_submitted(new_text: String) -> void:
 
 
 func _on_play_button_pressed() -> void:
-	SaveManager.global_data.slots = SaveManager.global_data.get("slots", SaveManager.DEFAULT_GLOBAL_DATA.slots)
-	SaveManager.global_data.slots.last_played_slot = slot.get("id", "0")
-	SaveManager.current_slot = int(slot.get("id", 0))
-	SaveManager.save_data = await SaveManager.load_data(SaveManager.save_dir + SaveManager.file_name, SaveManager.DEFAULT_SAVE_DATA)
-	SaveManager.just_loaded.emit("world")
+	SaveManager.settings_data.last_played_slot = currently_editing_slot
+	SaveManager.current_save_slot = currently_editing_slot
 	
-	var scene: String = "res://" + SaveManager.save_data.get("current_scene", "world/world") + ".tscn"
+	SaveManager.load_game_data()
+	
+	var scene: String = "res://" + SaveManager.save_data.get("scene_data", {}).get("current_scene", "world/world") + ".tscn"
 	
 	SceneManager.change_scene(scene)
 

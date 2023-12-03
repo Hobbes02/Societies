@@ -8,22 +8,15 @@ var task_history: Array[Array] = []
 
 func _ready() -> void:
 	SaveManager.about_to_save.connect(_about_to_save)
-	SaveManager.just_loaded.connect(_just_loaded)
+	
+	active_tasks = SaveManager.save_data.get("tasks", {}).get("active_tasks", active_tasks)
+	completed_tasks = SaveManager.save_data.get("tasks", {}).get("completed_tasks", completed_tasks)
 
 
-func _about_to_save(layer: String) -> void:
-	if layer == "global":
-		return
+func _about_to_save(reason: SaveManager.SaveReason) -> void:
 	SaveManager.save_data.tasks = SaveManager.save_data.get("tasks", SaveManager.DEFAULT_SAVE_DATA.tasks)
 	SaveManager.save_data.tasks.active_tasks = active_tasks
 	SaveManager.save_data.tasks.completed_tasks = completed_tasks
-
-
-func _just_loaded(layer: String) -> void:
-	if layer == "global":
-		return
-	active_tasks = SaveManager.get_value("tasks/active_tasks", active_tasks)
-	completed_tasks = SaveManager.get_value("tasks/completed_tasks", completed_tasks)
 
 
 func assign_task(task_name: String, show_notification: bool = true) -> void:

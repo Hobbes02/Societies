@@ -51,12 +51,11 @@ func _ready() -> void:
 	await get_tree().create_timer(0.2).timeout
 	first_time_load_keybinds()
 	
-	SaveManager.global_data.settings = SaveManager.global_data.get("settings", SaveManager.DEFAULT_GLOBAL_DATA.settings)
-	SaveManager.global_data.settings.volume = SaveManager.global_data.settings.get("volume", SaveManager.DEFAULT_GLOBAL_DATA.settings.volume)
+	SaveManager.settings_data.sound = SaveManager.settings_data.get("sound", SaveManager.DEFAULT_SETTINGS_DATA.sound)
 	
-	AudioServer.set_bus_volume_db(master_bus, SaveManager.global_data.settings.volume.get("Master", 0))
-	AudioServer.set_bus_volume_db(music_bus, SaveManager.global_data.settings.volume.get("Music", 0))
-	AudioServer.set_bus_volume_db(sfx_bus, SaveManager.global_data.settings.volume.get("SFX", 0))
+	AudioServer.set_bus_volume_db(master_bus, SaveManager.settings_data.sound.get("main", 0))
+	AudioServer.set_bus_volume_db(music_bus, SaveManager.settings_data.sound.get("music", 0))
+	AudioServer.set_bus_volume_db(sfx_bus, SaveManager.settings_data.sound.get("sfx", 0))
 	
 	SaveManager.about_to_save.connect(_about_to_save)
 
@@ -100,16 +99,15 @@ func _input(event: InputEvent) -> void:
 		sound_settings_button.grab_focus()
 
 
-func _about_to_save(layer: String) -> void:
-	SaveManager.global_data.settings = SaveManager.global_data.get("settings", SaveManager.DEFAULT_GLOBAL_DATA.settings)
+func _about_to_save(reason: SaveManager.SaveReason) -> void:
 	if keybinds != {}:
-		SaveManager.global_data.settings.keybinds = keybinds
+		SaveManager.settings_data.keybinds = keybinds
 	
-	SaveManager.global_data.settings.volume = SaveManager.global_data.settings.get("volume", SaveManager.DEFAULT_GLOBAL_DATA.settings.volume)
+	SaveManager.settings_data.sound = SaveManager.settings_data.get("sound", SaveManager.DEFAULT_SETTINGS_DATA.sound)
 	
-	SaveManager.global_data.settings.volume.Master = AudioServer.get_bus_volume_db(master_bus)
-	SaveManager.global_data.settings.volume.SFX = AudioServer.get_bus_volume_db(sfx_bus)
-	SaveManager.global_data.settings.volume.Music = AudioServer.get_bus_volume_db(music_bus)
+	SaveManager.settings_data.sound.main = AudioServer.get_bus_volume_db(master_bus)
+	SaveManager.settings_data.sound.sfx = AudioServer.get_bus_volume_db(sfx_bus)
+	SaveManager.settings_data.sound.music = AudioServer.get_bus_volume_db(music_bus)
 
 
 # SOUND
@@ -175,14 +173,15 @@ func _on_back_button_pressed() -> void:
 
 
 func first_time_load_keybinds() -> void:
-	keybinds = SaveManager.global_data.get("settings", {"keybinds": {}}).get("keybinds", keybinds)
+	keybinds = SaveManager.settings_data.get("keybinds", {})
 	if keybinds == {}:
+		keybinds = {}
 		for bind in editable_keybinds:
 			if not InputMap.has_action(bind):
 				continue
 			
 			keybinds[bind] = get_action_keycode(bind)
-		_about_to_save("")
+		_about_to_save(SaveManager.SaveReason.UNKNOWN)
 	
 	for bind in keybinds.keys():
 		change_action_event(bind, keybinds[bind])

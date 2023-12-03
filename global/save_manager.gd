@@ -1,129 +1,143 @@
 extends Node
 
-signal about_to_save(layer: String)
-signal just_loaded(layer: String)
+signal about_to_save(reason: SaveReason)
 
-const WAIT_BETWEEN_SIGNAL_AND_SAVE: int = 8
+enum SaveReason {
+	UNKNOWN, 
+	PAUSE, 
+	QUIT, 
+	CHANGE_SCENE
+}
 
-const DEFAULT_SAVE_DATA: Dictionary = {
+var DEFAULT_SAVE_DATA: Dictionary = {
+	"slot_data": {
+		"name": "Slot 1", 
+		"area": "Start", 
+		"progress": 0
+	}, 
+	"scene_data": {
+		"current_scene": "world/world"
+	}, 
 	"player_data": {
-		"world_position": Vector2(690, 504), 
-		"scene_position": Vector2(690, 504)
+		"world_position": Vector2(0, 0), 
+		"scene_position": Vector2(0, 0), 
 	}, 
 	"tasks": {
-		
-	}, 
-	"current_scene": "world/world"
-}
-const DEFAULT_GLOBAL_DATA: Dictionary = {
-	"slots": {
-		"0": {"id": "0"}, 
-		"1": {"id": "1"}, 
-		"last_played_slot": "none"
-	}, 
-	"settings": {
-		"keybinds": {}, 
-		"volume": {
-			"Master": 0, 
-			"SFX": 0, 
-			"Music": 0
-		}
+		"completed_tasks": [], 
+		"active_tasks": []
 	}
 }
 
-var save_data: Dictionary = DEFAULT_SAVE_DATA
+var DEFAULT_SETTINGS_DATA: Dictionary = {
+	"keybinds": {}, 
+	"sound": {  # sound in dB
+		"main": 0, 
+		"sfx": 0, 
+		"music": 0
+	}, 
+	"last_played_slot": -1
+}
 
-var global_data: Dictionary = DEFAULT_GLOBAL_DATA
+var slots: Array = []
 
+var save_data: Dictionary = DEFAULT_SAVE_DATA.duplicate(true)
+var settings_data: Dictionary = DEFAULT_SETTINGS_DATA.duplicate(true)
 
-var global_data_save_path: String = "user://global_save.dat"
-
-var save_dir: String = "user://saves/"
-var file_name: String = "save_slot_0.societies"
-
-var current_slot: int = 0 :
-	set(new_value):
-		current_slot = new_value
-		
-		file_name = "save_slot_" + str(new_value) + ".societies"
+var current_save_slot: int = 0
 
 
 func _ready() -> void:
-	global_data = await load_data(global_data_save_path, DEFAULT_GLOBAL_DATA)
-	just_loaded.emit("global")
+	load_slot_data()
+	load_settings_data()
 
 
-func save(path: String, data: Dictionary) -> void:
-	if (path == save_dir + file_name) and ((not global_data.slots[str(current_slot)].has("name")) or (global_data.slots[str(current_slot)].name == "")):
-		global_data.slots[str(current_slot)].name = "Played Slot " + str(current_slot + 1)
-		global_data.slots.last_played_slot = str(current_slot)
+func load_slot_data() -> void:
+	var slot_files: Array[String] = get_files_in_directory("user://saves")
 	
-	if data.has("current_scene"):
-		data.current_scene = SceneManager.active_scene_path.lstrip("res://").rstrip(".tscn")
+	for slot_file in slot_files:
+		if not slot_file.ends_with(".societies"):
+			continue
+		var slot_data: Dictionary = get_data_as_dictionary("user://saves/" + slot_file).get("slot_data", {})
+		slots.append({
+			"name": slot_data.get("name", "Empty Slot"), 
+			"area": slot_data.get("area", "Start"), 
+			"progress": slot_data.get("progress", 0)
+		})
+
+
+func save_slot_data(slot_data: Dictionary, slot: int) -> void:
+	if not (slot_data.has("name") and slot_data.has("area") and slot_data.has("progress")):
+		return
 	
-	verify_directory()
+	if slot < len(slots):
+		slots[slot] = slot_data
 	
-	about_to_save.emit(path)
+	var slot_file_data: Dictionary = get_data_as_dictionary("user://saves/slot_" + str(slot) + ".societies")
+	slot_file_data["slot_data"] = slot_data
 	
-	for frame in WAIT_BETWEEN_SIGNAL_AND_SAVE:
-		await get_tree().process_frame
+	var file = FileAccess.open("user://saves/slot_" + str(slot) + ".societies", FileAccess.WRITE)
+	file.store_string(var_to_str(slot_file_data))
+	file.close()
 	
-	var data_to_save = var_to_str(data)
+	load_slot_data()
+
+
+func save_game_data() -> void:
+	var data_to_save: String = var_to_str(save_data)
 	
-	var file = FileAccess.open(path, FileAccess.WRITE)
+	var file = FileAccess.open("user://saves/slot_" + str(current_save_slot) + ".societies", FileAccess.WRITE)
 	file.store_string(data_to_save)
 	file.close()
 
 
-func load_data(path: String, default: Dictionary = {}) -> Dictionary:
-	if not FileAccess.file_exists(path):
-		var file = FileAccess.open(path, FileAccess.WRITE)
-		file.store_string(var_to_str(default))
-		file.close()
+func load_game_data() -> void:
+	save_data = get_data_as_dictionary("user://saves/slot_" + str(current_save_slot) + ".societies")
+
+
+func save_settings_data() -> void:
+	var data_to_save: String = var_to_str(settings_data)
 	
-	var file = FileAccess.open(path, FileAccess.READ)
-	var raw_data = file.get_as_text()
+	var file = FileAccess.open("user://settings.dat", FileAccess.WRITE)
+	file.store_string(data_to_save)
 	file.close()
-	
-	for i in WAIT_BETWEEN_SIGNAL_AND_SAVE:
-		await get_tree().process_frame
-	
-	var compiled_data = str_to_var(raw_data)
-	
-	print("LOADED DATA")
-	
-	return compiled_data if compiled_data else default
 
 
-func get_value(path: String, default: Variant, from: Dictionary = save_data) -> Variant:
-	var segements = path.split("/")
-	var parent_section = from
-	
-	for i in segements:
-		if typeof(parent_section) == TYPE_ARRAY and i in "1 2 3 4 5 6 7 8 9 0".split(" ") and int(i) < len(parent_section):
-			if i == segements[-1]:
-				return parent_section[int(i)]
-			else:
-				parent_section = parent_section[int(i)]
-		elif i == segements[-1] and parent_section and parent_section.has(i):
-			return parent_section[i]
-		if parent_section.has(i):
-			parent_section = parent_section[i]
-		else:
-			break
-	
-	return default
+func load_settings_data() -> void:
+	settings_data = get_data_as_dictionary("user://settings.dat")
 
 
-func verify_directory() -> void:
-	DirAccess.make_dir_absolute(save_dir)
+func get_data_as_dictionary(file_path: String) -> Dictionary:
+	if not FileAccess.file_exists(file_path):
+		return {}
+	
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	var data_as_string: String = file.get_as_text()
+	file.close()
+	return str_to_var(data_as_string)
+
+
+func get_files_in_directory(path: String) -> Array[String]:
+	var files: Array[String] = []
+	var dir = DirAccess.open(path)
+	dir.include_hidden = false
+	dir.include_navigational = false
+	dir.list_dir_begin()
+
+	var file = dir.get_next()
+	while file != "":
+		files += [file]
+		file = dir.get_next()
+
+	return files
 
 
 func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:
-			save(global_data_save_path, global_data)
-			await get_tree().create_timer(0.1).timeout
-			save(save_dir + file_name, save_data)
-			await get_tree().create_timer(0.1).timeout
+			about_to_save.emit(SaveReason.QUIT)
+			
+			if SceneManager.active_scene != "Scenes/Menus":
+				save_game_data()
+			save_settings_data()
+			
 			get_tree().quit()

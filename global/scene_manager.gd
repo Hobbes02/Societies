@@ -16,6 +16,8 @@ signal unpaused(layer: String)
 	"interaction": false, 
 	"all": false
 }
+## Defines what scenes can be saved as the current scene in the savegame (scenes that are part of the game)
+@export var play_scenes: Array[String] = []
 
 var scenes_loaded: Dictionary = {}  # keys are scene paths, values are filesystem paths
 
@@ -87,6 +89,9 @@ func change_scene(filename: String, slide_in: bool = true, slide_out: bool = tru
 	
 	if typeof(emit_after_loading) == TYPE_SIGNAL:
 		emit_after_loading.emit()
+	
+	SaveManager.save_data.scene_data = SaveManager.save_data.get("scene_data", SaveManager.DEFAULT_SAVE_DATA.scene_data)
+	SaveManager.save_data.scene_data.current_scene = filename.lstrip("res://").rstrip(".tscn")
 	
 	scene_history.append(filename)
 	

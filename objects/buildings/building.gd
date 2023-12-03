@@ -21,7 +21,7 @@ func _ready() -> void:
 
 
 func _on_doorway_interacted() -> void:
-	SaveManager.about_to_save.emit("world")
+	SaveManager.about_to_save.emit(SaveManager.SaveReason.CHANGE_SCENE)
 
 
 func _on_doorway_entered() -> void:
