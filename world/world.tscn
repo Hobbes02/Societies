@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://coamdy8krcs0e"]
+[gd_scene load_steps=6 format=3 uid="uid://coamdy8krcs0e"]
 
 [ext_resource type="Script" path="res://world/world.gd" id="1_ra7vo"]
 [ext_resource type="PackedScene" uid="uid://7oe6ekia4jat" path="res://objects/player/player.tscn" id="2_f3isx"]
 [ext_resource type="TileSet" uid="uid://bqyh5v87qvjei" path="res://world/tileset.tres" id="2_her26"]
 [ext_resource type="PackedScene" uid="uid://d4ms48h0jqsrt" path="res://objects/buildings/houses/small_house.tscn" id="3_s3q7d"]
+[ext_resource type="Texture2D" uid="uid://mk5wj5lkurat" path="res://visuals/lights/radial_light.png" id="5_503ir"]
 
 [node name="World" type="Node2D"]
 process_mode = 3
@@ -46,7 +47,12 @@ process_mode = 1
 position = Vector2(563, 460)
 interior = "res://interiors/interior.tscn"
 
-[node name="PlayerW" parent="." instance=ExtResource("2_f3isx")]
+[node name="Player" parent="." instance=ExtResource("2_f3isx")]
 position = Vector2(735, 504)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(721, 237)
+color = Color(1, 0.94902, 0.772549, 1)
+texture = ExtResource("5_503ir")
+texture_scale = 50.0

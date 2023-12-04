@@ -4,7 +4,7 @@ var graph_id: int = -1
 
 var focus_after_unpause: Node2D
 
-@onready var player: CharacterBody2D = $PlayerW
+@onready var player: CharacterBody2D = $Player
 @onready var camera: Camera2D = $Camera
 @onready var camera_following_node: Variant = player
 @onready var tilemap: TileMap = $TileMap
@@ -36,6 +36,8 @@ func _on_unpaused(layer: String) -> void:
 func _on_scene_activated(node: Node) -> void:
 	if node != self:
 		return
+	
+	print(SaveManager.save_data.get("slot_data", {}).get("name", ""))
 	
 	var player_position: Vector2 = SaveManager.save_data.get("player_data", {}).get("world_position", Vector2(0, 0))
 	

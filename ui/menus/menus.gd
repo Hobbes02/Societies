@@ -28,14 +28,15 @@ func _on_play_button_pressed() -> void:
 			else:
 				slot_to_play = 0
 		SaveManager.current_save_slot = slot_to_play
-		SaveManager.save_slot_data(
-			{
-				"name": "Played Slot " + str(slot_to_play + 1), 
-				"area": "Start", 
-				"progress": 0
-			}, 
-			slot_to_play
-		)
+		if len(SaveManager.slots) >= slot_to_play or (len(SaveManager.slots) < slot_to_play and SaveManager.slots[slot_to_play].get("name", "Empty Slot") == "Empty Slot"):
+			SaveManager.save_slot_data(
+				{
+					"name": "Played Slot " + str(slot_to_play + 1), 
+					"area": "Start", 
+					"progress": 0
+				}, 
+				slot_to_play
+			)
 		SaveManager.settings_data.last_played_slot = slot_to_play
 	
 	SaveManager.load_game_data()

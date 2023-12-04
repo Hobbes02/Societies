@@ -63,6 +63,11 @@ func load_slot_data() -> void:
 			"area": slot_data.get("area", "Start"), 
 			"progress": slot_data.get("progress", 0)
 		})
+	
+	if len(slots) == 2:
+		var slot_2 = slots[1]
+		slots[1] = slots[0].duplicate(true)
+		slots[0] = slot_2.duplicate(true)
 
 
 func save_slot_data(slot_data: Dictionary, slot: int) -> void:

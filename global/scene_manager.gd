@@ -46,7 +46,6 @@ var persistent_information: Dictionary = {}
 
 
 func _ready() -> void:
-	
 	if str(get_tree().current_scene.get_path()) != "/root/blank":
 		$Visuals/ColorRect.hide()
 		$Visuals/ColorRect.mouse_filter = $Visuals/ColorRect.MOUSE_FILTER_IGNORE
@@ -56,7 +55,6 @@ func _ready() -> void:
 		func():
 			are_scenes_ready = true
 	)
-	
 	$Visuals/ColorRect.global_position = Vector2(
 		0, 
 		-263

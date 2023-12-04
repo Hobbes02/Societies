@@ -18,6 +18,9 @@ var currently_editing_slot: int = 0
 
 
 func start() -> void:
+	
+	print(SaveManager.slots)
+	
 	if len(SaveManager.slots) >= 1:
 		slot_1_button.change_text(SaveManager.slots[0].get("name"))
 	if len(SaveManager.slots) >= 2:
