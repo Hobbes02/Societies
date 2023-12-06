@@ -1,0 +1,20 @@
+{
+	"identifier": "chunk_1",
+	"uniqueIdentifer": "3c420b40-8990-11ee-8b92-074a1c370f90",
+	"x": 256,
+	"y": 0,
+	"width": 256,
+	"height": 256,
+	"bgColor": "#696A79",
+	"neighbourLevels": [
+		{
+			"levelIid": "5e38cb70-8990-11ee-8b92-eddde8b55080",
+			"dir": "w"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"collisions.png"
+	],
+	"entities" : {}
+}

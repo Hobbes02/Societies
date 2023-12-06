@@ -45,11 +45,20 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/csv-data-importer/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg")
 
 [filesystem]
 
 import/blender/enabled=false
+
+[importer_defaults]
+
+com.timothyqiu.godot-csv-importer={
+"delimiter": 0,
+"detect_numbers": true,
+"force_float": false,
+"headers": false
+}
 
 [input]
 
