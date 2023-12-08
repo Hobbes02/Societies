@@ -130,7 +130,7 @@ func get_files_in_directory(path: String) -> Array[String]:
 
 	var file = dir.get_next()
 	while file != "":
-		files += [file]
+		files.append(file)
 		file = dir.get_next()
 
 	return files

@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://bh0x24nqelkum"]
+
+[ext_resource type="Script" path="res://world/chunk.gd" id="1_55xe1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2yeay"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6r8nl"]
+
+[node name="Chunk" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_55xe1")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="LayerVisualTemplate" type="Sprite2D" parent="Visuals"]
+centered = false
+
+[node name="Collider" type="StaticBody2D" parent="."]
+
+[node name="CollisionTemplate" type="CollisionShape2D" parent="Collider"]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_2yeay")
+disabled = true
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("RectangleShape2D_6r8nl")

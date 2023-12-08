@@ -1,19 +1,19 @@
 {
-	"identifier": "chunk_0",
-	"uniqueIdentifer": "5e38cb70-8990-11ee-8b92-eddde8b55080",
-	"x": 0,
-	"y": 0,
+	"identifier": "chunk_2",
+	"uniqueIdentifer": "83528430-8990-11ee-8d05-b17a41f55b5d",
+	"x": 256,
+	"y": 256,
 	"width": 256,
 	"height": 256,
 	"bgColor": "#696A79",
 	"neighbourLevels": [
 		{
 			"levelIid": "3c420b40-8990-11ee-8b92-074a1c370f90",
-			"dir": "e"
+			"dir": "n"
 		},
 		{
 			"levelIid": "bf24d8f0-8990-11ee-8d05-45d4a834c751",
-			"dir": "s"
+			"dir": "w"
 		}
 	],
 	"customFields" : {},
