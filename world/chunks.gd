@@ -8,33 +8,75 @@ var iid_to_name: Dictionary = {}  # keys are chunk iids, values are chunk names
 # keys are chunk iids, values are array of neighbors formatted as [iid, direction]
 var chunk_neighbors: Dictionary = {}
 
+var chunk_data: Dictionary = {} # keys are chunk iids, values are chunk data
+
 var loaded_chunk_iids: Array = []
+var loaded_chunk_iid: String = ""
 
 
 func _ready() -> void:
 	compile_chunk_data()
 	
-	load_chunks_around(iid_to_name.find_key("chunk_2"))
+	SceneManager.activate.connect(_on_scene_activated)
+	SaveManager.about_to_save.connect(_save)
+
+
+func _save(reason: SaveManager.SaveReason) -> void:
+	SaveManager.save_data.scene_data = SaveManager.save_data.get("scene_data", SaveManager.DEFAULT_SAVE_DATA.scene_data)
+	SaveManager.save_data.scene_data.current_chunk = iid_to_name.get(loaded_chunk_iid, "chunk_0")
+
+
+func _on_scene_activated(scene: Node) -> void:
+	if scene == owner:
+		load_chunks_around(iid_to_name.find_key(SaveManager.save_data.get("scene_data", {}).get("current_chunk", "chunk_0")))
 
 
 func load_chunks_around(chunk_iid: String) -> void:
-	var neighbors = chunk_neighbors[chunk_iid]
-	add_chunk(chunk_iid)
+	loaded_chunk_iid = chunk_iid
+	var neighbors_to_load: Array = get_neighbors_to_load(chunk_iid)
 	
-	for neighbor in neighbors:
-		var iid = neighbor[0]
-		
-		if not iid_to_name.has(iid):
-			continue
-		
-		add_chunk(iid)
+	for chunk in loaded_chunk_iids:
+		if chunk not in neighbors_to_load:
+			remove_chunk(chunk)
+	
+	for neighbor in neighbors_to_load:
+		add_chunk(neighbor)
+
+
+func get_neighbors_to_load(chunk_iid: String) -> Array:
+	var neighbors: Array = [chunk_iid]
+	
+	for neighbor in chunk_neighbors[chunk_iid]:
+		if (iid_to_name.has(neighbor[0])) and (neighbor[0] not in neighbors):
+			neighbors.append(neighbor[0])
+	
+	return neighbors
 
 
 func add_chunk(iid: String) -> void:
+	if iid in loaded_chunk_iids or not iid_to_name.has(iid):
+		return
+	
 	var chunk = Chunk.instantiate()
 	chunk.chunk_dir = iid_to_name[iid]
 	loaded_chunk_iids.append(iid)
+	chunk.name = iid
 	call_deferred("add_child", chunk)
+	
+	chunk.player_entered.connect(func(chunk_name: String):
+		if chunk_name in iid_to_name.values():
+			load_chunks_around(iid_to_name.find_key(chunk_name))
+	)
+
+
+func remove_chunk(iid: String) -> void:
+	if iid not in loaded_chunk_iids:
+		return
+	
+	for chunk in get_children():
+		if chunk.name == iid:
+			chunk.queue_free()
+			loaded_chunk_iids.erase(iid)
 
 
 func compile_chunk_data() -> void:

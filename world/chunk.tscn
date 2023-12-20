@@ -11,20 +11,24 @@ size = Vector2(8, 8)
 texture_filter = 1
 script = ExtResource("1_55xe1")
 
-[node name="Visuals" type="Node2D" parent="."]
-
-[node name="LayerVisualTemplate" type="Sprite2D" parent="Visuals"]
+[node name="LayerVisuals" type="Sprite2D" parent="."]
 centered = false
 
 [node name="Collider" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 17
 
 [node name="CollisionTemplate" type="CollisionShape2D" parent="Collider"]
 position = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_2yeay")
 disabled = true
 
+[node name="Entities" type="Node2D" parent="."]
+
 [node name="PlayerDetector" type="Area2D" parent="."]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
 shape = SubResource("RectangleShape2D_6r8nl")
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

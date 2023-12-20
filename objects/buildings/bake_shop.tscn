@@ -4,14 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://bb2a4x6vqrxbe" path="res://visuals/buildings/bake_shop.png" id="2_wye8m"]
 [ext_resource type="Texture2D" uid="uid://csmf6cbkxuo7p" path="res://visuals/buildings/doors/green_door.png" id="3_p83c2"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_22bmd"]
-size = Vector2(10, 27)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ytr7q"]
+size = Vector2(10, 22)
 
 [node name="BakeShop" instance=ExtResource("1_4nblb")]
 door_width = 10
 
 [node name="MainHouse" parent="." index="0"]
+position = Vector2(32, 29)
 texture = ExtResource("2_wye8m")
+
+[node name="CanvasGroup" parent="." index="1"]
+position = Vector2(32, 29)
 
 [node name="Door" parent="CanvasGroup" index="0"]
 position = Vector2(0, 13)
@@ -21,6 +25,9 @@ texture = ExtResource("3_p83c2")
 position = Vector2(-10, 13)
 texture = ExtResource("3_p83c2")
 
-[node name="CollisionShape2D" parent="Doorway" index="0"]
-position = Vector2(0, 18.5)
-shape = SubResource("RectangleShape2D_22bmd")
+[node name="Doorway" parent="." index="2"]
+position = Vector2(32, 29)
+
+[node name="CollisionShape2D" parent="Doorway" index="1"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_ytr7q")

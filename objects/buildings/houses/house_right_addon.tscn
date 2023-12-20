@@ -9,7 +9,11 @@ size = Vector2(12, 15)
 [node name="HouseRightAddon" instance=ExtResource("1_kuaxi")]
 
 [node name="MainHouse" parent="." index="0"]
+position = Vector2(53, 33)
 texture = ExtResource("2_5npsy")
+
+[node name="CanvasGroup" parent="." index="1"]
+position = Vector2(53, 33)
 
 [node name="Door" parent="CanvasGroup" index="0"]
 position = Vector2(-16, 15)
@@ -17,6 +21,9 @@ position = Vector2(-16, 15)
 [node name="Mask" parent="CanvasGroup" index="1"]
 position = Vector2(-24, 15)
 
-[node name="CollisionShape2D" parent="Doorway" index="0"]
+[node name="Doorway" parent="." index="2"]
+position = Vector2(53, 33)
+
+[node name="CollisionShape2D" parent="Doorway" index="1"]
 position = Vector2(-16, 15.5)
 shape = SubResource("RectangleShape2D_mofs1")

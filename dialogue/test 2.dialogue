@@ -1,0 +1,11 @@
+~ start
+
+Bob: Hey there!
+Bob: Here are some choices:
+- Option 1
+	Bob: You chose option 1
+- Option 2
+	Bob: You chose option 2
+Bob: And that brings an end to this little example, I hope you enjoyed!
+
+=> END!

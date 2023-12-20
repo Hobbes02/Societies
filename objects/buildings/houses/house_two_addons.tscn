@@ -6,4 +6,11 @@
 [node name="HouseTwoAddons" instance=ExtResource("1_5yogf")]
 
 [node name="MainHouse" parent="." index="0"]
+position = Vector2(63, 33)
 texture = ExtResource("2_m34oo")
+
+[node name="CanvasGroup" parent="." index="1"]
+position = Vector2(63, 33)
+
+[node name="Doorway" parent="." index="2"]
+position = Vector2(63, 33)

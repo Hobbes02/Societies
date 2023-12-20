@@ -16,9 +16,11 @@ texture_filter = 1
 script = ExtResource("1_j4wkn")
 
 [node name="MainHouse" type="Sprite2D" parent="."]
+position = Vector2(32, 32)
 texture = ExtResource("1_3wo8o")
 
 [node name="CanvasGroup" type="CanvasGroup" parent="."]
+position = Vector2(32, 32)
 
 [node name="Door" type="Sprite2D" parent="CanvasGroup"]
 clip_children = 2
@@ -32,6 +34,7 @@ position = Vector2(-8, 15)
 texture = ExtResource("2_mox7y")
 
 [node name="Doorway" parent="." instance=ExtResource("4_ttlr0")]
+position = Vector2(32, 32)
 collision_layer = 2
 interaction_type = 3
 

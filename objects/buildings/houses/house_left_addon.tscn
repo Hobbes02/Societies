@@ -9,7 +9,11 @@ size = Vector2(12, 15)
 [node name="HouseLeftAddon" instance=ExtResource("1_7rerb")]
 
 [node name="MainHouse" parent="." index="0"]
+position = Vector2(42, 33)
 texture = ExtResource("2_444fb")
+
+[node name="CanvasGroup" parent="." index="1"]
+position = Vector2(42, 33)
 
 [node name="Door" parent="CanvasGroup" index="0"]
 position = Vector2(16, 15)
@@ -17,6 +21,9 @@ position = Vector2(16, 15)
 [node name="Mask" parent="CanvasGroup" index="1"]
 position = Vector2(8, 15)
 
-[node name="CollisionShape2D" parent="Doorway" index="0"]
+[node name="Doorway" parent="." index="2"]
+position = Vector2(42, 33)
+
+[node name="CollisionShape2D" parent="Doorway" index="1"]
 position = Vector2(16, 15.5)
 shape = SubResource("RectangleShape2D_bpurr")

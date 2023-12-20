@@ -1,0 +1,18 @@
+[remap]
+
+importer="com.timothyqiu.godot-csv-importer"
+type="Resource"
+uid="uid://eghir4fgyejy"
+path="res://.godot/imported/background 2.csv-0ca25b812c5a757fe1c37b9a86e4ac0b.res"
+
+[deps]
+
+source_file="res://world/ldtk/societies/simplified/chunk_4/background 2.csv"
+dest_files=["res://.godot/imported/background 2.csv-0ca25b812c5a757fe1c37b9a86e4ac0b.res"]
+
+[params]
+
+delimiter=0
+headers=false
+detect_numbers=true
+force_float=false

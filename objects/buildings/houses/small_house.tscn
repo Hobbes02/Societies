@@ -3,3 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://k3fm7ocdph3w" path="res://objects/buildings/building.tscn" id="1_tc27i"]
 
 [node name="SmallHouse" instance=ExtResource("1_tc27i")]
+
+[node name="MainHouse" parent="." index="0"]
+position = Vector2(32, 33)
+
+[node name="CanvasGroup" parent="." index="1"]
+position = Vector2(32, 33)
+
+[node name="Doorway" parent="." index="2"]
+position = Vector2(32, 33)

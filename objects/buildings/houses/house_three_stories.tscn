@@ -9,7 +9,11 @@ size = Vector2(12, 15)
 [node name="HouseThreeStories" instance=ExtResource("1_50y3a")]
 
 [node name="MainHouse" parent="." index="0"]
+position = Vector2(32, 61)
 texture = ExtResource("2_ql8wg")
+
+[node name="CanvasGroup" parent="." index="1"]
+position = Vector2(32, 61)
 
 [node name="Door" parent="CanvasGroup" index="0"]
 position = Vector2(0, 51)
@@ -17,6 +21,9 @@ position = Vector2(0, 51)
 [node name="Mask" parent="CanvasGroup" index="1"]
 position = Vector2(-8, 51)
 
-[node name="CollisionShape2D" parent="Doorway" index="0"]
+[node name="Doorway" parent="." index="2"]
+position = Vector2(32, 61)
+
+[node name="CollisionShape2D" parent="Doorway" index="1"]
 position = Vector2(0, 51.5)
 shape = SubResource("RectangleShape2D_ew82d")

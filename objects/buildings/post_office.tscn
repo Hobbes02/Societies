@@ -6,4 +6,11 @@
 [node name="PostOffice" instance=ExtResource("1_ijmq5")]
 
 [node name="MainHouse" parent="." index="0"]
+position = Vector2(32, 33)
 texture = ExtResource("2_ivmhk")
+
+[node name="CanvasGroup" parent="." index="1"]
+position = Vector2(32, 33)
+
+[node name="Doorway" parent="." index="2"]
+position = Vector2(32, 33)

@@ -16,7 +16,8 @@ var DEFAULT_SAVE_DATA: Dictionary = {
 		"progress": 0
 	}, 
 	"scene_data": {
-		"current_scene": "world/world"
+		"current_scene": "world/world", 
+		"current_chunk": "chunk_0"
 	}, 
 	"player_data": {
 		"world_position": Vector2(0, 0), 

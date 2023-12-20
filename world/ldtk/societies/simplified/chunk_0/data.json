@@ -5,8 +5,12 @@
 	"y": 0,
 	"width": 256,
 	"height": 256,
-	"bgColor": "#696A79",
+	"bgColor": "#414141",
 	"neighbourLevels": [
+		{
+			"levelIid": "1874bd30-8990-11ee-8881-2d7bfcc6b529",
+			"dir": "<"
+		},
 		{
 			"levelIid": "3c420b40-8990-11ee-8b92-074a1c370f90",
 			"dir": "e"
@@ -18,7 +22,24 @@
 	],
 	"customFields" : {},
 	"layers": [
+		"background.png",
 		"collisions.png"
 	],
-	"entities" : {}
+	"entities": {
+		"small_house": [
+			{
+				"id": "small_house",
+				"iid": "4edc08a0-8990-11ee-8881-e9f71a95af01",
+				"layer": "buildings",
+				"x": 168,
+				"y": 0,
+				"width": 64,
+				"height": 64,
+				"color": 12470831,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		]
+	}
 }
