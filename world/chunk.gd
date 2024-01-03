@@ -37,7 +37,6 @@ var chunk_size: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
-	load_chunk_data()
 	load_chunk_visual()
 	load_chunk_collisions()
 	global_position = Vector2(

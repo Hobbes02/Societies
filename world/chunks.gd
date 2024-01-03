@@ -54,11 +54,12 @@ func get_neighbors_to_load(chunk_iid: String) -> Array:
 
 
 func add_chunk(iid: String) -> void:
-	if iid in loaded_chunk_iids or not iid_to_name.has(iid):
+	if iid in loaded_chunk_iids or not iid_to_name.has(iid) or not chunk_data.has(iid):
 		return
 	
 	var chunk = Chunk.instantiate()
 	chunk.chunk_dir = iid_to_name[iid]
+	chunk.chunk_data = chunk_data[iid]
 	loaded_chunk_iids.append(iid)
 	chunk.name = iid
 	call_deferred("add_child", chunk)
@@ -93,6 +94,7 @@ func compile_chunk_data() -> void:
 			
 			if data.has("uniqueIdentifer"):
 				iid_to_name[data.uniqueIdentifer] = dir
+				chunk_data[data.uniqueIdentifer] = data
 			else:
 				continue
 			if data.has("neighbourLevels"):
