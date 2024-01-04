@@ -40,7 +40,9 @@
 				"width": 96,
 				"height": 64,
 				"color": 14120515,
-				"customFields" : {}
+				"customFields": {
+					"interior": "interior_1"
+				}
 			}
 		],
 		"post_office": [
@@ -53,7 +55,9 @@
 				"width": 64,
 				"height": 64,
 				"color": 14120515,
-				"customFields" : {}
+				"customFields": {
+					"interior": "interior_1"
+				}
 			}
 		]
 	}

@@ -11,7 +11,7 @@
 	"iid": "5e38a460-8990-11ee-8b92-3d66aaf94bc4",
 	"jsonVersion": "1.4.1",
 	"appBuildId": 471015,
-	"nextUid": 82,
+	"nextUid": 91,
 	"identifierStyle": "Lowercase",
 	"toc": [],
 	"worldLayout": "Free",
@@ -1456,7 +1456,7 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
-					"editorDisplayColor": "#C0CBDC",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
@@ -1514,7 +1514,46 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "interior",
+					"doc": null,
+					"__type": "String",
+					"uid": 82,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "ValueOnly",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": "/interior_.*/gi",
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["interior_1"]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		},
 		{
 			"identifier": "right_house",
@@ -1548,7 +1587,46 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "interior",
+					"doc": null,
+					"__type": "String",
+					"uid": 83,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "ValueOnly",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": "/interior_.*/gi",
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["interior_1"]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		},
 		{
 			"identifier": "two_side_house",
@@ -1582,7 +1660,46 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "interior",
+					"doc": null,
+					"__type": "String",
+					"uid": 84,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "ValueOnly",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": "/interior_.*/gi",
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["interior_1"]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		},
 		{
 			"identifier": "three_story_house",
@@ -1616,7 +1733,46 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "interior",
+					"doc": null,
+					"__type": "String",
+					"uid": 85,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "ValueOnly",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": "/interior_.*/gi",
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["interior_1"]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		},
 		{
 			"identifier": "shop",
@@ -1650,7 +1806,46 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "interior",
+					"doc": null,
+					"__type": "String",
+					"uid": 86,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "ValueOnly",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": "/interior_.*/gi",
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["interior_1"]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		},
 		{
 			"identifier": "bake_shop",
@@ -1684,7 +1879,46 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "interior",
+					"doc": null,
+					"__type": "String",
+					"uid": 87,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "ValueOnly",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": "/interior_.*/gi",
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["interior_1"]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		},
 		{
 			"identifier": "post_office",
@@ -1718,7 +1952,116 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "interior",
+					"doc": null,
+					"__type": "String",
+					"uid": 88,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "ValueOnly",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": "/interior_.*/gi",
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["interior_1"]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
+		},
+		{
+			"identifier": "door",
+			"uid": 89,
+			"tags": ["Building"],
+			"exportToToc": false,
+			"doc": null,
+			"width": 8,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#B86F50",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileRenderMode": "FitInside",
+			"tileRect": null,
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 1,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "leads_to",
+					"doc": "The level the door will lead to (null for leads back to house)",
+					"__type": "String",
+					"uid": 90,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "NameAndValue",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -1826,19 +2169,22 @@
 					"entityInstances": [
 						{
 							"__identifier": "small_house",
-							"__grid": [21,0],
+							"__grid": [0,19],
 							"__pivot": [0,0],
 							"__tags": ["Building"],
 							"__tile": { "tilesetUid": 35, "x": 64, "y": 64, "w": 64, "h": 64 },
 							"__smartColor": "#BE4A2F",
-							"__worldX": 168,
-							"__worldY": 0,
+							"__worldX": 0,
+							"__worldY": 152,
 							"iid": "4edc08a0-8990-11ee-8881-e9f71a95af01",
 							"width": 64,
 							"height": 64,
 							"defUid": 32,
-							"px": [168,0],
-							"fieldInstances": [{ "__identifier": "interior", "__type": "String", "__value": "interior_1", "__tile": null, "defUid": 81, "realEditorValues": [null] }]
+							"px": [0,152],
+							"fieldInstances": [{ "__identifier": "interior", "__type": "String", "__value": "interior_1", "__tile": null, "defUid": 81, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["interior_1"]
+							}] }]
 						}
 					]
 				},
@@ -1935,7 +2281,7 @@
 						3,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0,0,
 						0,0,0,0,0,0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,0,0,0,0,0,
 						0,0,0,0,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,3,4,4,0,0,0,0,0,0,0,0,
-						3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,3,3,3,3,3,3,
+						3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3,3,3,3,3,3,3,3,
 						3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,3,4,4,4,4,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 						3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,
 						4,4,4,4,4,4,3,4,4,4,4,4,4,4,4,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,
@@ -2161,6 +2507,11 @@
 						{ "px": [120,208], "src": [24,0], "f": 0, "t": 3, "d": [24,847], "a": 1 },
 						{ "px": [128,208], "src": [24,0], "f": 0, "t": 3, "d": [24,848], "a": 1 },
 						{ "px": [136,208], "src": [24,0], "f": 0, "t": 3, "d": [24,849], "a": 1 },
+						{ "px": [0,216], "src": [24,0], "f": 0, "t": 3, "d": [24,864], "a": 1 },
+						{ "px": [8,216], "src": [24,0], "f": 0, "t": 3, "d": [24,865], "a": 1 },
+						{ "px": [16,216], "src": [24,0], "f": 0, "t": 3, "d": [24,866], "a": 1 },
+						{ "px": [24,216], "src": [24,0], "f": 0, "t": 3, "d": [24,867], "a": 1 },
+						{ "px": [32,216], "src": [24,0], "f": 0, "t": 3, "d": [24,868], "a": 1 },
 						{ "px": [40,216], "src": [24,0], "f": 0, "t": 3, "d": [24,869], "a": 1 },
 						{ "px": [48,216], "src": [24,0], "f": 0, "t": 3, "d": [24,870], "a": 1 },
 						{ "px": [56,216], "src": [24,0], "f": 0, "t": 3, "d": [24,871], "a": 1 },
@@ -2900,7 +3251,7 @@
 							"height": 64,
 							"defUid": 37,
 							"px": [96,24],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "interior", "__type": "String", "__value": "interior_1", "__tile": null, "defUid": 83, "realEditorValues": [] }]
 						},
 						{
 							"__identifier": "post_office",
@@ -2916,7 +3267,7 @@
 							"height": 64,
 							"defUid": 42,
 							"px": [160,160],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "interior", "__type": "String", "__value": "interior_1", "__tile": null, "defUid": 88, "realEditorValues": [] }]
 						}
 					]
 				},
@@ -4050,7 +4401,7 @@
 							"height": 128,
 							"defUid": 39,
 							"px": [80,24],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "interior", "__type": "String", "__value": "interior_1", "__tile": null, "defUid": 85, "realEditorValues": [] }]
 						}
 					]
 				},
@@ -6872,7 +7223,7 @@
 							"height": 64,
 							"defUid": 40,
 							"px": [184,24],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "interior", "__type": "String", "__value": "interior_1", "__tile": null, "defUid": 86, "realEditorValues": [] }]
 						}
 					]
 				},
@@ -9178,7 +9529,24 @@
 					"seed": 7084353,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "door",
+							"__grid": [9,10],
+							"__pivot": [0,0],
+							"__tags": ["Building"],
+							"__tile": null,
+							"__smartColor": "#B86F50",
+							"__worldX": 192,
+							"__worldY": 136,
+							"iid": "316a10b0-8990-11ee-a2fb-3bfacbefd9c8",
+							"width": 8,
+							"height": 16,
+							"defUid": 89,
+							"px": [72,80],
+							"fieldInstances": [{ "__identifier": "leads_to", "__type": "String", "__value": null, "__tile": null, "defUid": 90, "realEditorValues": [] }]
+						}
+					]
 				},
 				{
 					"__identifier": "props",

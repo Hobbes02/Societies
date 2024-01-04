@@ -16,10 +16,14 @@
 			"dir": "e"
 		}
 	],
-	"customFields" : {},
+	"customFields": {
+
+	},
 	"layers": [
 		"background.png",
 		"collisions.png"
 	],
-	"entities" : {}
+	"entities": {
+
+	}
 }

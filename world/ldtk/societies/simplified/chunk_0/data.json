@@ -20,7 +20,9 @@
 			"dir": "s"
 		}
 	],
-	"customFields" : {},
+	"customFields": {
+
+	},
 	"layers": [
 		"background.png",
 		"collisions.png"
@@ -31,8 +33,8 @@
 				"id": "small_house",
 				"iid": "4edc08a0-8990-11ee-8881-e9f71a95af01",
 				"layer": "buildings",
-				"x": 168,
-				"y": 0,
+				"x": 0,
+				"y": 152,
 				"width": 64,
 				"height": 64,
 				"color": 12470831,

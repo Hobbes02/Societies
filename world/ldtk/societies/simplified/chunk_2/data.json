@@ -36,7 +36,9 @@
 				"width": 64,
 				"height": 128,
 				"color": 14120515,
-				"customFields" : {}
+				"customFields": {
+					"interior": "interior_1"
+				}
 			}
 		]
 	}

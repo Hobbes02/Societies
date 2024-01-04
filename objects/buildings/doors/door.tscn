@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkf1k8gpk51x2"]
+
+[ext_resource type="Script" path="res://objects/buildings/doors/door.gd" id="1_dgur5"]
+[ext_resource type="PackedScene" uid="uid://dga3u0pbhej4u" path="res://objects/interactable/interactable.tscn" id="2_0hbk4"]
+[ext_resource type="Texture2D" uid="uid://b8livptug2mjs" path="res://visuals/buildings/doors/doorway.png" id="3_fxxg6"]
+[ext_resource type="Texture2D" uid="uid://d0pw4ialcm0v8" path="res://visuals/buildings/doors/wooden_door.png" id="4_xeb3o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oy3al"]
+size = Vector2(12, 20)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ccpu3"]
+blend_mode = 2
+
+[node name="Door" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_dgur5")
+
+[node name="Interactable" parent="." instance=ExtResource("2_0hbk4")]
+position = Vector2(0, 3)
+collision_layer = 2
+interaction_type = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+shape = SubResource("RectangleShape2D_oy3al")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 3)
+texture = ExtResource("3_fxxg6")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+position = Vector2(0, -15)
+
+[node name="Door" type="Sprite2D" parent="CanvasGroup"]
+clip_children = 2
+position = Vector2(0, 15)
+texture = ExtResource("4_xeb3o")
+
+[node name="Mask" type="Sprite2D" parent="CanvasGroup"]
+clip_children = 2
+material = SubResource("CanvasItemMaterial_ccpu3")
+position = Vector2(-8, 15)
+texture = ExtResource("4_xeb3o")
+
+[connection signal="entered" from="Interactable" to="." method="_on_doorway_entered"]
+[connection signal="exited" from="Interactable" to="." method="_on_doorway_exited"]
+[connection signal="interacted" from="Interactable" to="." method="_on_doorway_interacted"]

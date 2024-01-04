@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbi13gkqx560o"
-path="res://.godot/imported/collisions 2.png-66d0462f0d63b54391286d58bf07e7fe.ctex"
+uid="uid://b5othjtyryeku"
+path="res://.godot/imported/collisions-int.png-810eb02651aba686320245e60b1dc144.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world/ldtk/societies/simplified/chunk_0/collisions 2.png"
-dest_files=["res://.godot/imported/collisions 2.png-66d0462f0d63b54391286d58bf07e7fe.ctex"]
+source_file="res://world/ldtk/societies/simplified/interior_1/collisions-int.png"
+dest_files=["res://.godot/imported/collisions-int.png-810eb02651aba686320245e60b1dc144.ctex"]
 
 [params]
 

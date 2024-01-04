@@ -1,8 +1,8 @@
 extends Node2D
 
-@export var interior: String = ""
+@export var leads_to: String = ""
 
-@export_group("New Building Settings")
+@export_group("New Door Settings")
 @export var door_width: int = 8
 @export var door_open_frame_length: float = 0.1
 
@@ -13,11 +13,11 @@ var door_closing: bool = false
 
 @onready var door: Sprite2D = $CanvasGroup/Door
 @onready var default_door_position: Vector2 = door.global_position
-@onready var interactable: Area2D = $Doorway
+@onready var interactable: Area2D = $Interactable
 
 
 func _ready() -> void:
-	interactable.scene_path = interior
+	interactable.scene_path = leads_to
 
 
 func _on_doorway_interacted() -> void:

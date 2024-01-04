@@ -1,3 +1,4 @@
+class_name Chunk
 extends Node2D
 
 signal player_entered(chunk_name: String)
@@ -13,7 +14,8 @@ const ENTITY_NAME_TO_SCENE: Dictionary = {
 	"bake_shop": preload("res://objects/buildings/bake_shop.tscn"), 
 	"post_office": preload("res://objects/buildings/post_office.tscn"), 
 	"shop": preload("res://objects/buildings/shop.tscn"), 
-	"npc": preload("res://objects/npc/npc.tscn")
+	"npc": preload("res://objects/npc/npc.tscn"), 
+	"door": preload("res://objects/buildings/doors/door.tscn")
 }
 
 var chunk_dir: String = "chunk_0"
@@ -37,6 +39,8 @@ var chunk_size: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
+	if len(chunk_data) < 1:
+		load_chunk_data()
 	load_chunk_visual()
 	load_chunk_collisions()
 	global_position = Vector2(
@@ -110,13 +114,13 @@ func load_chunk_collisions() -> void:
 	collision_template.disabled = true
 	collision_template.hide()
 	
-	player_collider.shape.size = chunk_size
-	player_collider.global_position = Vector2(
-		player_collider.global_position.x + chunk_size.x / 2, 
-		player_collider.global_position.y + chunk_size.y / 2
-	)
+	if player_collider:
+		player_collider.shape.size = chunk_size
+		player_collider.global_position = Vector2(
+			player_collider.global_position.x + chunk_size.x / 2, 
+			player_collider.global_position.y + chunk_size.y / 2
+		)
 
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
-	print("PLAYER!!!")
 	player_entered.emit(chunk_dir)

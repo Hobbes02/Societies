@@ -70,7 +70,7 @@ func _ready() -> void:
 	await change_scene(start_scene, false, true, scenes_ready)
 
 
-func change_scene(filename: String, slide_in: bool = true, slide_out: bool = true, emit_after_loading: Variant = null) -> void:
+func change_scene(filename: String, slide_in: bool = true, slide_out: bool = true, emit_after_loading: Variant = null, data_to_pass: Variant = null) -> void:
 	visuals.show()
 	if len(scenes_loaded) > 0 and slide_in:
 		animation_player.play("circle_wipe")
@@ -91,6 +91,11 @@ func change_scene(filename: String, slide_in: bool = true, slide_out: bool = tru
 	
 	if typeof(emit_after_loading) == TYPE_SIGNAL:
 		emit_after_loading.emit()
+	if typeof(data_to_pass) == TYPE_DICTIONARY:
+		var node: Node = get_node(scenes_loaded.find_key(filename))
+		for key in data_to_pass.keys():
+			if typeof(node.get(key)) == typeof(data_to_pass[key]):
+				node.set(key, data_to_pass[key])
 	
 	SaveManager.save_data.scene_data = SaveManager.save_data.get("scene_data", SaveManager.DEFAULT_SAVE_DATA.scene_data)
 	SaveManager.save_data.scene_data.current_scene = filename.lstrip("res://").rstrip(".tscn")

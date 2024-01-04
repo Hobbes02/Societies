@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://rfqaur8xus01"]
+
+[ext_resource type="Script" path="res://world/interior.gd" id="1_m3a6w"]
+[ext_resource type="PackedScene" uid="uid://7oe6ekia4jat" path="res://objects/player/player.tscn" id="2_5e3ku"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbbnv"]
+size = Vector2(8, 8)
+
+[node name="Interior" type="Node2D"]
+script = ExtResource("1_m3a6w")
+
+[node name="Visuals" type="Sprite2D" parent="."]
+centered = false
+
+[node name="EntityContainer" type="Node2D" parent="."]
+
+[node name="Collider" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 49
+
+[node name="CollisionTemplate" type="CollisionShape2D" parent="Collider"]
+shape = SubResource("RectangleShape2D_sbbnv")
+
+[node name="Player" parent="." instance=ExtResource("2_5e3ku")]

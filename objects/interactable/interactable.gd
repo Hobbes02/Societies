@@ -13,16 +13,16 @@ signal focus_camera(node: Node2D)
 signal ended()
 
 enum INTERACTIONS {
-	DIALOGUE = 0, 
-	ANIMATION = 1, 
-	SHOW_NODE = 2, 
-	CHANGE_SCENE = 3, 
-	TASK = 4, 
-	NOTHING = 5
+	DIALOGUE = 0, ## Triggers dialogue using a Dialogue Balloon. Write the dialogue in the "Dialogue" top panel
+	ANIMATION = 1, ## Triggers any animation in any AnimationPlayer node
+	SHOW_NODE = 2, ## Shows node on interact
+	CHANGE_SCENE = 3, ## Changes the scene. If using Change Scene, Pauses Game has no effect
+	TASK = 4, ## Changes the status of a task
+	NOTHING = 5 ## Does nothing. Meant to be handled through custom code
 }
 
 ## Type of interaction. After choosing a type, change its settings in the sections below
-@export_enum("Dialogue:0", "Animation:1", "Show Node:2", "Change Scene:3", "Task:4", "Nothing:5") var interaction_type: int = 0
+@export var interaction_type: INTERACTIONS = INTERACTIONS.DIALOGUE
 
 ## Controls whether the game is paused after interacting
 @export var pauses_game: bool = false
@@ -71,10 +71,13 @@ var context: Dictionary
 @export var node: Node
 
 # Change Scene
-@export_group("Change Scene")
+@export_group("Change Scene", "scene_")
 
 ## Scene path to change to
 @export_file var scene_path: String
+
+## Data to pass to the root node of the scene we're changing to
+@export var scene_data_to_pass: Dictionary = {}
 
 # Complete Task
 @export_group("Task")

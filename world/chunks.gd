@@ -103,7 +103,8 @@ func compile_chunk_data() -> void:
 					var iid = neighbor_level.levelIid
 					var direction = neighbor_level.dir
 					
-					chunk_neighbors[data.uniqueIdentifer].append([iid, direction])
+					if direction not in ["<", ">"]:
+						chunk_neighbors[data.uniqueIdentifer].append([iid, direction])
 	
 	var new_chunk_neighbors: Dictionary = {}
 	for main_iid in chunk_neighbors.keys():

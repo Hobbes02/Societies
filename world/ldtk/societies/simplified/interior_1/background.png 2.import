@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp1wmwnpgm085"
-path="res://.godot/imported/_bg 2.png-89d26b11270df69c20f7ace7861c198c.ctex"
+uid="uid://mc7x1q22nlg3"
+path="res://.godot/imported/background.png-68a43f94849bc7aecac1fefb583a9a5c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world/ldtk/societies/simplified/chunk_3/_bg 2.png"
-dest_files=["res://.godot/imported/_bg 2.png-89d26b11270df69c20f7ace7861c198c.ctex"]
+source_file="res://world/ldtk/societies/simplified/interior_1/background.png"
+dest_files=["res://.godot/imported/background.png-68a43f94849bc7aecac1fefb583a9a5c.ctex"]
 
 [params]
 
