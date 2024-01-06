@@ -1,0 +1,18 @@
+[remap]
+
+importer="com.timothyqiu.godot-csv-importer"
+type="Resource"
+uid="uid://drpml1npbeufa"
+path="res://.godot/imported/background 3.csv-56e0677637fa6a330f6621d3950176e1.res"
+
+[deps]
+
+source_file="res://world/ldtk/societies/simplified/interior_1/background 3.csv"
+dest_files=["res://.godot/imported/background 3.csv-56e0677637fa6a330f6621d3950176e1.res"]
+
+[params]
+
+delimiter=0
+headers=false
+detect_numbers=true
+force_float=false

@@ -1,0 +1,18 @@
+[remap]
+
+importer="com.timothyqiu.godot-csv-importer"
+type="Resource"
+uid="uid://bflel2n2rl5er"
+path="res://.godot/imported/collisions 2.csv-224246da250e4b6fd9e1d243ac6d3898.res"
+
+[deps]
+
+source_file="res://world/ldtk/societies/simplified/interior_3_floor_3/collisions 2.csv"
+dest_files=["res://.godot/imported/collisions 2.csv-224246da250e4b6fd9e1d243ac6d3898.res"]
+
+[params]
+
+delimiter=0
+headers=false
+detect_numbers=true
+force_float=false

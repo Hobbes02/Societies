@@ -22,7 +22,7 @@ zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 position_smoothing_speed = 2.5
 
+[node name="Chunks" parent="." instance=ExtResource("3_m76bs")]
+
 [node name="Player" parent="." instance=ExtResource("2_f3isx")]
 position = Vector2(135, 29)
-
-[node name="Chunks" parent="." instance=ExtResource("3_m76bs")]

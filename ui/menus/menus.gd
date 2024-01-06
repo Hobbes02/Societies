@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func _on_play_button_pressed() -> void:
-	var slot_to_play: int = SaveManager.settings_data.get("last_played_slot", 0)
+	var slot_to_play: int = SaveManager.settings_data.get("last_played_slot", -1)
 	SaveManager.current_save_slot = slot_to_play
 	
 	if slot_to_play == -1 or len(SaveManager.slots) <= slot_to_play or SaveManager.slots[slot_to_play].get("name", "Empty Slot") != "Empty Slot":

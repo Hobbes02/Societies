@@ -26,19 +26,29 @@ var chunk_data: Dictionary = {}
 
 var chunk_size: Vector2 = Vector2.ZERO
 
-@onready var layer_visuals: Sprite2D = $LayerVisuals
-@onready var collider: StaticBody2D = $Collider
-@onready var collision_template: CollisionShape2D = $Collider/CollisionTemplate
-@onready var player_collider: CollisionShape2D = $PlayerDetector/CollisionShape2D
-@onready var entity_container: Node2D = $Entities
+var layer_visuals: Sprite2D
+var collider: StaticBody2D
+var collision_template: CollisionShape2D : 
+	set(new_value):
+		collision_template = new_value
+		collision_offset = Vector2(
+			collision_template.shape.size.x / 2, 
+			collision_template.shape.size.y / 2
+		)
+var player_collider: CollisionShape2D
+var entity_container: Node2D
 
-@onready var collision_offset: Vector2 = Vector2(
-	collision_template.shape.size.x / 2, 
-	collision_template.shape.size.y / 2
-)
+var collision_offset: Vector2
 
 
 func _ready() -> void:
+	if chunk_dir.begins_with("chunk_"):
+		layer_visuals = $LayerVisuals
+		collider = $Collider
+		collision_template = $Collider/CollisionTemplate
+		entity_container = $Entities
+		player_collider = $PlayerDetector/CollisionShape2D
+	
 	if len(chunk_data) < 1:
 		load_chunk_data()
 	load_chunk_visual()

@@ -1,0 +1,54 @@
+{
+	"identifier": "interior_3_floor_1",
+	"uniqueIdentifer": "a8374090-8990-11ee-b884-e1c349220ae3",
+	"x": 296,
+	"y": 352,
+	"width": 136,
+	"height": 96,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "83528430-8990-11ee-8d05-b17a41f55b5d",
+			"dir": ">"
+		},
+		{
+			"levelIid": "e888dbe0-8990-11ee-b884-b181789d6c43",
+			"dir": "n"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"background.png",
+		"collisions.png"
+	],
+	"entities": {
+		"door": [
+			{
+				"id": "door",
+				"iid": "c6876a20-8990-11ee-b884-0771227a352d",
+				"layer": "buildings",
+				"x": 32,
+				"y": 64,
+				"width": 8,
+				"height": 16,
+				"color": 12087120,
+				"customFields": {
+					"leads_to": null
+				}
+			},
+			{
+				"id": "door",
+				"iid": "ded88af0-8990-11ee-b884-fba400ba2a7a",
+				"layer": "buildings",
+				"x": 96,
+				"y": 24,
+				"width": 8,
+				"height": 16,
+				"color": 12087120,
+				"customFields": {
+					"leads_to": "interior_3_floor_2"
+				}
+			}
+		]
+	}
+}

@@ -10,18 +10,24 @@ var can_enter: bool = false
 var door_opening: bool = false
 var door_closing: bool = false
 
-
 @onready var door: Sprite2D = $CanvasGroup/Door
 @onready var default_door_position: Vector2 = door.global_position
 @onready var interactable: Area2D = $Interactable
 
 
 func _ready() -> void:
-	interactable.scene_path = leads_to
+	if leads_to:
+		interactable.scene_path = "res://world/interior.tscn"
+		interactable.scene_data_to_pass["chunk_dir"] = leads_to
+		interactable.scene_pass_data_before_instatiate = true
+	else:
+		interactable.scene_path = "res://world/world.tscn"
+		interactable.scene_pass_data_before_instatiate = false
 
 
 func _on_doorway_interacted() -> void:
 	SaveManager.about_to_save.emit(SaveManager.SaveReason.CHANGE_SCENE)
+	print("DOOR OPENED LEADS TO ", leads_to)
 
 
 func _on_doorway_entered() -> void:

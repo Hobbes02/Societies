@@ -79,6 +79,9 @@ var context: Dictionary
 ## Data to pass to the root node of the scene we're changing to
 @export var scene_data_to_pass: Dictionary = {}
 
+## If true, passes the data before adding the scene, otherwise, passes after the scene is ready
+@export var scene_pass_data_before_instatiate: bool = false
+
 # Complete Task
 @export_group("Task")
 
@@ -122,7 +125,7 @@ func _input(event: InputEvent) -> void:
 			INTERACTIONS.SHOW_NODE:
 				node.show()
 			INTERACTIONS.CHANGE_SCENE:
-				SceneManager.change_scene(scene_path)
+				SceneManager.change_scene(scene_path, true, true, null, scene_data_to_pass, scene_pass_data_before_instatiate)
 			INTERACTIONS.TASK:
 				match modify_type:
 					0:  # Complete

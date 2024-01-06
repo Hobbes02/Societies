@@ -1,5 +1,7 @@
 extends Node2D
 
+signal loaded()
+
 const WORLD_DATA_DIR: String = "res://world/ldtk/societies/simplified/"
 const Chunk: PackedScene = preload("res://world/chunk.tscn")
 
@@ -17,18 +19,17 @@ var loaded_chunk_iid: String = ""
 func _ready() -> void:
 	compile_chunk_data()
 	
-	SceneManager.activate.connect(_on_scene_activated)
 	SaveManager.about_to_save.connect(_save)
+
+
+func config() -> void:
+	load_chunks_around(iid_to_name.find_key(SaveManager.save_data.get("scene_data", {}).get("current_chunk", "chunk_0")))
+	await loaded
 
 
 func _save(reason: SaveManager.SaveReason) -> void:
 	SaveManager.save_data.scene_data = SaveManager.save_data.get("scene_data", SaveManager.DEFAULT_SAVE_DATA.scene_data)
 	SaveManager.save_data.scene_data.current_chunk = iid_to_name.get(loaded_chunk_iid, "chunk_0")
-
-
-func _on_scene_activated(scene: Node) -> void:
-	if scene == owner:
-		load_chunks_around(iid_to_name.find_key(SaveManager.save_data.get("scene_data", {}).get("current_chunk", "chunk_0")))
 
 
 func load_chunks_around(chunk_iid: String) -> void:
@@ -41,6 +42,8 @@ func load_chunks_around(chunk_iid: String) -> void:
 	
 	for neighbor in neighbors_to_load:
 		add_chunk(neighbor)
+	
+	loaded.emit()
 
 
 func get_neighbors_to_load(chunk_iid: String) -> Array:
@@ -67,6 +70,7 @@ func add_chunk(iid: String) -> void:
 	chunk.player_entered.connect(func(chunk_name: String):
 		if chunk_name in iid_to_name.values():
 			load_chunks_around(iid_to_name.find_key(chunk_name))
+			SceneManager.level_history.append(iid_to_name[iid])
 	)
 
 

@@ -37,6 +37,8 @@ texture = ExtResource("2_mox7y")
 position = Vector2(32, 32)
 collision_layer = 2
 interaction_type = 3
+scene_path = "res://world/interior.tscn"
+scene_pass_data_before_instatiate = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Doorway"]
 position = Vector2(0, 15.5)

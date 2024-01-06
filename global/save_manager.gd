@@ -17,7 +17,9 @@ var DEFAULT_SAVE_DATA: Dictionary = {
 	}, 
 	"scene_data": {
 		"current_scene": "world/world", 
-		"current_chunk": "chunk_0"
+		"current_chunk": "chunk_0", 
+		"other_scene_level": "interior_0",  # used if in another scene from world but loaded from ldtk
+		"level_history": []
 	}, 
 	"player_data": {
 		"world_position": Vector2(0, 0), 
@@ -98,6 +100,7 @@ func save_game_data() -> void:
 
 func load_game_data() -> void:
 	save_data = get_data_as_dictionary("user://saves/slot_" + str(current_save_slot) + ".societies")
+	SceneManager.level_history = save_data.get("scene_data", {}).get("level_history", SceneManager.level_history)
 
 
 func save_settings_data() -> void:

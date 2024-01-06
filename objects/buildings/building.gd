@@ -17,7 +17,7 @@ var door_closing: bool = false
 
 
 func _ready() -> void:
-	interactable.scene_path = interior
+	interactable.scene_data_to_pass["chunk_dir"] = interior
 
 
 func _on_doorway_interacted() -> void:

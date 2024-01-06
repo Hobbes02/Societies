@@ -2,24 +2,29 @@ extends Node
 
 signal _background_load_finished()
 
-signal deactivate(node: Node)
-signal activate(node: Node)
 signal scenes_ready()
 signal paused(layer: String)
 signal unpaused(layer: String)
 
-@export var scenes_to_cache: Array[String]
-@export var load_cached_scenes_on_start: bool = false
 @export_file("*.tscn") var start_scene: String = ""
 @export var pause_layers: Dictionary = {
 	"entities": false, 
 	"interaction": false, 
 	"all": false
-}
+} :
+	set(new_value):
+		for key in pause_layers.keys():
+			if pause_layers[key] != new_value[key]:
+				if new_value[key]:
+					paused.emit(key)
+				else:
+					unpaused.emit(key)
+				break
+		
+		pause_layers = new_value
+
 ## Defines what scenes can be saved as the current scene in the savegame (scenes that are part of the game)
 @export var play_scenes: Array[String] = []
-
-var scenes_loaded: Dictionary = {}  # keys are scene paths, values are filesystem paths
 
 var progress: Array = []
 var scene_load_status: ResourceLoader.ThreadLoadStatus = 0
@@ -30,12 +35,16 @@ var currently_loading_scene: String = ""
 var loaded_scene
 
 var active_scene: String = ""
-var active_scene_path: String = ""
 var active_scene_node: Node
 
 var are_scenes_ready: bool = false
 
 var scene_history: Array = []
+var level_history: Array = [] : # array of the past 8 levels the player's been to
+	set(new_value):
+		level_history = new_value
+		if len(level_history) > 8:
+			level_history.pop_back()
 
 var persistent_information: Dictionary = {}
 
@@ -61,41 +70,38 @@ func _ready() -> void:
 	)
 	$Visuals/ColorRect.set("shader_parameter/circle_size", 0)
 	
-	if load_cached_scenes_on_start:
-		pause("all", true)
-		for scene in scenes_to_cache:
-			await _load_scene(scene, false, true)
-	pause("all", false)
-	
 	await change_scene(start_scene, false, true, scenes_ready)
+	
+	SaveManager.about_to_save.connect(_save)
 
 
-func change_scene(filename: String, slide_in: bool = true, slide_out: bool = true, emit_after_loading: Variant = null, data_to_pass: Variant = null) -> void:
+func _save(reason: SaveManager.SaveReason) -> void:
+	SaveManager.save_data.scene_data = SaveManager.save_data.get("scene_data", SaveManager.DEFAULT_SAVE_DATA.scene_data)
+	SaveManager.save_data.scene_data.level_history = level_history
+
+
+func change_scene(filename: String, slide_in: bool = true, slide_out: bool = true, emit_after_loading: Variant = null, data_to_pass: Variant = null, pass_before_instantiate: bool = false) -> void:
 	visuals.show()
-	if len(scenes_loaded) > 0 and slide_in:
+	if slide_in:
 		animation_player.play("circle_wipe")
 		await animation_player.animation_finished
 		await get_tree().create_timer(0.2).timeout
 	else:
 		await get_tree().create_timer(0.2).timeout
 	
-	if filename in scenes_to_cache:
-		progress_bar.show()
-	
-	if filename not in scenes_loaded.values():
-		pause_layers[filename] = false
-		await _load_scene(filename)
-		_activate_scene(scenes_loaded.find_key(filename))
-	else:
-		_activate_scene(scenes_loaded.keys()[scenes_loaded.values().find(filename)])
+	active_scene = filename
+	if active_scene_node:
+		active_scene_node.queue_free()
+		active_scene_node = null
+	pause_layers[filename] = false
+	await _load_scene(filename, data_to_pass if pass_before_instantiate else null)
 	
 	if typeof(emit_after_loading) == TYPE_SIGNAL:
 		emit_after_loading.emit()
-	if typeof(data_to_pass) == TYPE_DICTIONARY:
-		var node: Node = get_node(scenes_loaded.find_key(filename))
+	if typeof(data_to_pass) == TYPE_DICTIONARY and not pass_before_instantiate:
 		for key in data_to_pass.keys():
-			if typeof(node.get(key)) == typeof(data_to_pass[key]):
-				node.set(key, data_to_pass[key])
+			if typeof(active_scene_node.get(key)) == typeof(data_to_pass[key]):
+				active_scene_node.set(key, data_to_pass[key])
 	
 	SaveManager.save_data.scene_data = SaveManager.save_data.get("scene_data", SaveManager.DEFAULT_SAVE_DATA.scene_data)
 	SaveManager.save_data.scene_data.current_scene = filename.lstrip("res://").rstrip(".tscn")
@@ -120,11 +126,6 @@ func is_paused(layer: String, others: Array = []) -> bool:
 func pause(layer: String, is_paused: bool) -> void:
 	if pause_layers.has(layer):
 		pause_layers[layer] = is_paused
-	
-	if is_paused:
-		paused.emit(layer)
-	else:
-		unpaused.emit(layer)
 
 
 func add_pause_layer(layer_name: String, default: bool = false) -> void:
@@ -139,66 +140,7 @@ func set_persistent_information(key: String, value: Variant) -> void:
 	persistent_information[key] = value
 
 
-func process_mode_children(parent: Node, mode: Variant) -> void:
-	if not parent.is_node_ready():
-		return
-	parent.process_mode = mode
-	for child in parent.get_children():
-		if child.process_mode != mode:
-			child.process_mode = mode
-			await get_tree().process_frame
-		if child.get_child_count() > 0:
-			process_mode_children(child, mode)
-
-
-func _activate_scene(path: String) -> void:
-	if not has_node(path):
-		return
-	
-	for other_scene in scenes_loaded.keys():
-		if str(other_scene) == path:
-			continue
-		_deactivate_scene(str(other_scene))
-	
-	var node: Node = get_node(path)
-	
-	await get_tree().process_frame
-	
-	if not weakref(node).get_ref():  # check if the node has been freed
-		return
-	
-	process_mode_children(node, PROCESS_MODE_ALWAYS)
-	await get_tree().process_frame
-	
-	active_scene = path
-	active_scene_path = scenes_loaded[path]
-	active_scene_node = node
-	activate.emit(node)
-	node.show()
-
-
-func _deactivate_scene(path: String) -> void:
-	if not has_node(path):
-		return
-	
-	var node: Node = get_node(path)
-	
-	deactivate.emit(node)
-	if active_scene == path:
-		active_scene = ""
-	if active_scene_node == node:
-		active_scene_node = null
-	if active_scene_path == scenes_loaded[path]:
-		active_scene_path = ""
-	if path in scenes_loaded.keys() and scenes_loaded[path] not in scenes_to_cache:
-		scenes_loaded.erase(path)
-		node.queue_free()
-	else:
-		node.hide()
-		process_mode_children(node, PROCESS_MODE_DISABLED)
-
-
-func _load_scene(scene_path: String, activate: bool = false, deactivate: bool = false) -> void:
+func _load_scene(scene_path: String, data_to_pass: Variant = null) -> void:
 	if (not scene_path.begins_with("res://")) or (not scene_path.ends_with(".tscn")):
 		return
 	ResourceLoader.load_threaded_request(scene_path)
@@ -208,14 +150,16 @@ func _load_scene(scene_path: String, activate: bool = false, deactivate: bool = 
 	currently_loading_scene = ""
 	
 	var scene = loaded_scene.instantiate()
+	
+	if typeof(data_to_pass) == TYPE_DICTIONARY:
+		for key in data_to_pass.keys():
+			if typeof(scene.get(key)) == typeof(data_to_pass[key]):
+				scene.set(key, data_to_pass[key])
+	
 	scenes.add_child(scene)
 	
-	scenes_loaded[str(get_path_to(scene))] = scene_path
-	
-	if activate:
-		_activate_scene(get_path_to(scene))
-	elif deactivate:
-		_deactivate_scene(get_path_to(scene))
+	active_scene = scene_path
+	active_scene_node = scene
 
 
 func _process(delta: float) -> void:

@@ -198,8 +198,6 @@ modulate_color = Color(1, 0.498039, 0.0666667, 1)
 [node name="SceneManager" type="Node"]
 process_mode = 3
 script = ExtResource("1_bpfy6")
-scenes_to_cache = Array[String](["res://world/world.tscn"])
-load_cached_scenes_on_start = true
 start_scene = "res://ui/menus/menus.tscn"
 pause_layers = {
 "all": false,

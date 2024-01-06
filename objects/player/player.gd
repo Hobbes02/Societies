@@ -30,6 +30,8 @@ func _ready() -> void:
 	anim_player.play("RESET")
 	SceneManager.paused.connect(_on_pause)
 	SaveManager.about_to_save.connect(_save_game_data)
+	
+	SceneManager.pause("player", true)  # stay paused until fully loaded; parent handles unpause
 
 
 func _on_pause(layer: String) -> void:
@@ -47,12 +49,12 @@ func _save_game_data(reason: SaveManager.SaveReason) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if SceneManager.is_paused("player", ["game"]):
+		return
+	
 #	Falling
 	if not is_on_floor():
 		velocity.y += gravity * delta
-
-	if SceneManager.is_paused("player", ["game"]):
-		return
 
 #	Jumping
 	if Input.is_action_just_pressed("jump") and not headspace_detector.is_colliding() and not jump_detector.is_colliding():
