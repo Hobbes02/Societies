@@ -18,9 +18,6 @@ var currently_editing_slot: int = 0
 
 
 func start() -> void:
-	
-	print(SaveManager.slots)
-	
 	if len(SaveManager.slots) >= 1:
 		slot_1_button.change_text(SaveManager.slots[0].get("name"))
 	if len(SaveManager.slots) >= 2:
@@ -38,7 +35,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			clear_confirm.hide()
 			clear_button.grab_focus()
 	elif event.is_action_pressed("ui_accept") and clear_confirm.visible:
-		SaveManager.save_slot_data({"name": "Empty Slot", "area": "Start", "progress": 0}, currently_editing_slot)
+		SaveManager.remove_slot(currently_editing_slot)
 		last_focused_slot_button.change_text("Empty Slot")
 		slot_name.change_text("Empty Slot")
 		
@@ -52,6 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		clear_confirm.hide()
 		if SaveManager.settings_data.get("last_played_slot", -1) == currently_editing_slot:
 			SaveManager.settings_data.last_played_slot = -1
+			print("RESET LPS")
 		
 		if SaveManager.current_save_slot == currently_editing_slot:
 			SaveManager.save_data = SaveManager.DEFAULT_SAVE_DATA.duplicate(true)

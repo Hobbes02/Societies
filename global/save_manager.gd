@@ -90,6 +90,15 @@ func save_slot_data(slot_data: Dictionary, slot: int) -> void:
 	load_slot_data()
 
 
+func remove_slot(slot: int) -> void:
+	if settings_data.get("last_played_slot", -1) >= slot:
+		if slot == 0:
+			settings_data.last_played_slot = -1
+		else:
+			settings_data.last_played_slot = 0
+	slots.remove_at(slot)
+
+
 func save_game_data() -> void:
 	var data_to_save: String = var_to_str(save_data)
 	
