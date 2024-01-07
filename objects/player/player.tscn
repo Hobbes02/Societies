@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://7oe6ekia4jat"]
+[gd_scene load_steps=14 format=3 uid="uid://7oe6ekia4jat"]
 
 [ext_resource type="Script" path="res://objects/player/player.gd" id="1_o0d6m"]
 [ext_resource type="Texture2D" uid="uid://dtfuevaey47cp" path="res://visuals/player/player_animations.png" id="2_103d7"]
+[ext_resource type="PackedScene" uid="uid://dmwswqfjpb1dl" path="res://ui/hud/hud.tscn" id="3_otkm1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wqw8"]
 size = Vector2(4, 2)
@@ -607,6 +608,8 @@ one_shot = true
 [node name="CoyoteTime" type="Timer" parent="."]
 wait_time = 0.05
 one_shot = true
+
+[node name="HUD" parent="." instance=ExtResource("3_otkm1")]
 
 [connection signal="body_entered" from="LandDetector" to="." method="_on_land_detector_body_entered"]
 [connection signal="body_exited" from="LandDetector" to="." method="_on_land_detector_body_exited"]

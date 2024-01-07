@@ -5,7 +5,6 @@
 [node name="CustomButton" type="Button"]
 offset_right = 8.0
 offset_bottom = 8.0
-button_mask = 0
 script = ExtResource("1_4toec")
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]

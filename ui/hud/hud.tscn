@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmwswqfjpb1dl"]
+
+[ext_resource type="Shader" path="res://visuals/shaders/blur.gdshader" id="1_1xmu3"]
+[ext_resource type="Theme" uid="uid://6to07mql6l34" path="res://visuals/ui/theming/theme.tres" id="1_2a8f0"]
+[ext_resource type="Script" path="res://ui/hud/hud.gd" id="1_ymvch"]
+[ext_resource type="PackedScene" uid="uid://d2um4vlswi3yr" path="res://ui/elements/custom_button.tscn" id="3_q3h1f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5141"]
+shader = ExtResource("1_1xmu3")
+shader_parameter/blur_amount = 3.0
+
+[node name="HUD" type="CanvasLayer"]
+layer = 128
+script = ExtResource("1_ymvch")
+
+[node name="PauseMenu" type="Control" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_2a8f0")
+metadata/_edit_use_anchors_ = true
+
+[node name="Blur" type="ColorRect" parent="PauseMenu"]
+material = SubResource("ShaderMaterial_l5141")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ResumeButton" parent="PauseMenu/CenterContainer/VBoxContainer" instance=ExtResource("3_q3h1f")]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.14902, 0.14902, 0.14902, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 24
+text = "Resume Game"
+
+[node name="SettingsButton" parent="PauseMenu/CenterContainer/VBoxContainer" instance=ExtResource("3_q3h1f")]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.14902, 0.14902, 0.14902, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 24
+text = "Open Settings"
+
+[node name="QuitButton" parent="PauseMenu/CenterContainer/VBoxContainer" instance=ExtResource("3_q3h1f")]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.14902, 0.14902, 0.14902, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 24
+text = "Save and Quit"
+
+[connection signal="pressed" from="PauseMenu/CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenu/CenterContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="PauseMenu/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
