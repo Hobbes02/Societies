@@ -1,0 +1,22 @@
+{
+	"identifier": "chunk_11",
+	"uniqueIdentifer": "895fea30-b0a0-11ee-a778-57596247f277",
+	"x": 5216,
+	"y": -640,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "5d0c6940-b0a0-11ee-a778-0799d07b26a4",
+			"dir": "w"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities" : {}
+}

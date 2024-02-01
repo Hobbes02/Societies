@@ -118,8 +118,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -216.0
 offset_top = -1272.0
-offset_right = 4944.49
-offset_bottom = 1650.0
+offset_right = 3792.49
+offset_bottom = 1002.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_dpuqp")
@@ -442,7 +442,6 @@ text = "Back"
 alignment = 0
 
 [node name="SoundSettings" type="PanelContainer" parent="Settings"]
-visible = false
 layout_mode = 0
 offset_left = 430.0
 offset_top = 153.0

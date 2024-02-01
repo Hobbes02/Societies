@@ -19,8 +19,16 @@ func _on_resume_button_pressed() -> void:
 
 
 func _on_settings_button_pressed() -> void:
-	pass # Replace with function body.
+	SaveManager.about_to_save.emit(SaveManager.SaveReason.CHANGE_SCENE)
+	SaveManager.save_game_data()
+	SceneManager.change_scene("res://ui/menus/menus.tscn", true, true, null, {
+		"current_screen": 2
+	}, true)
 
 
 func _on_quit_button_pressed() -> void:
-	SaveManager._notification(NOTIFICATION_WM_CLOSE_REQUEST)
+	SaveManager.about_to_save.emit(SaveManager.SaveReason.CHANGE_SCENE)
+	SaveManager.save_game_data()
+	SceneManager.change_scene("res://ui/menus/menus.tscn", true, true, null, {
+		"current_screen": 0
+	}, true)

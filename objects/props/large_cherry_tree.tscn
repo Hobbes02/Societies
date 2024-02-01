@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqu0xm0yyfl7d"]
+
+[ext_resource type="PackedScene" uid="uid://srf7tbs42tnf" path="res://objects/props/prop.tscn" id="1_hotxs"]
+[ext_resource type="Texture2D" uid="uid://cxx1np2wlrxtv" path="res://visuals/tiles/plants/cherry_tree_large.png" id="2_khw2j"]
+
+[node name="LargeCherryTree" instance=ExtResource("1_hotxs")]
+texture = ExtResource("2_khw2j")
+offset = Vector2(0, -3)

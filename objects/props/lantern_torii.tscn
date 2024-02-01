@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c687kjbxq2cn2"]
+
+[ext_resource type="PackedScene" uid="uid://srf7tbs42tnf" path="res://objects/props/prop.tscn" id="1_i41e2"]
+[ext_resource type="Texture2D" uid="uid://iv6uoulvl3o0" path="res://visuals/objects/torii/torii_lantern.png" id="2_46bhy"]
+
+[node name="LanternTorii" instance=ExtResource("1_i41e2")]
+texture = ExtResource("2_46bhy")
+offset = Vector2(0, -24)

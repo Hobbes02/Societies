@@ -1,0 +1,26 @@
+{
+	"identifier": "chunk_9",
+	"uniqueIdentifer": "0b429b20-b0a0-11ee-a778-b3d5333f19bf",
+	"x": 4608,
+	"y": 0,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "be4f7a00-b0a0-11ee-a9ae-b1d422114201",
+			"dir": "w"
+		},
+		{
+			"levelIid": "5d0c6940-b0a0-11ee-a778-0799d07b26a4",
+			"dir": "n"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities" : {}
+}

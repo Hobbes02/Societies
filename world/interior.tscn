@@ -17,7 +17,10 @@ offset_right = 468.0
 offset_bottom = 336.0
 color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 
-[node name="Visuals" type="Sprite2D" parent="."]
+[node name="VisualsContainer" type="Node2D" parent="."]
+
+[node name="VisualsTemplate" type="Sprite2D" parent="VisualsContainer"]
+visible = false
 centered = false
 
 [node name="EntityContainer" type="Node2D" parent="."]

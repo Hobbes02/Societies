@@ -15,7 +15,14 @@ const ENTITY_NAME_TO_SCENE: Dictionary = {
 	"post_office": preload("res://objects/buildings/post_office.tscn"), 
 	"shop": preload("res://objects/buildings/shop.tscn"), 
 	"npc": preload("res://objects/npc/npc.tscn"), 
-	"door": preload("res://objects/buildings/doors/door.tscn")
+	"door": preload("res://objects/buildings/doors/door.tscn"), 
+	"lantern_post": preload("res://objects/props/lantern_post.tscn"), 
+	"bell_torii": preload("res://objects/props/bell_torii.tscn"), 
+	"lantern_torii": preload("res://objects/props/lantern_torii.tscn"), 
+	"gong_torii": preload("res://objects/props/gong_torii.tscn"), 
+	"cherry_bush": preload("res://objects/props/cherry_bush.tscn"), 
+	"small_cherry_tree": preload("res://objects/props/small_cherry_tree.tscn"), 
+	"large_cherry_tree": preload("res://objects/props/large_cherry_tree.tscn")
 }
 
 var chunk_dir: String = "chunk_0"
@@ -26,7 +33,9 @@ var chunk_data: Dictionary = {}
 
 var chunk_size: Vector2 = Vector2.ZERO
 
-var layer_visuals: Sprite2D
+var layer_visual_container: Node2D
+var layer_visual_template: Sprite2D
+
 var collider: StaticBody2D
 var collision_template: CollisionShape2D : 
 	set(new_value):
@@ -40,10 +49,16 @@ var entity_container: Node2D
 
 var collision_offset: Vector2
 
+var parallax_nodes: Dictionary = {} # node: parallax scale
+
+var layer_tinting: Dictionary = {"parallax_15": Color(0.8, 0.8, 0.8)} # layer name: tint color
+
 
 func _ready() -> void:
 	if chunk_dir.begins_with("chunk_"):
-		layer_visuals = $LayerVisuals
+		layer_visual_container = $LayerVisuals
+		layer_visual_template = $LayerVisuals/LayerTemplate
+		
 		collider = $Collider
 		collision_template = $Collider/CollisionTemplate
 		entity_container = $Entities
@@ -58,6 +73,15 @@ func _ready() -> void:
 		chunk_data.get("y", 0)
 	)
 	place_entities()
+
+
+func compute_parallax(camera_position: Vector2) -> void:
+	for node in parallax_nodes.keys():
+		node.position = get_parallax_layer_position(
+			camera_position, 
+			parallax_nodes[node],  # scale
+			(chunk_size / 2) + Vector2(chunk_data.get("x", 0), chunk_data.get("y", 0))
+		)
 
 
 func load_chunk_data() -> void:
@@ -92,11 +116,41 @@ func place_entities() -> void:
 
 
 func load_chunk_visual() -> void:
-	layer_visuals.texture = load(WORLD_DATA_DIR + chunk_dir + "/_composite.png")
-	chunk_size = Vector2(
-		layer_visuals.texture.get_width(), 
-		layer_visuals.texture.get_height()
-	)
+	for file in SaveManager.get_files_in_directory(WORLD_DATA_DIR + chunk_dir):
+		if file.ends_with(".png") and (not "-int" in file) and file != "_composite.png":
+			var layer_visual: Sprite2D
+			
+			if file == "_bg.png":
+				layer_visual = layer_visual_template
+				layer_visual.z_index = 0
+			else:
+				layer_visual = layer_visual_template.duplicate()
+				layer_visual.z_index = 2
+			
+			layer_visual.show()
+			layer_visual.texture = load(WORLD_DATA_DIR + chunk_dir + "/" + file)
+			
+			if file == "_bg.png":
+				continue
+			
+			if layer_tinting.has(file.rstrip(".png")):
+				layer_visual.self_modulate = layer_tinting[file.rstrip(".png")]
+			else:
+				layer_visual.self_modulate = Color(1, 1, 1, 1)
+			
+			if file.begins_with("parallax"):
+				var amount = float(file.rstrip(".png").lstrip("parallax_"))
+				
+				parallax_nodes[layer_visual] = amount / 100
+				layer_visual.z_index = 1
+			
+			layer_visual_container.add_child(layer_visual)
+			
+			chunk_size = Vector2(
+				layer_visual.texture.get_width(), 
+				layer_visual.texture.get_height()
+			)
+	$Border.size = chunk_size
 
 
 func load_chunk_collisions() -> void:
@@ -130,6 +184,13 @@ func load_chunk_collisions() -> void:
 			player_collider.global_position.x + chunk_size.x / 2, 
 			player_collider.global_position.y + chunk_size.y / 2
 		)
+
+
+func get_parallax_layer_position(camera_position: Vector2, parallax_scale: float, level_center_position: Vector2) -> Vector2:
+	return Vector2(
+		(camera_position.x - level_center_position.x) * parallax_scale, 
+		(camera_position.y - level_center_position.y) * parallax_scale
+	)
 
 
 func _on_player_detector_body_entered(body: Node2D) -> void:

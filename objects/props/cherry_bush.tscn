@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c788ulrlhyg6a"]
+
+[ext_resource type="PackedScene" uid="uid://srf7tbs42tnf" path="res://objects/props/prop.tscn" id="1_toji6"]
+[ext_resource type="Texture2D" uid="uid://sgrfkick1lyy" path="res://visuals/tiles/plants/cherry_bush.png" id="2_alg1a"]
+
+[node name="CherryBush" instance=ExtResource("1_toji6")]
+texture = ExtResource("2_alg1a")
+offset = Vector2(0, -35)

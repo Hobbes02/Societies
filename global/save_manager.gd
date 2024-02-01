@@ -154,7 +154,7 @@ func _notification(what: int) -> void:
 		NOTIFICATION_WM_CLOSE_REQUEST:
 			about_to_save.emit(SaveReason.QUIT)
 			
-			if SceneManager.active_scene != "Scenes/Menus":
+			if save_data != DEFAULT_SAVE_DATA:
 				save_game_data()
 			save_settings_data()
 			

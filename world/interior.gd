@@ -9,8 +9,6 @@ var focus_after_unpause: Node2D
 
 
 func _ready() -> void:
-	print("INTERIOR LOADED AS ", chunk_dir)
-	
 	# load scene data
 	if SceneManager.scene_history[-1] == "res://ui/menus/menus.tscn" and SaveManager.save_data.get("scene_data", SaveManager.DEFAULT_SAVE_DATA.scene_data).get("current_scene", SaveManager.DEFAULT_SAVE_DATA.scene_data.current_scene) == "world/interior":
 		chunk_dir = SaveManager.save_data.get("scene_data", SaveManager.DEFAULT_SAVE_DATA.scene_data).get("other_scene_level", "chunk_0")
@@ -18,7 +16,8 @@ func _ready() -> void:
 	
 	SceneManager.level_history.append(chunk_dir)
 	
-	layer_visuals = $Visuals
+	layer_visual_container = $VisualsContainer
+	layer_visual_template = $VisualsContainer/VisualsTemplate
 	entity_container = $EntityContainer
 	collider = $Collider
 	collision_template = $Collider/CollisionTemplate
@@ -59,7 +58,6 @@ func _ready() -> void:
 	
 	SceneManager.pause("player", false)
 	SceneManager.pause("game", false)
-	print("FINISHED LOADING AS ", chunk_dir)
 
 
 func _on_unpaused(layer: String) -> void:

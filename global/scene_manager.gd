@@ -66,10 +66,8 @@ func _ready() -> void:
 	)
 	$Visuals/ColorRect.global_position = Vector2(
 		0, 
-		-263
+		0
 	)
-	$Visuals/ColorRect.set("shader_parameter/circle_size", 0)
-	
 	await change_scene(start_scene, false, true, scenes_ready)
 	
 	SaveManager.about_to_save.connect(_save)
@@ -83,7 +81,7 @@ func _save(reason: SaveManager.SaveReason) -> void:
 func change_scene(filename: String, slide_in: bool = true, slide_out: bool = true, emit_after_loading: Variant = null, data_to_pass: Variant = null, pass_before_instantiate: bool = false) -> void:
 	visuals.show()
 	if slide_in:
-		animation_player.play("circle_wipe")
+		animation_player.play("fade")
 		await animation_player.animation_finished
 		await get_tree().create_timer(0.2).timeout
 	else:
@@ -104,15 +102,15 @@ func change_scene(filename: String, slide_in: bool = true, slide_out: bool = tru
 				active_scene_node.set(key, data_to_pass[key])
 	
 	SaveManager.save_data.scene_data = SaveManager.save_data.get("scene_data", SaveManager.DEFAULT_SAVE_DATA.scene_data)
-	SaveManager.save_data.scene_data.current_scene = filename.lstrip("res://").rstrip(".tscn")
+	if filename in play_scenes:
+		SaveManager.save_data.scene_data.current_scene = filename.lstrip("res://").rstrip(".tscn")
 	
 	scene_history.append(filename)
 	
 	progress_bar.hide()
 	if slide_out:
-		animation_player.play_backwards("circle_wipe")
+		animation_player.play_backwards("fade")
 		await animation_player.animation_finished
-	$Visuals/ColorRect.set("shader_parameter/circle_size", 1)
 
 
 func is_paused(layer: String, others: Array = []) -> bool:

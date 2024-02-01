@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://srf7tbs42tnf"]
+
+[node name="Prop" type="Sprite2D"]
+texture_filter = 1
+centered = false

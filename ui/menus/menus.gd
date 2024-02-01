@@ -1,5 +1,13 @@
 extends Control
 
+enum SCREENS {
+	TITLE, 
+	SAVE, 
+	SETTINGS
+}
+
+var current_screen: SCREENS = SCREENS.TITLE
+
 @onready var title_screen: Control = $TitleScreen
 @onready var save_select: Control = $SaveSelect
 @onready var play_button: Button = $TitleScreen/VBoxContainer/PlayButton
@@ -7,6 +15,19 @@ extends Control
 
 
 func _ready() -> void:
+	title_screen.hide()
+	save_select.hide()
+	settings.hide()
+	match current_screen:
+		SCREENS.TITLE:
+			title_screen.show()
+		SCREENS.SAVE:
+			_on_saves_button_pressed()
+		SCREENS.SETTINGS:
+			_on_settings_button_pressed()
+
+
+func start() -> void:
 	SceneManager.pause("game", true)
 	
 	var last_played_slot = SaveManager.settings_data.get("last_played_slot", -1)
@@ -59,6 +80,7 @@ func _on_saves_button_pressed() -> void:
 	)
 	title_screen.hide()
 	save_select.show()
+	current_screen = SCREENS.SAVE
 	save_select.start()
 	await fade(
 		[
@@ -86,6 +108,7 @@ func _on_settings_button_pressed() -> void:
 	)
 	title_screen.hide()
 	settings.show()
+	current_screen = SCREENS.SETTINGS
 	settings.start()
 	await fade(
 		[
@@ -105,7 +128,8 @@ func _on_settings_button_pressed() -> void:
 
 func _on_title_screen_visibility_changed() -> void:
 	if title_screen and title_screen.visible:
-		_ready()
+		current_screen = SCREENS.TITLE
+		start()
 		await fade(
 			[
 				$TitleScreen/Logo, 

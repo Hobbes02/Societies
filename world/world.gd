@@ -61,6 +61,7 @@ func _on_unfocus_camera() -> void:
 
 
 func _process(delta: float) -> void:
+	chunks.compute_parallax(camera.get_screen_center_position())
 	if camera_following_node != null:
 		camera.global_position = camera_following_node.global_position
 

@@ -1,44 +1,91 @@
 {
 	"identifier": "chunk_0",
-	"uniqueIdentifer": "5e38cb70-8990-11ee-8b92-eddde8b55080",
+	"uniqueIdentifer": "85773e00-b0a0-11ee-9a21-77f4794d0d99",
 	"x": 0,
 	"y": 0,
-	"width": 256,
-	"height": 256,
+	"width": 512,
+	"height": 512,
 	"bgColor": "#414141",
 	"neighbourLevels": [
 		{
-			"levelIid": "1874bd30-8990-11ee-8881-2d7bfcc6b529",
-			"dir": "<"
-		},
-		{
-			"levelIid": "3c420b40-8990-11ee-8b92-074a1c370f90",
+			"levelIid": "9b85ed40-b0a0-11ee-9ccf-13c19ed317ce",
 			"dir": "e"
-		},
-		{
-			"levelIid": "bf24d8f0-8990-11ee-8d05-45d4a834c751",
-			"dir": "s"
 		}
 	],
 	"customFields" : {},
 	"layers": [
-		"background.png",
-		"collisions.png"
+		"parallax_15.png",
+		"collisions.png",
+		"decoration.png"
 	],
 	"entities": {
-		"small_house": [
+		"post_office": [
 			{
-				"id": "small_house",
-				"iid": "4edc08a0-8990-11ee-8881-e9f71a95af01",
+				"id": "post_office",
+				"iid": "8831ce80-b0a0-11ee-9ccf-232f89170ebc",
 				"layer": "buildings",
-				"x": 0,
-				"y": 152,
+				"x": 144,
+				"y": 304,
 				"width": 64,
 				"height": 64,
-				"color": 12470831,
+				"color": 14120515,
 				"customFields": {
 					"interior": "interior_1"
 				}
+			}
+		],
+		"shop": [
+			{
+				"id": "shop",
+				"iid": "a47b76e0-b0a0-11ee-b038-173f64eac820",
+				"layer": "buildings",
+				"x": 224,
+				"y": 296,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"lantern_post": [
+			{
+				"id": "lantern_post",
+				"iid": "8e4808c0-b0a0-11ee-9ccf-417f84119e45",
+				"layer": "props",
+				"x": 112,
+				"y": 320,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
+		"lantern_torii": [
+			{
+				"id": "lantern_torii",
+				"iid": "94a38960-b0a0-11ee-9ccf-5dd96d38d6c3",
+				"layer": "props",
+				"x": 392,
+				"y": 304,
+				"width": 64,
+				"height": 40,
+				"color": 7552569,
+				"customFields" : {}
+			}
+		],
+		"small_cherry_tree": [
+			{
+				"id": "small_cherry_tree",
+				"iid": "06c85ec0-b0a0-11ee-8c66-118f99c7485a",
+				"layer": "props",
+				"x": 328,
+				"y": 280,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
 			}
 		]
 	}

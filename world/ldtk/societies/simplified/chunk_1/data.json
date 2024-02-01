@@ -1,71 +1,93 @@
 {
 	"identifier": "chunk_1",
-	"uniqueIdentifer": "3c420b40-8990-11ee-8b92-074a1c370f90",
-	"x": 256,
+	"uniqueIdentifer": "9b85ed40-b0a0-11ee-9ccf-13c19ed317ce",
+	"x": 512,
 	"y": 0,
-	"width": 256,
-	"height": 256,
+	"width": 512,
+	"height": 512,
 	"bgColor": "#414141",
 	"neighbourLevels": [
 		{
-			"levelIid": "1874bd30-8990-11ee-8881-2d7bfcc6b529",
-			"dir": "<"
-		},
-		{
-			"levelIid": "a94e1490-8990-11ee-89dd-8941798552e7",
-			"dir": "<"
-		},
-		{
-			"levelIid": "196b33c0-8990-11ee-b884-9b07930d0e57",
-			"dir": "<"
-		},
-		{
-			"levelIid": "5e38cb70-8990-11ee-8b92-eddde8b55080",
+			"levelIid": "85773e00-b0a0-11ee-9a21-77f4794d0d99",
 			"dir": "w"
 		},
 		{
-			"levelIid": "83528430-8990-11ee-8d05-b17a41f55b5d",
-			"dir": "s"
-		},
-		{
-			"levelIid": "ec4bc9c0-8990-11ee-bd31-1f2125e0dbe6",
+			"levelIid": "af97d040-b0a0-11ee-8c66-a3d15ac60ba9",
 			"dir": "e"
 		}
 	],
 	"customFields" : {},
 	"layers": [
-		"background.png",
-		"collisions.png"
+		"parallax_15.png",
+		"collisions.png",
+		"decoration.png"
 	],
 	"entities": {
-		"right_house": [
+		"small_house": [
 			{
-				"id": "right_house",
-				"iid": "2121fd60-8990-11ee-8881-97d9709e8147",
+				"id": "small_house",
+				"iid": "94becc10-b0a0-11ee-8c66-eb8b09b1bd9d",
 				"layer": "buildings",
-				"x": 96,
-				"y": 24,
-				"width": 96,
+				"x": 392,
+				"y": 216,
+				"width": 64,
 				"height": 64,
-				"color": 14120515,
+				"color": 12470831,
 				"customFields": {
-					"interior": "interior_2"
+					"interior": "interior_1"
+				}
+			},
+			{
+				"id": "small_house",
+				"iid": "ebc404d0-b0a0-11ee-8c66-ed6a4cb0c094",
+				"layer": "buildings",
+				"x": 240,
+				"y": 256,
+				"width": 64,
+				"height": 64,
+				"color": 12470831,
+				"customFields": {
+					"interior": "interior_1"
 				}
 			}
 		],
-		"post_office": [
+		"left_house": [
 			{
-				"id": "post_office",
-				"iid": "2af73b70-8990-11ee-8881-87b299ae61f9",
+				"id": "left_house",
+				"iid": "a25a60f0-b0a0-11ee-8c66-2b076380a9fd",
 				"layer": "buildings",
-				"x": 160,
-				"y": 160,
-				"width": 64,
+				"x": 112,
+				"y": 280,
+				"width": 96,
 				"height": 64,
 				"color": 14120515,
 				"customFields": {
 					"interior": "interior_1"
 				}
+			}
+		],
+		"lantern_post": [
+			{
+				"id": "lantern_post",
+				"iid": "fa95cfc0-b0a0-11ee-8c66-056a6b1a62ca",
+				"layer": "props",
+				"x": 56,
+				"y": 304,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			},
+			{
+				"id": "lantern_post",
+				"iid": "fbff71e0-b0a0-11ee-8c66-6bfdc8df5955",
+				"layer": "props",
+				"x": 344,
+				"y": 248,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
 			}
 		]
 	}

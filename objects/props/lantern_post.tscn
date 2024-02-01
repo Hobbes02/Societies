@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://rkyap4ehccro"]
+
+[ext_resource type="PackedScene" uid="uid://srf7tbs42tnf" path="res://objects/props/prop.tscn" id="1_5mxms"]
+[ext_resource type="Texture2D" uid="uid://d1nwh4liu841i" path="res://visuals/objects/lantern_post.png" id="2_h73ex"]
+
+[node name="LanternPost" instance=ExtResource("1_5mxms")]
+texture = ExtResource("2_h73ex")
+offset = Vector2(0, 3)
