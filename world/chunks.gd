@@ -1,6 +1,7 @@
 extends Node2D
 
 signal loaded()
+signal teleport_player(new_position: Vector2)
 
 const WORLD_DATA_DIR: String = "res://world/ldtk/societies/simplified/"
 const Chunk: PackedScene = preload("res://world/chunk.tscn")
@@ -16,6 +17,8 @@ var loaded_chunk_iids: Array = []
 var loaded_chunk_iid: String = ""
 
 var loaded_chunk_nodes: Array[Node2D] = []
+
+var current_chunk_iid: String
 
 
 func _ready() -> void:
@@ -39,7 +42,17 @@ func _save(reason: SaveManager.SaveReason) -> void:
 	SaveManager.save_data.scene_data.current_chunk = iid_to_name.get(loaded_chunk_iid, "chunk_0")
 
 
+func teleport_to_chunk(chunk_iid: String, new_player_position: Vector2) -> void:
+	load_chunks_around(chunk_iid)
+	var current_chunk_position = Vector2(
+		chunk_data[current_chunk_iid].x, 
+		chunk_data[current_chunk_iid].y
+	)
+	teleport_player.emit(new_player_position + current_chunk_position)
+
+
 func load_chunks_around(chunk_iid: String) -> void:
+	current_chunk_iid = chunk_iid
 	loaded_chunk_iid = chunk_iid
 	var neighbors_to_load: Array = get_neighbors_to_load(chunk_iid)
 	

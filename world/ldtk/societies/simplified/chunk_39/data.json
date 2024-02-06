@@ -1,0 +1,84 @@
+{
+	"identifier": "chunk_39",
+	"uniqueIdentifer": "2ea2df80-b0a0-11ee-8fad-db558e1be18b",
+	"x": 18848,
+	"y": -544,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "7b128ce0-b0a0-11ee-8fad-73566126848a",
+			"dir": "n"
+		},
+		{
+			"levelIid": "83b018d0-b0a0-11ee-8fad-ff6f12e81fba",
+			"dir": "e"
+		},
+		{
+			"levelIid": "68e2f370-b0a0-11ee-a2be-35e44db5dfc8",
+			"dir": "s"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"left_house": [
+			{
+				"id": "left_house",
+				"iid": "5ec5c7e0-b0a0-11ee-8fad-355675df992f",
+				"layer": "buildings",
+				"x": 456,
+				"y": 216,
+				"width": 96,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"small_cherry_tree": [
+			{
+				"id": "small_cherry_tree",
+				"iid": "5f2b5790-b0a0-11ee-8fad-eda943dd5dde",
+				"layer": "props",
+				"x": 272,
+				"y": 88,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
+			},
+			{
+				"id": "small_cherry_tree",
+				"iid": "619308c0-b0a0-11ee-8fad-f36de6c02474",
+				"layer": "props",
+				"x": 352,
+				"y": 184,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
+			}
+		],
+		"large_cherry_tree": [
+			{
+				"id": "large_cherry_tree",
+				"iid": "64193e70-b0a0-11ee-8fad-c3ed3994d7d0",
+				"layer": "props",
+				"x": 408,
+				"y": 208,
+				"width": 64,
+				"height": 64,
+				"color": 11882632,
+				"customFields" : {}
+			}
+		]
+	}
+}

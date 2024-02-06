@@ -1,0 +1,45 @@
+{
+	"identifier": "chunk_13",
+	"uniqueIdentifer": "114fff20-b0a0-11ee-a778-5507a004e1da",
+	"x": 6240,
+	"y": -640,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "27def300-b0a0-11ee-a778-638df157e4b3",
+			"dir": "w"
+		},
+		{
+			"levelIid": "96304330-b0a0-11ee-a778-97e38835053e",
+			"dir": "e"
+		},
+		{
+			"levelIid": "4ce87530-b0a0-11ee-8fad-81c2b0a93a42",
+			"dir": "s"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"cherry_bush": [
+			{
+				"id": "cherry_bush",
+				"iid": "6b1e1be0-b0a0-11ee-a778-510c494bb05a",
+				"layer": "props",
+				"x": 120,
+				"y": 224,
+				"width": 48,
+				"height": 32,
+				"color": 16690740,
+				"customFields" : {}
+			}
+		]
+	}
+}

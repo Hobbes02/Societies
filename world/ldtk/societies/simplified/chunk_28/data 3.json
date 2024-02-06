@@ -1,0 +1,58 @@
+{
+	"identifier": "chunk_28",
+	"uniqueIdentifer": "862d1c70-b0a0-11ee-abc1-9771eb79dcb1",
+	"x": 13408,
+	"y": -1104,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "c443a390-b0a0-11ee-b9b2-e56bfa26033f",
+			"dir": "s"
+		},
+		{
+			"levelIid": "79e46d60-b0a0-11ee-abc1-c54c347ee2dc",
+			"dir": "w"
+		},
+		{
+			"levelIid": "f1017ae0-b0a0-11ee-abc1-e1b10ca20e5f",
+			"dir": "e"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"ladder": [
+			{
+				"id": "ladder",
+				"iid": "dfbe61d0-b0a0-11ee-abc1-3b8d5bc6cd24",
+				"layer": "props",
+				"x": 344,
+				"y": 472,
+				"width": 8,
+				"height": 64,
+				"color": 16705377,
+				"customFields" : {}
+			}
+		],
+		"lantern_post": [
+			{
+				"id": "lantern_post",
+				"iid": "6d60e5f0-b0a0-11ee-bb37-9f2549877c52",
+				"layer": "props",
+				"x": 440,
+				"y": 424,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		]
+	}
+}

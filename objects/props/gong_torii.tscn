@@ -5,4 +5,4 @@
 
 [node name="GongTorii" instance=ExtResource("1_sxljx")]
 texture = ExtResource("2_n7fb8")
-offset = Vector2(0, -24)
+offset = Vector2(0, -27)

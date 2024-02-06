@@ -1,0 +1,67 @@
+{
+	"identifier": "chunk_51",
+	"uniqueIdentifer": "60b4d5b0-b0a0-11ee-a2be-4b216c6034bb",
+	"x": 18368,
+	"y": 176,
+	"width": 512,
+	"height": 608,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "5934ab30-b0a0-11ee-a2be-6754d49e036d",
+			"dir": "w"
+		},
+		{
+			"levelIid": "68e2f370-b0a0-11ee-a2be-35e44db5dfc8",
+			"dir": "e"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"fire_barrel": [
+			{
+				"id": "fire_barrel",
+				"iid": "f206ad90-b0a0-11ee-a2be-a3e150158690",
+				"layer": "props",
+				"x": 392,
+				"y": 280,
+				"width": 8,
+				"height": 16,
+				"color": 16217634,
+				"customFields" : {}
+			},
+			{
+				"id": "fire_barrel",
+				"iid": "fd54f710-b0a0-11ee-a2be-a72a68436577",
+				"layer": "props",
+				"x": 80,
+				"y": 408,
+				"width": 8,
+				"height": 16,
+				"color": 16217634,
+				"customFields" : {}
+			}
+		],
+		"teleporter": [
+			{
+				"id": "teleporter",
+				"iid": "a9d08b30-b0a0-11ee-a2be-dbaaa58ab8e8",
+				"layer": "props",
+				"x": 16,
+				"y": 288,
+				"width": 24,
+				"height": 136,
+				"color": 4098376,
+				"customFields": {
+					"teleport_to": null
+				}
+			}
+		]
+	}
+}

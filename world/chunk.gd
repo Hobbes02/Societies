@@ -22,7 +22,10 @@ const ENTITY_NAME_TO_SCENE: Dictionary = {
 	"gong_torii": preload("res://objects/props/gong_torii.tscn"), 
 	"cherry_bush": preload("res://objects/props/cherry_bush.tscn"), 
 	"small_cherry_tree": preload("res://objects/props/small_cherry_tree.tscn"), 
-	"large_cherry_tree": preload("res://objects/props/large_cherry_tree.tscn")
+	"large_cherry_tree": preload("res://objects/props/large_cherry_tree.tscn"), 
+	"fire_barrel": preload("res://objects/props/fire_barrel.tscn"), 
+	"lantern": preload("res://objects/props/lantern.tscn"), 
+	"teleporter": preload("res://objects/props/teleporter.tscn"), 
 }
 
 var chunk_dir: String = "chunk_0"
@@ -51,10 +54,12 @@ var collision_offset: Vector2
 
 var parallax_nodes: Dictionary = {} # node: parallax scale
 
-var layer_tinting: Dictionary = {"parallax_15": Color(0.8, 0.8, 0.8)} # layer name: tint color
+var layer_tinting: Dictionary = {"parallax_15.png": Color(0.8, 0.8, 0.8)} # layer name: tint color
 
 
 func _ready() -> void:
+	name = chunk_dir
+	
 	if chunk_dir.begins_with("chunk_"):
 		layer_visual_container = $LayerVisuals
 		layer_visual_template = $LayerVisuals/LayerTemplate
@@ -112,15 +117,20 @@ func place_entities() -> void:
 					continue
 				entity_node.set(field_name, entity.customFields[field_name])
 			
+			if entity_node.has_signal("teleport") and chunk_dir.begins_with("chunk_"):
+				entity_node.teleport.connect(get_parent().teleport_to_chunk)
+			
 			entity_container.add_child(entity_node)
 
 
 func load_chunk_visual() -> void:
-	for file in SaveManager.get_files_in_directory(WORLD_DATA_DIR + chunk_dir):
-		if file.ends_with(".png") and (not "-int" in file) and file != "_composite.png":
+	var layers = chunk_data.layers
+	layers.append("_bg.png")
+	
+	for layer in layers:
 			var layer_visual: Sprite2D
 			
-			if file == "_bg.png":
+			if layer == "_bg.png":
 				layer_visual = layer_visual_template
 				layer_visual.z_index = 0
 			else:
@@ -128,18 +138,20 @@ func load_chunk_visual() -> void:
 				layer_visual.z_index = 2
 			
 			layer_visual.show()
-			layer_visual.texture = load(WORLD_DATA_DIR + chunk_dir + "/" + file)
+			layer_visual.texture = load(WORLD_DATA_DIR + chunk_dir + "/" + layer)
 			
-			if file == "_bg.png":
+			layer_visual.name = layer
+			
+			if layer == "_bg.png":
 				continue
 			
-			if layer_tinting.has(file.rstrip(".png")):
-				layer_visual.self_modulate = layer_tinting[file.rstrip(".png")]
+			if layer_tinting.has(layer):
+				layer_visual.self_modulate = layer_tinting[layer]
 			else:
 				layer_visual.self_modulate = Color(1, 1, 1, 1)
 			
-			if file.begins_with("parallax"):
-				var amount = float(file.rstrip(".png").lstrip("parallax_"))
+			if layer.begins_with("parallax"):
+				var amount = float(layer.rstrip(".png")[-2] + layer.rstrip(".png")[-1])
 				
 				parallax_nodes[layer_visual] = amount / 100
 				layer_visual.z_index = 1

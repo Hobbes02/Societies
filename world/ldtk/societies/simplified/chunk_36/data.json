@@ -1,0 +1,112 @@
+{
+	"identifier": "chunk_36",
+	"uniqueIdentifer": "00c7a290-b0a0-11ee-8fad-e39cbcc11b58",
+	"x": 17504,
+	"y": -1168,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "b4406b00-b0a0-11ee-8fad-fb0a831738b3",
+			"dir": "w"
+		},
+		{
+			"levelIid": "3fb1e5b0-b0a0-11ee-8fad-c92857d53725",
+			"dir": "e"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"small_house": [
+			{
+				"id": "small_house",
+				"iid": "199dd1e0-b0a0-11ee-8fad-93d0f27471df",
+				"layer": "buildings",
+				"x": 104,
+				"y": 216,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"right_house": [
+			{
+				"id": "right_house",
+				"iid": "29c764a0-b0a0-11ee-8fad-d9f0b25f4146",
+				"layer": "buildings",
+				"x": 176,
+				"y": 224,
+				"width": 96,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"two_side_house": [
+			{
+				"id": "two_side_house",
+				"iid": "31bd5b60-b0a0-11ee-8fad-5ba68d2f4239",
+				"layer": "buildings",
+				"x": 272,
+				"y": 224,
+				"width": 128,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"left_house": [
+			{
+				"id": "left_house",
+				"iid": "34905180-b0a0-11ee-8fad-cd5dfbb23886",
+				"layer": "buildings",
+				"x": 416,
+				"y": 216,
+				"width": 96,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"lantern_post": [
+			{
+				"id": "lantern_post",
+				"iid": "5a073af0-b0a0-11ee-8fad-05c9894d476c",
+				"layer": "props",
+				"x": 400,
+				"y": 240,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			},
+			{
+				"id": "lantern_post",
+				"iid": "5b2b96b0-b0a0-11ee-8fad-a7ae69c3ca9e",
+				"layer": "props",
+				"x": 40,
+				"y": 248,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		]
+	}
+}

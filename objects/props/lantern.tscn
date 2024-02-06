@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bw32fgvihgorp"]
+
+[ext_resource type="PackedScene" uid="uid://srf7tbs42tnf" path="res://objects/props/prop.tscn" id="1_qblup"]
+[ext_resource type="Texture2D" uid="uid://c4uca4uh70xk1" path="res://visuals/tiles/main_tileset.png" id="2_2epqa"]
+[ext_resource type="PackedScene" uid="uid://d3qq8k7eoex41" path="res://objects/lights/night_light.tscn" id="3_koiko"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkm7y"]
+atlas = ExtResource("2_2epqa")
+region = Rect2(80, 24, 8, 16)
+
+[node name="Lantern" instance=ExtResource("1_qblup")]
+texture = SubResource("AtlasTexture_lkm7y")
+
+[node name="NightLight" parent="." index="0" instance=ExtResource("3_koiko")]
+position = Vector2(4, 7)
+color = Color(1, 0.498039, 0.0666667, 1)
+energy = 1.2
+texture_scale = 0.05

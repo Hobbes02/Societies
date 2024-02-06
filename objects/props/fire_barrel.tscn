@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxrcomdpri0n4"]
+
+[ext_resource type="PackedScene" uid="uid://d3qq8k7eoex41" path="res://objects/lights/night_light.tscn" id="2_52lb7"]
+[ext_resource type="Texture2D" uid="uid://c4uca4uh70xk1" path="res://visuals/tiles/main_tileset.png" id="2_cb6b1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bu8q2"]
+atlas = ExtResource("2_cb6b1")
+region = Rect2(64, 24, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8ryn"]
+atlas = ExtResource("2_cb6b1")
+region = Rect2(72, 24, 8, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xwmo2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bu8q2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8ryn")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 2.0
+}]
+
+[node name="FireBarrel" type="AnimatedSprite2D"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_xwmo2")
+animation = &"fire"
+autoplay = "fire"
+frame = 1
+frame_progress = 0.906073
+centered = false
+offset = Vector2(0, -3)
+
+[node name="NightLight" parent="." instance=ExtResource("2_52lb7")]
+position = Vector2(4, 2)
+color = Color(1, 0.596078, 0.121569, 1)
+energy = 1.2
+texture_scale = 0.02
+flicker = true

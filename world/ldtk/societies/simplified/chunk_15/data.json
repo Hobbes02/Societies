@@ -1,0 +1,97 @@
+{
+	"identifier": "chunk_15",
+	"uniqueIdentifer": "ad656cb0-b0a0-11ee-a778-f9dc0bfa1d1d",
+	"x": 7264,
+	"y": -912,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "96304330-b0a0-11ee-a778-97e38835053e",
+			"dir": "w"
+		},
+		{
+			"levelIid": "1ffb60e0-b0a0-11ee-a778-21a7721daa62",
+			"dir": "e"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"shop": [
+			{
+				"id": "shop",
+				"iid": "0292ff40-b0a0-11ee-a778-273ff6c4e2c6",
+				"layer": "buildings",
+				"x": 56,
+				"y": 144,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"left_house": [
+			{
+				"id": "left_house",
+				"iid": "11c587d0-b0a0-11ee-a778-bbbbf459daa1",
+				"layer": "buildings",
+				"x": 184,
+				"y": 144,
+				"width": 96,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"small_house": [
+			{
+				"id": "small_house",
+				"iid": "175701b0-b0a0-11ee-a778-cd5f31cbeb99",
+				"layer": "buildings",
+				"x": 312,
+				"y": 144,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"lantern_post": [
+			{
+				"id": "lantern_post",
+				"iid": "95a771a0-b0a0-11ee-a778-994007f4df71",
+				"layer": "props",
+				"x": 416,
+				"y": 152,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			},
+			{
+				"id": "lantern_post",
+				"iid": "96b9f310-b0a0-11ee-a778-f3d0f00f7c19",
+				"layer": "props",
+				"x": 144,
+				"y": 160,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		]
+	}
+}

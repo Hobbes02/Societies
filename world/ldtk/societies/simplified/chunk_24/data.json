@@ -1,0 +1,48 @@
+{
+	"identifier": "chunk_24",
+	"uniqueIdentifer": "bb879a80-b0a0-11ee-b9b2-3726d0312ee6",
+	"x": 11872,
+	"y": -1104,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "9a581100-b0a0-11ee-b9b2-1b68325b9923",
+			"dir": "w"
+		},
+		{
+			"levelIid": "818c2bd0-b0a0-11ee-b9b2-a11278a62750",
+			"dir": "e"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"teleporter": [
+			{
+				"id": "teleporter",
+				"iid": "13402220-b0a0-11ee-a2be-47b073db3eab",
+				"layer": "props",
+				"x": 136,
+				"y": 0,
+				"width": 16,
+				"height": 208,
+				"color": 4098376,
+				"customFields": {
+					"teleport_to": {
+						"entityIid": "3cc9d4b0-b0a0-11ee-a2be-8b8e4ddb1510",
+						"layerIid": "f101a1f2-b0a0-11ee-abc1-d7bfb293599e",
+						"levelIid": "f1017ae0-b0a0-11ee-abc1-e1b10ca20e5f",
+						"worldIid": "5e38a461-8990-11ee-8b92-3f0cedd0144f"
+					}
+				}
+			}
+		]
+	}
+}

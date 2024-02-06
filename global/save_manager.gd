@@ -13,13 +13,14 @@ var DEFAULT_SAVE_DATA: Dictionary = {
 	"slot_data": {
 		"name": "Slot 1", 
 		"area": "Start", 
-		"progress": 0
+		"progress": 0, 
 	}, 
 	"scene_data": {
 		"current_scene": "world/world", 
 		"current_chunk": "chunk_0", 
 		"other_scene_level": "interior_0",  # used if in another scene from world but loaded from ldtk
-		"level_history": []
+		"level_history": [], 
+		"time_of_day": "day", 
 	}, 
 	"player_data": {
 		"world_position": Vector2(0, 0), 
@@ -27,7 +28,7 @@ var DEFAULT_SAVE_DATA: Dictionary = {
 	}, 
 	"tasks": {
 		"completed_tasks": [], 
-		"active_tasks": []
+		"active_tasks": [], 
 	}
 }
 
@@ -36,9 +37,9 @@ var DEFAULT_SETTINGS_DATA: Dictionary = {
 	"sound": {  # sound in dB
 		"main": 0, 
 		"sfx": 0, 
-		"music": 0
+		"music": 0, 
 	}, 
-	"last_played_slot": -1
+	"last_played_slot": -1, 
 }
 
 var slots: Array = []

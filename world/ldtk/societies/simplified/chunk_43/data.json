@@ -1,0 +1,112 @@
+{
+	"identifier": "chunk_43",
+	"uniqueIdentifer": "5214d9c0-b0a0-11ee-8fad-c34ddab39a67",
+	"x": 6880,
+	"y": -16,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "005e4580-b0a0-11ee-8fad-4f705a11bb6a",
+			"dir": "w"
+		},
+		{
+			"levelIid": "95d5f950-b0a0-11ee-8fad-a9f9ea201eaf",
+			"dir": "e"
+		},
+		{
+			"levelIid": "a113a100-b0a0-11ee-8fad-ff5a39de056c",
+			"dir": "n"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"three_story_house": [
+			{
+				"id": "three_story_house",
+				"iid": "8b8570c0-b0a0-11ee-8fad-ddabf4ab5edd",
+				"layer": "buildings",
+				"x": 120,
+				"y": 200,
+				"width": 64,
+				"height": 128,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"small_house": [
+			{
+				"id": "small_house",
+				"iid": "d499ca00-b0a0-11ee-a2be-47db984d8bec",
+				"layer": "buildings",
+				"x": 400,
+				"y": 288,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"two_side_house": [
+			{
+				"id": "two_side_house",
+				"iid": "d96f6df0-b0a0-11ee-a2be-c9603543c354",
+				"layer": "buildings",
+				"x": 464,
+				"y": 288,
+				"width": 128,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"fire_barrel": [
+			{
+				"id": "fire_barrel",
+				"iid": "79c02f60-b0a0-11ee-8fad-579da09ea404",
+				"layer": "props",
+				"x": 88,
+				"y": 304,
+				"width": 8,
+				"height": 16,
+				"color": 16217634,
+				"customFields" : {}
+			},
+			{
+				"id": "fire_barrel",
+				"iid": "57095c30-b0a0-11ee-a2be-c32d03473621",
+				"layer": "props",
+				"x": 464,
+				"y": 336,
+				"width": 8,
+				"height": 16,
+				"color": 16217634,
+				"customFields" : {}
+			},
+			{
+				"id": "fire_barrel",
+				"iid": "5849f280-b0a0-11ee-a2be-3d4a7158caee",
+				"layer": "props",
+				"x": 288,
+				"y": 320,
+				"width": 8,
+				"height": 16,
+				"color": 16217634,
+				"customFields" : {}
+			}
+		]
+	}
+}

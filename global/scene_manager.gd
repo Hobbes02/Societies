@@ -56,6 +56,7 @@ var persistent_information: Dictionary = {}
 
 func _ready() -> void:
 	if str(get_tree().current_scene.get_path()) != "/root/blank":
+		print("HIDING")
 		$Visuals/ColorRect.hide()
 		$Visuals/ColorRect.mouse_filter = $Visuals/ColorRect.MOUSE_FILTER_IGNORE
 		return

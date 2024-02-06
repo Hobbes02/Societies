@@ -1,0 +1,55 @@
+{
+	"identifier": "chunk_26",
+	"uniqueIdentifer": "c443a390-b0a0-11ee-b9b2-e56bfa26033f",
+	"x": 12608,
+	"y": -592,
+	"width": 4096,
+	"height": 1024,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "818c2bd0-b0a0-11ee-b9b2-a11278a62750",
+			"dir": "n"
+		},
+		{
+			"levelIid": "79e46d60-b0a0-11ee-abc1-c54c347ee2dc",
+			"dir": "n"
+		},
+		{
+			"levelIid": "862d1c70-b0a0-11ee-abc1-9771eb79dcb1",
+			"dir": "n"
+		},
+		{
+			"levelIid": "f1017ae0-b0a0-11ee-abc1-e1b10ca20e5f",
+			"dir": "n"
+		},
+		{
+			"levelIid": "13901170-b0a0-11ee-abc1-0575e2e951af",
+			"dir": "n"
+		},
+		{
+			"levelIid": "1ac158a0-b0a0-11ee-abc1-8d1976f3cf18",
+			"dir": "n"
+		},
+		{
+			"levelIid": "67b19250-b0a0-11ee-8fad-239189f7d448",
+			"dir": "n"
+		},
+		{
+			"levelIid": "6b01cec0-b0a0-11ee-8fad-733535dbd74d",
+			"dir": "n"
+		},
+		{
+			"levelIid": "6d65af60-b0a0-11ee-8fad-7f6da063f46e",
+			"dir": "n"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities" : {}
+}

@@ -1,0 +1,76 @@
+{
+	"identifier": "chunk_38",
+	"uniqueIdentifer": "7b128ce0-b0a0-11ee-8fad-73566126848a",
+	"x": 18528,
+	"y": -1056,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "3fb1e5b0-b0a0-11ee-8fad-c92857d53725",
+			"dir": "w"
+		},
+		{
+			"levelIid": "2ea2df80-b0a0-11ee-8fad-db558e1be18b",
+			"dir": "s"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"small_cherry_tree": [
+			{
+				"id": "small_cherry_tree",
+				"iid": "8fce03d0-b0a0-11ee-8fad-057857ac4c01",
+				"layer": "props",
+				"x": 176,
+				"y": 256,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
+			},
+			{
+				"id": "small_cherry_tree",
+				"iid": "96bc9cb0-b0a0-11ee-8fad-83ee5bce237d",
+				"layer": "props",
+				"x": 344,
+				"y": 384,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
+			}
+		],
+		"large_cherry_tree": [
+			{
+				"id": "large_cherry_tree",
+				"iid": "90f7ddd0-b0a0-11ee-8fad-9dbd75bd4807",
+				"layer": "props",
+				"x": 56,
+				"y": 216,
+				"width": 64,
+				"height": 64,
+				"color": 11882632,
+				"customFields" : {}
+			},
+			{
+				"id": "large_cherry_tree",
+				"iid": "9b0235a0-b0a0-11ee-8fad-a1a8a3ec20d0",
+				"layer": "props",
+				"x": 416,
+				"y": 432,
+				"width": 64,
+				"height": 64,
+				"color": 11882632,
+				"customFields" : {}
+			}
+		]
+	}
+}

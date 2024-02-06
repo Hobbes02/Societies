@@ -1,45 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://ct4y4tiykpvss"]
+[gd_scene load_steps=4 format=3 uid="uid://53g8ppalbsld"]
 
-[ext_resource type="Script" path="res://objects/npc/npc.gd" id="1_bblki"]
-[ext_resource type="Texture2D" uid="uid://cmyeghddy80q0" path="res://visuals/player/player.png" id="2_8vort"]
-[ext_resource type="PackedScene" uid="uid://dga3u0pbhej4u" path="res://objects/interactable/interactable.tscn" id="3_111kf"]
+[ext_resource type="Script" path="res://objects/npc/npc.gd" id="1_2cdtu"]
+[ext_resource type="PackedScene" uid="uid://dga3u0pbhej4u" path="res://objects/interactable/interactable.tscn" id="2_4c6rs"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_x6byy"]
-radius = 27.0185
+[sub_resource type="CircleShape2D" id="CircleShape2D_jbx52"]
+radius = 22.2295
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wxktf"]
-radius = 3.0
-height = 15.0
-
-[node name="NPC" type="CharacterBody2D" groups=["can_focus_camera"]]
-process_mode = 3
-texture_filter = 1
-collision_layer = 16
-collision_mask = 4
-script = ExtResource("1_bblki")
-
-[node name="Interactable" parent="." instance=ExtResource("3_111kf")]
-pauses_game = true
-title = ""
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
-shape = SubResource("CircleShape2D_x6byy")
-debug_color = Color(0, 0.439216, 1, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
-shape = SubResource("CapsuleShape2D_wxktf")
+[node name="NPC" type="Node2D" groups=["can_focus_camera"]]
+scale = Vector2(0.990706, 0.986726)
+script = ExtResource("1_2cdtu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_8vort")
+position = Vector2(0, 1.19209e-07)
 
-[node name="TileCenterMarker" type="Marker2D" parent="."]
-position = Vector2(0, 2)
-gizmo_extents = 1.0
+[node name="Interactable" parent="." instance=ExtResource("2_4c6rs")]
+pauses_game = true
 
-[node name="PhysicsStartTimer" type="Timer" parent="."]
-autostart = true
-
-[connection signal="ended" from="Interactable" to="." method="_on_interactable_ended"]
-[connection signal="focus_camera" from="Interactable" to="." method="_on_interactable_focus_camera"]
-[connection signal="timeout" from="PhysicsStartTimer" to="." method="_on_physics_start_timer_timeout"]
+[node name="InteractionArea" type="CollisionShape2D" parent="Interactable"]
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_jbx52")

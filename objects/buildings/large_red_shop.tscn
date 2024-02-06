@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bab7gxeqax267"]
+
+[ext_resource type="PackedScene" uid="uid://k3fm7ocdph3w" path="res://objects/buildings/building.tscn" id="1_m84vc"]
+[ext_resource type="Texture2D" uid="uid://1ughmno3ui8t" path="res://visuals/buildings/large_red_shop.png" id="2_6hofc"]
+[ext_resource type="Texture2D" uid="uid://bc6jhglg3meew" path="res://visuals/buildings/doors/red_door.png" id="3_3kiae"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d4wuc"]
+size = Vector2(12, 27)
+
+[node name="LargeRedShop" instance=ExtResource("1_m84vc")]
+door_width = 10
+
+[node name="MainHouse" parent="." index="0"]
+position = Vector2(48, 40)
+texture = ExtResource("2_6hofc")
+
+[node name="CanvasGroup" parent="." index="1"]
+position = Vector2(33, 46)
+
+[node name="Door" parent="CanvasGroup" index="0"]
+texture = ExtResource("3_3kiae")
+
+[node name="Mask" parent="CanvasGroup" index="1"]
+position = Vector2(-10, 15)
+texture = ExtResource("3_3kiae")
+
+[node name="CollisionShape2D" parent="Doorway" index="1"]
+position = Vector2(1, 34.5)
+shape = SubResource("RectangleShape2D_d4wuc")

@@ -1,0 +1,27 @@
+{
+	"identifier": "chunk_23",
+	"uniqueIdentifer": "9a581100-b0a0-11ee-b9b2-1b68325b9923",
+	"x": 11360,
+	"y": -1144,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "8b258870-b0a0-11ee-b9b2-b7547753cc10",
+			"dir": "w"
+		},
+		{
+			"levelIid": "bb879a80-b0a0-11ee-b9b2-3726d0312ee6",
+			"dir": "e"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities" : {}
+}

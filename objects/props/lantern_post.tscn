@@ -1,8 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://rkyap4ehccro"]
+[gd_scene load_steps=4 format=3 uid="uid://rkyap4ehccro"]
 
 [ext_resource type="PackedScene" uid="uid://srf7tbs42tnf" path="res://objects/props/prop.tscn" id="1_5mxms"]
 [ext_resource type="Texture2D" uid="uid://d1nwh4liu841i" path="res://visuals/objects/lantern_post.png" id="2_h73ex"]
+[ext_resource type="PackedScene" uid="uid://d3qq8k7eoex41" path="res://objects/lights/night_light.tscn" id="3_xr863"]
 
 [node name="LanternPost" instance=ExtResource("1_5mxms")]
 texture = ExtResource("2_h73ex")
 offset = Vector2(0, 3)
+
+[node name="NightLight" parent="." index="0" instance=ExtResource("3_xr863")]
+position = Vector2(15, 24)
+color = Color(1, 0.498039, 0.0666667, 1)
+energy = 1.2
+texture_scale = 0.05

@@ -1,0 +1,188 @@
+{
+	"identifier": "chunk_47",
+	"uniqueIdentifer": "d3e91650-b0a0-11ee-8fad-77763821831d",
+	"x": 8416,
+	"y": -16,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "a113a100-b0a0-11ee-8fad-ff5a39de056c",
+			"dir": "n"
+		},
+		{
+			"levelIid": "cdff6a50-b0a0-11ee-8fad-d71a2df15f06",
+			"dir": "w"
+		},
+		{
+			"levelIid": "d96c3850-b0a0-11ee-8fad-1dbc9790d4ed",
+			"dir": "e"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"shop": [
+			{
+				"id": "shop",
+				"iid": "61cbb960-b0a0-11ee-a2be-eddfb288669e",
+				"layer": "buildings",
+				"x": 160,
+				"y": 264,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			},
+			{
+				"id": "shop",
+				"iid": "6f414fb0-b0a0-11ee-a2be-9514b24c76c7",
+				"layer": "buildings",
+				"x": 472,
+				"y": 272,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"bake_shop": [
+			{
+				"id": "bake_shop",
+				"iid": "6327c6f0-b0a0-11ee-a2be-ff690531539f",
+				"layer": "buildings",
+				"x": 224,
+				"y": 264,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"two_side_house": [
+			{
+				"id": "two_side_house",
+				"iid": "66c84640-b0a0-11ee-a2be-3d0bf4201738",
+				"layer": "buildings",
+				"x": 280,
+				"y": 264,
+				"width": 128,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"post_office": [
+			{
+				"id": "post_office",
+				"iid": "6a891ed0-b0a0-11ee-a2be-e98eaaf0ab19",
+				"layer": "buildings",
+				"x": 400,
+				"y": 264,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"small_cherry_tree": [
+			{
+				"id": "small_cherry_tree",
+				"iid": "2fc35810-b0a0-11ee-a2be-efd217d40a0b",
+				"layer": "props",
+				"x": 40,
+				"y": 272,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
+			}
+		],
+		"fire_barrel": [
+			{
+				"id": "fire_barrel",
+				"iid": "47713400-b0a0-11ee-a2be-1d5431d06513",
+				"layer": "props",
+				"x": 112,
+				"y": 320,
+				"width": 8,
+				"height": 16,
+				"color": 16217634,
+				"customFields" : {}
+			},
+			{
+				"id": "fire_barrel",
+				"iid": "75faa7c0-b0a0-11ee-a2be-4b8f1c57efab",
+				"layer": "props",
+				"x": 464,
+				"y": 312,
+				"width": 8,
+				"height": 16,
+				"color": 16217634,
+				"customFields" : {}
+			}
+		],
+		"lantern": [
+			{
+				"id": "lantern",
+				"iid": "99a81bd0-b0a0-11ee-a2be-b7bc625469a8",
+				"layer": "props",
+				"x": 216,
+				"y": 240,
+				"width": 8,
+				"height": 16,
+				"color": 6539085,
+				"customFields" : {}
+			},
+			{
+				"id": "lantern",
+				"iid": "9d8296e0-b0a0-11ee-a2be-05a9174d661b",
+				"layer": "props",
+				"x": 392,
+				"y": 256,
+				"width": 8,
+				"height": 16,
+				"color": 6539085,
+				"customFields" : {}
+			},
+			{
+				"id": "lantern",
+				"iid": "a12279f0-b0a0-11ee-a2be-c13a0b1ef1ac",
+				"layer": "props",
+				"x": 112,
+				"y": 264,
+				"width": 8,
+				"height": 16,
+				"color": 6539085,
+				"customFields" : {}
+			},
+			{
+				"id": "lantern",
+				"iid": "a256b430-b0a0-11ee-a2be-8760e9705dac",
+				"layer": "props",
+				"x": 8,
+				"y": 240,
+				"width": 8,
+				"height": 16,
+				"color": 6539085,
+				"customFields" : {}
+			}
+		]
+	}
+}

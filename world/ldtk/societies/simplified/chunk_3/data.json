@@ -19,6 +19,7 @@
 	"customFields" : {},
 	"layers": [
 		"parallax_15.png",
+		"parallax_buildings_15.png",
 		"collisions.png",
 		"decoration.png"
 	],
@@ -32,7 +33,7 @@
 				"y": 200,
 				"width": 64,
 				"height": 64,
-				"color": 12470831,
+				"color": 14120515,
 				"customFields": {
 					"interior": "interior_1"
 				}
