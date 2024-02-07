@@ -149,7 +149,9 @@ func _on_night_cycle_timer_timeout() -> void:
 func _on_chunks_teleport_player(new_position: Vector2) -> void:
 	camera.position_smoothing_enabled = false
 	camera.enabled = false
-	camera.global_position = player.global_position
+	camera_following_node = null
+	camera.global_position = (camera.get_screen_center_position() - player.global_position) + new_position + Vector2(0, 3.3)
 	player.global_position = new_position
 	camera.enabled = true
 	camera.position_smoothing_enabled = true
+	camera_following_node = player

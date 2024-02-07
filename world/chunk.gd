@@ -112,10 +112,16 @@ func place_entities() -> void:
 				entity.y + collision_offset.y - 1
 			)
 			
-			for field_name in entity.customFields.keys():
+			var fields_to_pass: Array = entity.customFields.keys()
+			for field_name in fields_to_pass:
 				if field_name not in entity_node:
 					continue
 				entity_node.set(field_name, entity.customFields[field_name])
+			
+			if "width" in entity_node:
+				entity_node.width = entity.width
+			if "height" in entity_node:
+				entity_node.height = entity.height
 			
 			if entity_node.has_signal("teleport") and chunk_dir.begins_with("chunk_"):
 				entity_node.teleport.connect(get_parent().teleport_to_chunk)

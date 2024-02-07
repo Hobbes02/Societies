@@ -1,0 +1,18 @@
+[remap]
+
+importer="com.timothyqiu.godot-csv-importer"
+type="Resource"
+uid="uid://dklkw4pjhi0r1"
+path="res://.godot/imported/parallax_15 2.csv-291ef20a235114cd7f2c725d0d2a6656.res"
+
+[deps]
+
+source_file="res://world/ldtk/societies/simplified/chunk_27/parallax_15 2.csv"
+dest_files=["res://.godot/imported/parallax_15 2.csv-291ef20a235114cd7f2c725d0d2a6656.res"]
+
+[params]
+
+delimiter=0
+headers=false
+detect_numbers=true
+force_float=false

@@ -1,0 +1,18 @@
+[remap]
+
+importer="com.timothyqiu.godot-csv-importer"
+type="Resource"
+uid="uid://bhs4accxd7fgk"
+path="res://.godot/imported/collisions 2.csv-b21f50441a0f19928e63d728ba6205a7.res"
+
+[deps]
+
+source_file="res://world/ldtk/societies/simplified/chunk_3/collisions 2.csv"
+dest_files=["res://.godot/imported/collisions 2.csv-b21f50441a0f19928e63d728ba6205a7.res"]
+
+[params]
+
+delimiter=0
+headers=false
+detect_numbers=true
+force_float=false

@@ -1,0 +1,18 @@
+[remap]
+
+importer="com.timothyqiu.godot-csv-importer"
+type="Resource"
+uid="uid://b7pb3gilv1fn4"
+path="res://.godot/imported/parallax_buildings_15 2.csv-7058510e89e5779e4b2a327a1ea19c0e.res"
+
+[deps]
+
+source_file="res://world/ldtk/societies/simplified/chunk_29/parallax_buildings_15 2.csv"
+dest_files=["res://.godot/imported/parallax_buildings_15 2.csv-7058510e89e5779e4b2a327a1ea19c0e.res"]
+
+[params]
+
+delimiter=0
+headers=false
+detect_numbers=true
+force_float=false

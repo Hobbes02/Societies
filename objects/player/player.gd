@@ -11,7 +11,7 @@ enum MoveStates {
 const JUMP_VELOCITY: float = -225.0
 
 var speed: float = 90.0
-var sprint_speed: float = 140.0
+var sprint_speed: float = 300.0
 var crouch_speed: float = 40.0
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")

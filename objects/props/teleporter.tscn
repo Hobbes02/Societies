@@ -11,4 +11,11 @@ script = ExtResource("1_h6ddn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jejug")
 
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+border_width = 10.0
+editor_only = false
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

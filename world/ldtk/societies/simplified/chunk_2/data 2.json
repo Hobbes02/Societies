@@ -1,0 +1,108 @@
+{
+	"identifier": "chunk_2",
+	"uniqueIdentifer": "af97d040-b0a0-11ee-8c66-a3d15ac60ba9",
+	"x": 1024,
+	"y": 0,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "9b85ed40-b0a0-11ee-9ccf-13c19ed317ce",
+			"dir": "w"
+		},
+		{
+			"levelIid": "6215ef90-b0a0-11ee-8c66-91014aa2be13",
+			"dir": "e"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"right_house": [
+			{
+				"id": "right_house",
+				"iid": "dd6a2900-b0a0-11ee-8c66-6b08a22d4e95",
+				"layer": "buildings",
+				"x": 128,
+				"y": 232,
+				"width": 96,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"small_house": [
+			{
+				"id": "small_house",
+				"iid": "dfd49950-b0a0-11ee-8c66-61063cdfe676",
+				"layer": "buildings",
+				"x": 280,
+				"y": 232,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			},
+			{
+				"id": "small_house",
+				"iid": "5e008e60-b0a0-11ee-8c66-2dc66667b03f",
+				"layer": "buildings",
+				"x": 448,
+				"y": 216,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"lantern_post": [
+			{
+				"id": "lantern_post",
+				"iid": "feab5800-b0a0-11ee-8c66-3ddebb9df2d7",
+				"layer": "props",
+				"x": 72,
+				"y": 232,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			},
+			{
+				"id": "lantern_post",
+				"iid": "ff762210-b0a0-11ee-8c66-ff1365f4f1fa",
+				"layer": "props",
+				"x": 240,
+				"y": 248,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
+		"cherry_bush": [
+			{
+				"id": "cherry_bush",
+				"iid": "7b0ba300-b0a0-11ee-b038-bf22c527e4e8",
+				"layer": "props",
+				"x": 360,
+				"y": 256,
+				"width": 48,
+				"height": 32,
+				"color": 16690740,
+				"customFields" : {}
+			}
+		]
+	}
+}
