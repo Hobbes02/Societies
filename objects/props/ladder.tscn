@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bu143cxd41pou"]
+
+[ext_resource type="Texture2D" uid="uid://c4uca4uh70xk1" path="res://visuals/tiles/main_tileset.png" id="1_ajxtx"]
+[ext_resource type="Script" path="res://objects/props/ladder.gd" id="1_yrlgn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r8emi"]
+size = Vector2(8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ki7e"]
+atlas = ExtResource("1_ajxtx")
+region = Rect2(8, 32, 16, 8)
+
+[node name="Ladder" type="Area2D"]
+texture_filter = 1
+collision_layer = 2
+script = ExtResource("1_yrlgn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_r8emi")
+
+[node name="Texture" type="NinePatchRect" parent="."]
+offset_right = 16.0
+offset_bottom = 8.0
+texture = SubResource("AtlasTexture_8ki7e")
+region_rect = Rect2(0, 0, 16, 8)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

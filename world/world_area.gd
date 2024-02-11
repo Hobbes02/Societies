@@ -15,6 +15,9 @@ func _ready() -> void:
 	camera.position_smoothing_enabled = false
 	camera.global_position = camera_following_node.global_position
 	camera.position_smoothing_enabled = true
+	
+	SceneManager.pause("game", false)
+	SceneManager.pause("player", false)
 
 
 func _on_focus_camera(node: Node2D) -> void:

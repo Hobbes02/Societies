@@ -430,12 +430,12 @@ script = ExtResource("1_ra7vo")
 
 [node name="Camera" type="Camera2D" parent="."]
 process_mode = 3
+zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 position_smoothing_speed = 2.5
 
 [node name="TileMap" type="TileMap" parent="."]
 process_mode = 3
-scale = Vector2(4, 4)
 tile_set = SubResource("TileSet_vxxvh")
 format = 2
 layer_0/name = "background"
@@ -448,7 +448,6 @@ layer_2/tile_data = PackedInt32Array(4522058, 131073, 0, 4587594, 131073, 0, 465
 
 [node name="NPCs" type="Node2D" parent="."]
 process_mode = 1
-scale = Vector2(4, 4)
 
 [node name="NPC" parent="NPCs" node_paths=PackedStringArray("character_nodes") instance=ExtResource("3_8gv62")]
 position = Vector2(548, 480)
@@ -459,7 +458,6 @@ character_names = Array[String](["Bob", "Player"])
 character_nodes = [NodePath("."), NodePath("../../Player")]
 
 [node name="Player" parent="." instance=ExtResource("2_f3isx")]
-position = Vector2(2974, 2005)
-scale = Vector2(4, 4)
+position = Vector2(746, 500)
 
 [node name="SpeechBubble" parent="." instance=ExtResource("7_3j11g")]

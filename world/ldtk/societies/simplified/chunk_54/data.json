@@ -1,0 +1,69 @@
+{
+	"identifier": "chunk_54",
+	"uniqueIdentifer": "3b6dc920-b0a0-11ee-bf28-3de89a930140",
+	"x": 19872,
+	"y": -848,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "83b018d0-b0a0-11ee-8fad-ff6f12e81fba",
+			"dir": "w"
+		},
+		{
+			"levelIid": "a4467410-b0a0-11ee-bf28-f96791d974ff",
+			"dir": "e"
+		}
+	],
+	"customFields": {
+		"is_underground": false
+	},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"large_cherry_tree": [
+			{
+				"id": "large_cherry_tree",
+				"iid": "7af27780-b0a0-11ee-bf28-1f8cc0b6fe0f",
+				"layer": "props",
+				"x": 184,
+				"y": 104,
+				"width": 64,
+				"height": 64,
+				"color": 11882632,
+				"customFields" : {}
+			}
+		],
+		"small_cherry_tree": [
+			{
+				"id": "small_cherry_tree",
+				"iid": "7feeb640-b0a0-11ee-bf28-d3c75918993a",
+				"layer": "props",
+				"x": 400,
+				"y": 24,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
+			}
+		],
+		"lantern_post": [
+			{
+				"id": "lantern_post",
+				"iid": "a101f770-b0a0-11ee-bf28-73c80e7aa929",
+				"layer": "props",
+				"x": 64,
+				"y": 224,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		]
+	}
+}

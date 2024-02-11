@@ -16,7 +16,9 @@
 			"dir": "n"
 		}
 	],
-	"customFields" : {},
+	"customFields": {
+		"is_underground": false
+	},
 	"layers": [
 		"parallax_15.png",
 		"parallax_buildings_15.png",

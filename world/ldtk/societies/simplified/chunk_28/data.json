@@ -20,7 +20,9 @@
 			"dir": "e"
 		}
 	],
-	"customFields" : {},
+	"customFields": {
+		"is_underground": false
+	},
 	"layers": [
 		"parallax_15.png",
 		"parallax_buildings_15.png",
@@ -35,7 +37,7 @@
 				"layer": "props",
 				"x": 344,
 				"y": 472,
-				"width": 8,
+				"width": 16,
 				"height": 64,
 				"color": 16705377,
 				"customFields" : {}

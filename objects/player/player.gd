@@ -6,6 +6,7 @@ enum MoveStates {
 	Crawl, 
 	Sprint, 
 	Jump, 
+	Climb,
 }
 
 const JUMP_VELOCITY: float = -225.0
@@ -13,10 +14,16 @@ const JUMP_VELOCITY: float = -225.0
 var speed: float = 90.0
 var sprint_speed: float = 300.0
 var crouch_speed: float = 40.0
+var climb_speed: float = 50.0
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var current_move_state: MoveStates = MoveStates.Walk
+
+var is_touching_ladder: bool = false : 
+	set(new_value):
+		is_touching_ladder = new_value
+		print("CHANGED TO: ", is_touching_ladder)
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
@@ -53,17 +60,18 @@ func _physics_process(delta: float) -> void:
 		return
 	
 #	Falling
-	if not is_on_floor():
+	if current_move_state != MoveStates.Climb and not is_on_floor():
 		velocity.y += gravity * delta
 
 #	Jumping
-	if Input.is_action_just_pressed("jump") and not headspace_detector.is_colliding() and not jump_detector.is_colliding():
-		if is_on_floor() or not coyote_timer.is_stopped():
-			velocity.y = JUMP_VELOCITY
-			current_move_state = MoveStates.Jump
-			coyote_timer.stop()
-		else:
-			jump_buffer.start()
+	if Input.is_action_just_pressed("jump"):
+		if not is_touching_ladder and not headspace_detector.is_colliding() and not jump_detector.is_colliding():
+			if is_on_floor() or not coyote_timer.is_stopped():
+				velocity.y = JUMP_VELOCITY
+				current_move_state = MoveStates.Jump
+				coyote_timer.stop()
+			else:
+				jump_buffer.start()
 	
 #	Crawl Check
 	if headspace_detector.is_colliding():
@@ -75,10 +83,20 @@ func _physics_process(delta: float) -> void:
 
 
 func handle_movement(delta: float) -> void:
-	if Input.is_action_pressed("crawl") and current_move_state != MoveStates.Jump:
-		current_move_state = MoveStates.Crawl
+	if Input.is_action_pressed("jump") and is_touching_ladder:
+		current_move_state = MoveStates.Climb
+		velocity.y = -climb_speed
+	elif Input.is_action_pressed("crawl") and current_move_state != MoveStates.Jump:
+		if current_move_state == MoveStates.Climb:
+			velocity.y = climb_speed
+		elif is_touching_ladder:
+			current_move_state = MoveStates.Climb
+		else:
+			current_move_state = MoveStates.Crawl
 	elif Input.is_action_pressed("sprint") and current_move_state != MoveStates.Jump:
 		current_move_state = MoveStates.Sprint
+	elif current_move_state == MoveStates.Climb:
+		velocity.y = 0
 	elif current_move_state != MoveStates.Jump:
 		if headspace_detector.is_colliding() and current_move_state == MoveStates.Crawl:
 			current_move_state = MoveStates.Crawl
@@ -91,6 +109,8 @@ func handle_movement(delta: float) -> void:
 			velocity.x = direction * sprint_speed
 		elif current_move_state == MoveStates.Crawl:
 			velocity.x = direction * crouch_speed
+		elif current_move_state == MoveStates.Climb:
+			velocity.x = direction * climb_speed
 		else:
 			velocity.x = direction * speed
 	else:
@@ -123,6 +143,10 @@ func handle_animations() -> void:
 					anim_player.play("crawl")
 				else:
 					anim_player.play("crawl idle")
+			MoveStates.Climb:
+				anim_player.play("climb idle")
+	elif current_move_state == MoveStates.Climb:
+		anim_player.play("climb")
 	else:
 		anim_player.play("jump")
 

@@ -20,7 +20,9 @@
 			"dir": "e"
 		}
 	],
-	"customFields" : {},
+	"customFields": {
+		"is_underground": false
+	},
 	"layers": [
 		"parallax_15.png",
 		"parallax_buildings_15.png",
@@ -34,9 +36,9 @@
 				"iid": "8c4947e0-b0a0-11ee-8fad-73e1b26be966",
 				"layer": "props",
 				"x": 232,
-				"y": 192,
-				"width": 8,
-				"height": 120,
+				"y": 184,
+				"width": 16,
+				"height": 128,
 				"color": 16705377,
 				"customFields" : {}
 			},
@@ -44,21 +46,10 @@
 				"id": "ladder",
 				"iid": "2e3fd5f0-b0a0-11ee-8fad-b5c54d14bea6",
 				"layer": "props",
-				"x": 184,
-				"y": 80,
-				"width": 8,
-				"height": 104,
-				"color": 16705377,
-				"customFields" : {}
-			},
-			{
-				"id": "ladder",
-				"iid": "43537f00-b0a0-11ee-8fad-270aff9954eb",
-				"layer": "props",
-				"x": 168,
-				"y": 0,
-				"width": 8,
-				"height": 72,
+				"x": 192,
+				"y": 72,
+				"width": 16,
+				"height": 112,
 				"color": 16705377,
 				"customFields" : {}
 			}
@@ -68,7 +59,7 @@
 				"id": "fire_barrel",
 				"iid": "e495f4c0-b0a0-11ee-8fad-57f58c4b599e",
 				"layer": "props",
-				"x": 200,
+				"x": 184,
 				"y": 176,
 				"width": 8,
 				"height": 16,

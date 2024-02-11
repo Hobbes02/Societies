@@ -20,7 +20,9 @@
 			"dir": "e"
 		}
 	],
-	"customFields" : {},
+	"customFields": {
+		"is_underground": true
+	},
 	"layers": [
 		"parallax_15.png",
 		"parallax_buildings_15.png",
@@ -132,7 +134,7 @@
 				"y": 248,
 				"width": 8,
 				"height": 16,
-				"color": 6539085,
+				"color": 16711748,
 				"customFields" : {}
 			},
 			{
@@ -143,7 +145,7 @@
 				"y": 280,
 				"width": 8,
 				"height": 16,
-				"color": 6539085,
+				"color": 16711748,
 				"customFields" : {}
 			},
 			{
@@ -154,7 +156,7 @@
 				"y": 272,
 				"width": 8,
 				"height": 16,
-				"color": 6539085,
+				"color": 16711748,
 				"customFields" : {}
 			},
 			{
@@ -165,7 +167,7 @@
 				"y": 288,
 				"width": 8,
 				"height": 16,
-				"color": 6539085,
+				"color": 16711748,
 				"customFields" : {}
 			},
 			{
@@ -176,7 +178,7 @@
 				"y": 264,
 				"width": 8,
 				"height": 16,
-				"color": 6539085,
+				"color": 16711748,
 				"customFields" : {}
 			}
 		]

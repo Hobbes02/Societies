@@ -1,0 +1,128 @@
+{
+	"identifier": "chunk_73",
+	"uniqueIdentifer": "47cb7b20-b0a0-11ee-b356-0b50185db366",
+	"x": 29136,
+	"y": -256,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "463dd640-b0a0-11ee-b356-895854ab6325",
+			"dir": "w"
+		},
+		{
+			"levelIid": "49fc64e0-b0a0-11ee-b356-f50714a4cb9e",
+			"dir": "e"
+		}
+	],
+	"customFields": {
+		"is_underground": false
+	},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"cherry_bush": [
+			{
+				"id": "cherry_bush",
+				"iid": "d9073950-b0a0-11ee-a5d9-6f54864a6f63",
+				"layer": "props",
+				"x": 32,
+				"y": 320,
+				"width": 48,
+				"height": 32,
+				"color": 16690740,
+				"customFields" : {}
+			},
+			{
+				"id": "cherry_bush",
+				"iid": "e0e2ca40-b0a0-11ee-a5d9-8f346b801696",
+				"layer": "props",
+				"x": 152,
+				"y": 312,
+				"width": 48,
+				"height": 32,
+				"color": 16690740,
+				"customFields" : {}
+			},
+			{
+				"id": "cherry_bush",
+				"iid": "e99189b0-b0a0-11ee-a5d9-8b1fa366b4aa",
+				"layer": "props",
+				"x": 448,
+				"y": 336,
+				"width": 48,
+				"height": 32,
+				"color": 16690740,
+				"customFields" : {}
+			}
+		],
+		"small_cherry_tree": [
+			{
+				"id": "small_cherry_tree",
+				"iid": "df74bb50-b0a0-11ee-a5d9-692dda0325e2",
+				"layer": "props",
+				"x": 88,
+				"y": 288,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
+			}
+		],
+		"large_cherry_tree": [
+			{
+				"id": "large_cherry_tree",
+				"iid": "e2c65750-b0a0-11ee-a5d9-6b42c92fb0eb",
+				"layer": "props",
+				"x": 200,
+				"y": 280,
+				"width": 64,
+				"height": 64,
+				"color": 11882632,
+				"customFields" : {}
+			},
+			{
+				"id": "large_cherry_tree",
+				"iid": "e8285cc0-b0a0-11ee-a5d9-e59c28300230",
+				"layer": "props",
+				"x": 400,
+				"y": 304,
+				"width": 64,
+				"height": 64,
+				"color": 11882632,
+				"customFields" : {}
+			}
+		],
+		"small_tree": [
+			{
+				"id": "small_tree",
+				"iid": "e45a64d0-b0a0-11ee-a5d9-259c7f57a5b4",
+				"layer": "props",
+				"x": 264,
+				"y": 280,
+				"width": 48,
+				"height": 64,
+				"color": 6539085,
+				"customFields" : {}
+			}
+		],
+		"large_tree": [
+			{
+				"id": "large_tree",
+				"iid": "e63147b0-b0a0-11ee-a5d9-45dd2a697ecf",
+				"layer": "props",
+				"x": 328,
+				"y": 288,
+				"width": 64,
+				"height": 64,
+				"color": 4098376,
+				"customFields" : {}
+			}
+		]
+	}
+}

@@ -23,9 +23,12 @@ const ENTITY_NAME_TO_SCENE: Dictionary = {
 	"cherry_bush": preload("res://objects/props/cherry_bush.tscn"), 
 	"small_cherry_tree": preload("res://objects/props/small_cherry_tree.tscn"), 
 	"large_cherry_tree": preload("res://objects/props/large_cherry_tree.tscn"), 
+	"small_tree": preload("res://objects/props/small_tree.tscn"), 
+	"large_tree": preload("res://objects/props/large_tree.tscn"), 
 	"fire_barrel": preload("res://objects/props/fire_barrel.tscn"), 
 	"lantern": preload("res://objects/props/lantern.tscn"), 
 	"teleporter": preload("res://objects/props/teleporter.tscn"), 
+	"ladder": preload("res://objects/props/ladder.tscn")
 }
 
 var chunk_dir: String = "chunk_0"

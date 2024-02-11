@@ -1,0 +1,118 @@
+{
+	"identifier": "chunk_68",
+	"uniqueIdentifer": "1a82ae70-b0a0-11ee-b356-3112ac4cdbea",
+	"x": 26576,
+	"y": -256,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "2890a9a0-b0a0-11ee-b356-f5aec4848f12",
+			"dir": "w"
+		},
+		{
+			"levelIid": "40df8b10-b0a0-11ee-b356-7dff2a8d9651",
+			"dir": "e"
+		}
+	],
+	"customFields": {
+		"is_underground": false
+	},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"left_house": [
+			{
+				"id": "left_house",
+				"iid": "2f8a97b0-b0a0-11ee-b356-6d0fd980bd61",
+				"layer": "buildings",
+				"x": 8,
+				"y": 208,
+				"width": 96,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"post_office": [
+			{
+				"id": "post_office",
+				"iid": "31dd3a40-b0a0-11ee-b356-9f9f4e8bfc1e",
+				"layer": "buildings",
+				"x": 128,
+				"y": 224,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"shop": [
+			{
+				"id": "shop",
+				"iid": "3343cf20-b0a0-11ee-b356-8fbdc2dc562f",
+				"layer": "buildings",
+				"x": 216,
+				"y": 232,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"large_red_shop": [
+			{
+				"id": "large_red_shop",
+				"iid": "38c98930-b0a0-11ee-b356-c96692c1828f",
+				"layer": "buildings",
+				"x": 288,
+				"y": 208,
+				"width": 128,
+				"height": 96,
+				"color": 14120515,
+				"customFields" : {}
+			}
+		],
+		"three_story_house": [
+			{
+				"id": "three_story_house",
+				"iid": "3b8797c0-b0a0-11ee-b356-f5acdf138af4",
+				"layer": "buildings",
+				"x": 400,
+				"y": 176,
+				"width": 64,
+				"height": 128,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"right_house": [
+			{
+				"id": "right_house",
+				"iid": "3eb298f0-b0a0-11ee-b356-f76b31e04f51",
+				"layer": "buildings",
+				"x": 472,
+				"y": 240,
+				"width": 96,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		]
+	}
+}

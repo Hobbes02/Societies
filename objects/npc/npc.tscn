@@ -17,5 +17,4 @@ position = Vector2(0, 1.19209e-07)
 pauses_game = true
 
 [node name="InteractionArea" type="CollisionShape2D" parent="Interactable"]
-scale = Vector2(1, 1)
 shape = SubResource("CircleShape2D_jbx52")

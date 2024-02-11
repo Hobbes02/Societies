@@ -1,0 +1,121 @@
+{
+	"identifier": "chunk_74",
+	"uniqueIdentifer": "49fc64e0-b0a0-11ee-b356-f50714a4cb9e",
+	"x": 29648,
+	"y": -256,
+	"width": 512,
+	"height": 552,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "47cb7b20-b0a0-11ee-b356-0b50185db366",
+			"dir": "w"
+		},
+		{
+			"levelIid": "028d4260-b0a0-11ee-a5d9-7b450173f4d7",
+			"dir": "e"
+		}
+	],
+	"customFields": {
+		"is_underground": false
+	},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"two_side_house": [
+			{
+				"id": "two_side_house",
+				"iid": "1277dae0-b0a0-11ee-a5d9-533a9ad8bff8",
+				"layer": "buildings",
+				"x": 240,
+				"y": 328,
+				"width": 128,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"small_tree": [
+			{
+				"id": "small_tree",
+				"iid": "edc54850-b0a0-11ee-a5d9-8f10dc8e07e4",
+				"layer": "props",
+				"x": 8,
+				"y": 304,
+				"width": 48,
+				"height": 64,
+				"color": 6539085,
+				"customFields" : {}
+			}
+		],
+		"large_cherry_tree": [
+			{
+				"id": "large_cherry_tree",
+				"iid": "eeaf5a30-b0a0-11ee-a5d9-fdcdb2b309d9",
+				"layer": "props",
+				"x": 64,
+				"y": 304,
+				"width": 64,
+				"height": 64,
+				"color": 11882632,
+				"customFields" : {}
+			}
+		],
+		"small_cherry_tree": [
+			{
+				"id": "small_cherry_tree",
+				"iid": "f1541460-b0a0-11ee-a5d9-e7405d675c61",
+				"layer": "props",
+				"x": 128,
+				"y": 312,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
+			}
+		],
+		"cherry_bush": [
+			{
+				"id": "cherry_bush",
+				"iid": "fda7e700-b0a0-11ee-a5d9-118accc5ebb8",
+				"layer": "props",
+				"x": 416,
+				"y": 376,
+				"width": 48,
+				"height": 32,
+				"color": 16690740,
+				"customFields" : {}
+			}
+		],
+		"lantern_post": [
+			{
+				"id": "lantern_post",
+				"iid": "149f9ce0-b0a0-11ee-a5d9-25323cf231cf",
+				"layer": "props",
+				"x": 192,
+				"y": 336,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			},
+			{
+				"id": "lantern_post",
+				"iid": "167aec90-b0a0-11ee-a5d9-419e64b11d35",
+				"layer": "props",
+				"x": 392,
+				"y": 352,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		]
+	}
+}

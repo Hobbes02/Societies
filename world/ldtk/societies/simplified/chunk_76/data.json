@@ -1,0 +1,139 @@
+{
+	"identifier": "chunk_76",
+	"uniqueIdentifer": "3ca58b10-b0a0-11ee-a5d9-83f10ce04734",
+	"x": 30672,
+	"y": -160,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "028d4260-b0a0-11ee-a5d9-7b450173f4d7",
+			"dir": "w"
+		},
+		{
+			"levelIid": "c7c84980-b0a0-11ee-a5d9-6b3e40243517",
+			"dir": "e"
+		}
+	],
+	"customFields": {
+		"is_underground": false
+	},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"large_cherry_tree": [
+			{
+				"id": "large_cherry_tree",
+				"iid": "ac559d60-b0a0-11ee-a5d9-83dfba6cc3af",
+				"layer": "props",
+				"x": 16,
+				"y": 312,
+				"width": 64,
+				"height": 64,
+				"color": 11882632,
+				"customFields" : {}
+			},
+			{
+				"id": "large_cherry_tree",
+				"iid": "c2005650-b0a0-11ee-a5d9-df982f809c1f",
+				"layer": "props",
+				"x": 400,
+				"y": 304,
+				"width": 64,
+				"height": 64,
+				"color": 11882632,
+				"customFields" : {}
+			}
+		],
+		"small_tree": [
+			{
+				"id": "small_tree",
+				"iid": "ae21f8f0-b0a0-11ee-a5d9-3fa8ab53c35b",
+				"layer": "props",
+				"x": 96,
+				"y": 312,
+				"width": 48,
+				"height": 64,
+				"color": 6539085,
+				"customFields" : {}
+			},
+			{
+				"id": "small_tree",
+				"iid": "b9685330-b0a0-11ee-a5d9-71bee7b8904c",
+				"layer": "props",
+				"x": 328,
+				"y": 304,
+				"width": 48,
+				"height": 64,
+				"color": 6539085,
+				"customFields" : {}
+			},
+			{
+				"id": "small_tree",
+				"iid": "c3a68c40-b0a0-11ee-a5d9-4bf688750cde",
+				"layer": "props",
+				"x": 472,
+				"y": 304,
+				"width": 48,
+				"height": 64,
+				"color": 6539085,
+				"customFields" : {}
+			}
+		],
+		"small_cherry_tree": [
+			{
+				"id": "small_cherry_tree",
+				"iid": "b03373d0-b0a0-11ee-a5d9-af71eeb9fa18",
+				"layer": "props",
+				"x": 160,
+				"y": 320,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
+			}
+		],
+		"cherry_bush": [
+			{
+				"id": "cherry_bush",
+				"iid": "b1f54810-b0a0-11ee-a5d9-2b98654f763b",
+				"layer": "props",
+				"x": 200,
+				"y": 352,
+				"width": 48,
+				"height": 32,
+				"color": 16690740,
+				"customFields" : {}
+			},
+			{
+				"id": "cherry_bush",
+				"iid": "bc8c4f80-b0a0-11ee-a5d9-55cc3a03876a",
+				"layer": "props",
+				"x": 368,
+				"y": 336,
+				"width": 48,
+				"height": 32,
+				"color": 16690740,
+				"customFields" : {}
+			}
+		],
+		"large_tree": [
+			{
+				"id": "large_tree",
+				"iid": "b6e7c2d0-b0a0-11ee-a5d9-5d8c9420dd3b",
+				"layer": "props",
+				"x": 256,
+				"y": 312,
+				"width": 64,
+				"height": 64,
+				"color": 4098376,
+				"customFields" : {}
+			}
+		]
+	}
+}

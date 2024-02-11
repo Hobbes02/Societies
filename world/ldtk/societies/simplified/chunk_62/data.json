@@ -1,0 +1,136 @@
+{
+	"identifier": "chunk_62",
+	"uniqueIdentifer": "c561c6e0-b0a0-11ee-b34c-275e83351ff9",
+	"x": 23504,
+	"y": -256,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "ef7d0080-b0a0-11ee-b34c-1b0b0de5027d",
+			"dir": "w"
+		},
+		{
+			"levelIid": "76c72330-b0a0-11ee-b34c-43c34e58d369",
+			"dir": "e"
+		}
+	],
+	"customFields": {
+		"is_underground": false
+	},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"shop": [
+			{
+				"id": "shop",
+				"iid": "e71ae500-b0a0-11ee-b34c-c9cb7d33e27b",
+				"layer": "buildings",
+				"x": 8,
+				"y": 208,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"two_side_house": [
+			{
+				"id": "two_side_house",
+				"iid": "e947fe30-b0a0-11ee-b34c-89f466750444",
+				"layer": "buildings",
+				"x": 64,
+				"y": 208,
+				"width": 128,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"ladder": [
+			{
+				"id": "ladder",
+				"iid": "0b695400-b0a0-11ee-b34c-812b7ba82359",
+				"layer": "props",
+				"x": 232,
+				"y": 264,
+				"width": 16,
+				"height": 136,
+				"color": 16705377,
+				"customFields" : {}
+			}
+		],
+		"small_cherry_tree": [
+			{
+				"id": "small_cherry_tree",
+				"iid": "9c3ea8e0-b0a0-11ee-b34c-6ff9171f5173",
+				"layer": "props",
+				"x": 360,
+				"y": 352,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
+			}
+		],
+		"large_cherry_tree": [
+			{
+				"id": "large_cherry_tree",
+				"iid": "9de74fd0-b0a0-11ee-b34c-91f7bd39e771",
+				"layer": "props",
+				"x": 416,
+				"y": 360,
+				"width": 64,
+				"height": 64,
+				"color": 11882632,
+				"customFields" : {}
+			}
+		],
+		"cherry_bush": [
+			{
+				"id": "cherry_bush",
+				"iid": "a05b8420-b0a0-11ee-b34c-d9517b6a2c6e",
+				"layer": "props",
+				"x": 304,
+				"y": 376,
+				"width": 48,
+				"height": 32,
+				"color": 16690740,
+				"customFields" : {}
+			},
+			{
+				"id": "cherry_bush",
+				"iid": "a5711740-b0a0-11ee-b34c-6fa025152cb4",
+				"layer": "props",
+				"x": 488,
+				"y": 392,
+				"width": 48,
+				"height": 32,
+				"color": 16690740,
+				"customFields" : {}
+			}
+		],
+		"lantern_post": [
+			{
+				"id": "lantern_post",
+				"iid": "d79cb800-b0a0-11ee-b34c-eb4961af2d89",
+				"layer": "props",
+				"x": 280,
+				"y": 360,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		]
+	}
+}

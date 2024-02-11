@@ -20,7 +20,9 @@
 			"dir": "w"
 		}
 	],
-	"customFields" : {},
+	"customFields": {
+		"is_underground": false
+	},
 	"layers": [
 		"parallax_15.png",
 		"parallax_buildings_15.png",
@@ -33,10 +35,10 @@
 				"id": "ladder",
 				"iid": "cb057aa0-b0a0-11ee-a2be-178630254edd",
 				"layer": "props",
-				"x": 360,
-				"y": 128,
-				"width": 8,
-				"height": 248,
+				"x": 352,
+				"y": 120,
+				"width": 16,
+				"height": 256,
 				"color": 16705377,
 				"customFields" : {}
 			}
@@ -50,7 +52,7 @@
 				"y": 96,
 				"width": 8,
 				"height": 16,
-				"color": 6539085,
+				"color": 16711748,
 				"customFields" : {}
 			},
 			{
@@ -61,7 +63,7 @@
 				"y": 144,
 				"width": 8,
 				"height": 16,
-				"color": 6539085,
+				"color": 16711748,
 				"customFields" : {}
 			}
 		],

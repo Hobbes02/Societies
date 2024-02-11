@@ -20,7 +20,9 @@
 			"dir": "e"
 		}
 	],
-	"customFields" : {},
+	"customFields": {
+		"is_underground": false
+	},
 	"layers": [
 		"parallax_15.png",
 		"parallax_buildings_15.png",
@@ -129,21 +131,6 @@
 				"height": 48,
 				"color": 15389866,
 				"customFields" : {}
-			}
-		],
-		"teleporter": [
-			{
-				"id": "teleporter",
-				"iid": "3cc9d4b0-b0a0-11ee-a2be-8b8e4ddb1510",
-				"layer": "props",
-				"x": 136,
-				"y": 0,
-				"width": 16,
-				"height": 472,
-				"color": 4098376,
-				"customFields": {
-					"teleport_to": null
-				}
 			}
 		]
 	}

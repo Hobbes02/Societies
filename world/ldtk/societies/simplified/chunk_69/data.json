@@ -1,0 +1,116 @@
+{
+	"identifier": "chunk_69",
+	"uniqueIdentifer": "40df8b10-b0a0-11ee-b356-7dff2a8d9651",
+	"x": 27088,
+	"y": -256,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "1a82ae70-b0a0-11ee-b356-3112ac4cdbea",
+			"dir": "w"
+		},
+		{
+			"levelIid": "b138d5b0-b0a0-11ee-b356-0be7f070d7ab",
+			"dir": "e"
+		}
+	],
+	"customFields": {
+		"is_underground": false
+	},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"two_side_house": [
+			{
+				"id": "two_side_house",
+				"iid": "61b35240-b0a0-11ee-b356-a9772b9822a1",
+				"layer": "buildings",
+				"x": 136,
+				"y": 224,
+				"width": 128,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"bake_shop": [
+			{
+				"id": "bake_shop",
+				"iid": "6696b1d0-b0a0-11ee-b356-9d999d9bd988",
+				"layer": "buildings",
+				"x": 288,
+				"y": 240,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"post_office": [
+			{
+				"id": "post_office",
+				"iid": "69912d20-b0a0-11ee-b356-aba948652ef9",
+				"layer": "buildings",
+				"x": 376,
+				"y": 256,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"shop": [
+			{
+				"id": "shop",
+				"iid": "72729550-b0a0-11ee-b356-bf6f7c079afb",
+				"layer": "buildings",
+				"x": 440,
+				"y": 264,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"lantern_post": [
+			{
+				"id": "lantern_post",
+				"iid": "4f044d20-b0a0-11ee-b356-733975c7c0e5",
+				"layer": "props",
+				"x": 72,
+				"y": 256,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
+		"small_cherry_tree": [
+			{
+				"id": "small_cherry_tree",
+				"iid": "8298f3c0-b0a0-11ee-b356-2107d137eb4f",
+				"layer": "props",
+				"x": 96,
+				"y": 232,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
+			}
+		]
+	}
+}

@@ -12,7 +12,9 @@
 			"dir": "w"
 		}
 	],
-	"customFields" : {},
+	"customFields": {
+		"is_underground": true
+	},
 	"layers": [
 		"parallax_15.png",
 		"parallax_buildings_15.png",
@@ -53,7 +55,7 @@
 				"y": 288,
 				"width": 24,
 				"height": 136,
-				"color": 4098376,
+				"color": 16690740,
 				"customFields": {
 					"teleport_to": {
 						"entityIid": "7e981916-b0a0-11ee-8fbf-41d20622b51f",

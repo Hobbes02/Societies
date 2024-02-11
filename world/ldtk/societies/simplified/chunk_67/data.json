@@ -1,0 +1,112 @@
+{
+	"identifier": "chunk_67",
+	"uniqueIdentifer": "2890a9a0-b0a0-11ee-b356-f5aec4848f12",
+	"x": 26064,
+	"y": -256,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "9f802960-b0a0-11ee-b356-f3a96781b1e0",
+			"dir": "w"
+		},
+		{
+			"levelIid": "1a82ae70-b0a0-11ee-b356-3112ac4cdbea",
+			"dir": "e"
+		}
+	],
+	"customFields": {
+		"is_underground": false
+	},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"shop": [
+			{
+				"id": "shop",
+				"iid": "41bdab80-b0a0-11ee-b356-198b641a3857",
+				"layer": "buildings",
+				"x": 8,
+				"y": 192,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			},
+			{
+				"id": "shop",
+				"iid": "4a67fe20-b0a0-11ee-b356-a1d8f0a1df66",
+				"layer": "buildings",
+				"x": 272,
+				"y": 208,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"bake_shop": [
+			{
+				"id": "bake_shop",
+				"iid": "446e73a0-b0a0-11ee-b356-7b4cca7290d3",
+				"layer": "buildings",
+				"x": 72,
+				"y": 200,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"large_red_shop": [
+			{
+				"id": "large_red_shop",
+				"iid": "473d4b10-b0a0-11ee-b356-1340b96e7787",
+				"layer": "buildings",
+				"x": 144,
+				"y": 184,
+				"width": 128,
+				"height": 96,
+				"color": 14120515,
+				"customFields" : {}
+			},
+			{
+				"id": "large_red_shop",
+				"iid": "586e14a0-b0a0-11ee-b356-71e836b2a411",
+				"layer": "buildings",
+				"x": 400,
+				"y": 176,
+				"width": 128,
+				"height": 96,
+				"color": 14120515,
+				"customFields" : {}
+			}
+		],
+		"post_office": [
+			{
+				"id": "post_office",
+				"iid": "4e1798a0-b0a0-11ee-b356-49d8d8ad27b3",
+				"layer": "buildings",
+				"x": 344,
+				"y": 208,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		]
+	}
+}

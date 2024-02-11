@@ -1,0 +1,113 @@
+{
+	"identifier": "chunk_71",
+	"uniqueIdentifer": "447969f0-b0a0-11ee-b356-836ddbd7bd43",
+	"x": 28112,
+	"y": -256,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "b138d5b0-b0a0-11ee-b356-0be7f070d7ab",
+			"dir": "w"
+		},
+		{
+			"levelIid": "463dd640-b0a0-11ee-b356-895854ab6325",
+			"dir": "e"
+		}
+	],
+	"customFields": {
+		"is_underground": false
+	},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"small_cherry_tree": [
+			{
+				"id": "small_cherry_tree",
+				"iid": "a107df30-b0a0-11ee-b356-f310b844c58e",
+				"layer": "props",
+				"x": 40,
+				"y": 272,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
+			},
+			{
+				"id": "small_cherry_tree",
+				"iid": "ae278d50-b0a0-11ee-b356-efb38e00e9e3",
+				"layer": "props",
+				"x": 416,
+				"y": 256,
+				"width": 48,
+				"height": 64,
+				"color": 16151930,
+				"customFields" : {}
+			}
+		],
+		"large_cherry_tree": [
+			{
+				"id": "large_cherry_tree",
+				"iid": "a3321230-b0a0-11ee-b356-5b773ceb0fe9",
+				"layer": "props",
+				"x": 120,
+				"y": 256,
+				"width": 64,
+				"height": 64,
+				"color": 11882632,
+				"customFields" : {}
+			},
+			{
+				"id": "large_cherry_tree",
+				"iid": "a98db9e0-b0a0-11ee-b356-e3e1366b3e6e",
+				"layer": "props",
+				"x": 208,
+				"y": 240,
+				"width": 64,
+				"height": 64,
+				"color": 11882632,
+				"customFields" : {}
+			},
+			{
+				"id": "large_cherry_tree",
+				"iid": "b180a360-b0a0-11ee-b356-35ad5e8135f4",
+				"layer": "props",
+				"x": 480,
+				"y": 240,
+				"width": 64,
+				"height": 64,
+				"color": 11882632,
+				"customFields" : {}
+			}
+		],
+		"cherry_bush": [
+			{
+				"id": "cherry_bush",
+				"iid": "aac8f900-b0a0-11ee-b356-0f61ecf454ee",
+				"layer": "props",
+				"x": 280,
+				"y": 272,
+				"width": 48,
+				"height": 32,
+				"color": 16690740,
+				"customFields" : {}
+			},
+			{
+				"id": "cherry_bush",
+				"iid": "ac8ffd60-b0a0-11ee-b356-618215ad6ebb",
+				"layer": "props",
+				"x": 376,
+				"y": 280,
+				"width": 48,
+				"height": 32,
+				"color": 16690740,
+				"customFields" : {}
+			}
+		]
+	}
+}

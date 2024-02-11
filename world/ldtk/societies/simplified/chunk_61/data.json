@@ -1,0 +1,131 @@
+{
+	"identifier": "chunk_61",
+	"uniqueIdentifer": "ef7d0080-b0a0-11ee-b34c-1b0b0de5027d",
+	"x": 22992,
+	"y": -256,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "666e6ed0-b0a0-11ee-bf28-295b6cd6a0fc",
+			"dir": "w"
+		},
+		{
+			"levelIid": "c561c6e0-b0a0-11ee-b34c-275e83351ff9",
+			"dir": "e"
+		}
+	],
+	"customFields": {
+		"is_underground": false
+	},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities": {
+		"right_house": [
+			{
+				"id": "right_house",
+				"iid": "249c17b0-b0a0-11ee-b34c-e948e7e8673e",
+				"layer": "buildings",
+				"x": 0,
+				"y": 216,
+				"width": 96,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"shop": [
+			{
+				"id": "shop",
+				"iid": "2c2b3650-b0a0-11ee-b34c-3f627c693ae9",
+				"layer": "buildings",
+				"x": 96,
+				"y": 216,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"small_house": [
+			{
+				"id": "small_house",
+				"iid": "3cb7a990-b0a0-11ee-b34c-ab4ac633155d",
+				"layer": "buildings",
+				"x": 160,
+				"y": 224,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			},
+			{
+				"id": "small_house",
+				"iid": "3ef8bff0-b0a0-11ee-b34c-b15dc3e13b3d",
+				"layer": "buildings",
+				"x": 232,
+				"y": 224,
+				"width": 64,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"three_story_house": [
+			{
+				"id": "three_story_house",
+				"iid": "432cccb0-b0a0-11ee-b34c-13c7ebf38539",
+				"layer": "buildings",
+				"x": 312,
+				"y": 152,
+				"width": 64,
+				"height": 128,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"two_side_house": [
+			{
+				"id": "two_side_house",
+				"iid": "470747c0-b0a0-11ee-b34c-a589c5fa0f11",
+				"layer": "buildings",
+				"x": 392,
+				"y": 208,
+				"width": 128,
+				"height": 64,
+				"color": 14120515,
+				"customFields": {
+					"interior": "interior_1"
+				}
+			}
+		],
+		"lantern_post": [
+			{
+				"id": "lantern_post",
+				"iid": "4a6a21d0-b0a0-11ee-b34c-25265a26480a",
+				"layer": "props",
+				"x": 376,
+				"y": 224,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		]
+	}
+}

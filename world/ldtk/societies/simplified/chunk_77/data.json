@@ -1,0 +1,25 @@
+{
+	"identifier": "chunk_77",
+	"uniqueIdentifer": "c7c84980-b0a0-11ee-a5d9-6b3e40243517",
+	"x": 31184,
+	"y": -160,
+	"width": 512,
+	"height": 512,
+	"bgColor": "#414141",
+	"neighbourLevels": [
+		{
+			"levelIid": "3ca58b10-b0a0-11ee-a5d9-83f10ce04734",
+			"dir": "w"
+		}
+	],
+	"customFields": {
+		"is_underground": false
+	},
+	"layers": [
+		"parallax_15.png",
+		"parallax_buildings_15.png",
+		"collisions.png",
+		"decoration.png"
+	],
+	"entities" : {}
+}

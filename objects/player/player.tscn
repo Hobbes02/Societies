@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://7oe6ekia4jat"]
+[gd_scene load_steps=16 format=3 uid="uid://7oe6ekia4jat"]
 
 [ext_resource type="Script" path="res://objects/player/player.gd" id="1_o0d6m"]
 [ext_resource type="Texture2D" uid="uid://dtfuevaey47cp" path="res://visuals/player/player_animations.png" id="2_103d7"]
@@ -84,6 +84,99 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CollisionShape2D:shape")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("CapsuleShape2D_7sbgy")]
+}
+
+[sub_resource type="Animation" id="Animation_1polw"]
+resource_name = "climb"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:shape")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("CapsuleShape2D_7sbgy")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0.25)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [21, 22]
+}
+
+[sub_resource type="Animation" id="Animation_rnv8c"]
+resource_name = "climb idle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:shape")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("CapsuleShape2D_7sbgy")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0.25)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [21]
 }
 
 [sub_resource type="Animation" id="Animation_egfus"]
@@ -549,6 +642,8 @@ tracks/5/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cc4h0"]
 _data = {
 "RESET": SubResource("Animation_u13dv"),
+"climb": SubResource("Animation_1polw"),
+"climb idle": SubResource("Animation_rnv8c"),
 "crawl": SubResource("Animation_egfus"),
 "crawl idle": SubResource("Animation_nwcgq"),
 "idle": SubResource("Animation_iegcp"),
@@ -585,7 +680,6 @@ position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_1wqw8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 0.25)
 shape = SubResource("CapsuleShape2D_7sbgy")
 
@@ -598,7 +692,7 @@ libraries = {
 position = Vector2(0, -4)
 texture = ExtResource("2_103d7")
 hframes = 7
-vframes = 3
+vframes = 4
 frame = 14
 
 [node name="JumpBuffer" type="Timer" parent="."]

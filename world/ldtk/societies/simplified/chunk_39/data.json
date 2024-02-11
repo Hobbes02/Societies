@@ -20,7 +20,9 @@
 			"dir": "s"
 		}
 	],
-	"customFields" : {},
+	"customFields": {
+		"is_underground": false
+	},
 	"layers": [
 		"parallax_15.png",
 		"parallax_buildings_15.png",
@@ -77,6 +79,19 @@
 				"width": 64,
 				"height": 64,
 				"color": 11882632,
+				"customFields" : {}
+			}
+		],
+		"lantern_post": [
+			{
+				"id": "lantern_post",
+				"iid": "969422e0-b0a0-11ee-bf28-a9b05b3a290d",
+				"layer": "props",
+				"x": 320,
+				"y": 152,
+				"width": 24,
+				"height": 48,
+				"color": 15389866,
 				"customFields" : {}
 			}
 		]
